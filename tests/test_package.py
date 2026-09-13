@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "src/skills/mcp-boundary"
 PACKAGE = ROOT / "plugins/mcp-boundary"
 MANIFEST = PACKAGE / "plugin.json"
+CODEX_MANIFEST = PACKAGE / ".codex-plugin/plugin.json"
 
 
 def png_dimensions(path: Path) -> tuple[int, int]:
@@ -24,10 +25,11 @@ def png_dimensions(path: Path) -> tuple[int, int]:
     return struct.unpack(">II", data[16:24])
 
 
-class PortablePackageTests(unittest.TestCase):
+class DistributablePackageTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+        cls.codex_manifest = json.loads(CODEX_MANIFEST.read_text(encoding="utf-8"))
 
     def test_portable_manifest_identity(self) -> None:
         self.assertEqual(
@@ -37,11 +39,26 @@ class PortablePackageTests(unittest.TestCase):
         self.assertEqual(self.manifest["name"], "mcp-boundary")
         self.assertEqual(self.manifest["version"], (ROOT / "VERSION").read_text().strip())
         self.assertNotIn("skills", self.manifest)
-        self.assertFalse((PACKAGE / ".codex-plugin/plugin.json").exists())
+
+    def test_codex_manifest_is_normalized_and_complete(self) -> None:
+        self.assertNotIn("$schema", self.codex_manifest)
+        self.assertNotIn("extensions", self.codex_manifest)
+        self.assertEqual(self.codex_manifest["name"], self.manifest["name"])
+        self.assertEqual(self.codex_manifest["version"], self.manifest["version"])
+        self.assertEqual(self.codex_manifest["skills"], "./skills/")
+        self.assertEqual(
+            self.codex_manifest["interface"],
+            self.manifest["extensions"]["com.openai"],
+        )
+        for field in ("composerIcon", "logo"):
+            self.assertTrue(
+                self.resolve_package_path(self.codex_manifest["interface"][field]).is_file()
+            )
 
     def test_plugin_is_pure_skill(self) -> None:
-        for key in ("mcpServers", "apps", "hooks", "commands", "services"):
-            self.assertNotIn(key, self.manifest)
+        for manifest in (self.manifest, self.codex_manifest):
+            for key in ("mcpServers", "apps", "hooks", "commands", "services"):
+                self.assertNotIn(key, manifest)
         self.assertEqual(
             [path.name for path in (PACKAGE / "skills").iterdir() if path.is_dir()],
             ["mcp-boundary"],
@@ -49,7 +66,7 @@ class PortablePackageTests(unittest.TestCase):
         self.assertFalse(any((PACKAGE / name).exists() for name in ("hooks", "apps", "mcp", "servers")))
 
     def test_openai_interface_contract(self) -> None:
-        interface = self.manifest["extensions"]["com.openai"]
+        interface = self.codex_manifest["interface"]
         self.assertEqual(interface["displayName"], "MCP Boundary")
         self.assertTrue(20 <= len(interface["shortDescription"]) <= 64)
         prompts = interface["defaultPrompt"]

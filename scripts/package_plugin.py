@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 from pathlib import Path, PurePosixPath
 import stat
 import zipfile
@@ -25,8 +26,21 @@ def package_files() -> list[Path]:
             raise ValueError(f"Symlinks are not portable: {path}")
         if path.is_file():
             files.append(path)
-    if not files or not (SOURCE / "plugin.json").is_file():
-        raise ValueError("Build the portable plugin package before creating the ZIP.")
+    required_manifests = (
+        SOURCE / "plugin.json",
+        SOURCE / ".codex-plugin/plugin.json",
+    )
+    if not files or any(not path.is_file() for path in required_manifests):
+        raise ValueError("Build the dual-manifest plugin package before creating the ZIP.")
+    codex_manifest = json.loads(required_manifests[1].read_text(encoding="utf-8"))
+    interface = codex_manifest.get("interface", {})
+    for field in ("composerIcon", "logo"):
+        value = interface.get(field)
+        if not isinstance(value, str) or not value.startswith("./assets/"):
+            raise ValueError(f"Codex manifest is missing a valid interface.{field} path.")
+        asset = SOURCE.joinpath(*PurePosixPath(value[2:]).parts)
+        if not asset.is_file():
+            raise ValueError(f"Codex manifest asset does not exist: {value}")
     return sorted(files, key=lambda item: item.relative_to(SOURCE).as_posix())
 
 

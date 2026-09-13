@@ -7,7 +7,7 @@
     "name": "Faye & Cove",
     "url": "https://github.com/IndelibleVivi/mcp-boundary"
   },
-  "homepage": "https://github.com/IndelibleVivi/mcp-boundary",
+  "homepage": "https://indeliblevivi.github.io/mcp-boundary/",
   "repository": "https://github.com/IndelibleVivi/mcp-boundary",
   "license": "SEE LICENSING.md",
   "keywords": [
@@ -31,7 +31,7 @@
         "Debug host integration",
         "Design proportionate verification"
       ],
-      "websiteURL": "https://github.com/IndelibleVivi/mcp-boundary",
+      "websiteURL": "https://indeliblevivi.github.io/mcp-boundary/",
       "privacyPolicyURL": "https://github.com/IndelibleVivi/mcp-boundary/blob/main/PRIVACY.md",
       "termsOfServiceURL": "https://github.com/IndelibleVivi/mcp-boundary/blob/main/TERMS.md",
       "brandColor": "#315BE8",

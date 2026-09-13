@@ -61,21 +61,24 @@ passed("public PNG dimensions", "Composer, logo, icon, and social-card dimension
 class Paths(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
-        self.references: list[tuple[str, str, str]] = []
+        self.references: list[tuple[str, str, str, str]] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
         for field in ("href", "src"):
             if values.get(field):
-                self.references.append((tag, field, values[field] or ""))
+                self.references.append((tag, field, values[field] or "", values.get("rel") or ""))
 
 
 for path in (ROOT / "site/index.html", ROOT / "mcp-boundary-demo.html"):
     document = Paths()
     document.feed(path.read_text(encoding="utf-8"))
-    for tag, _, reference in document.references:
+    for tag, _, reference, rel in document.references:
         if reference.startswith(("#", "https://", "http://", "data:", "blob:")):
-            if tag not in {"a", "meta"}:
+            if reference.startswith(("https://", "http://")) and tag == "link":
+                assert rel == "canonical", (path, tag, rel, reference)
+                assert reference == "https://indeliblevivi.github.io/mcp-boundary/", (path, reference)
+            elif tag not in {"a", "meta"}:
                 assert not reference.startswith(("https://", "http://")), (path, tag, reference)
             continue
         target = (path.parent / reference.split("?", 1)[0].split("#", 1)[0]).resolve()

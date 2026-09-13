@@ -19,7 +19,7 @@ An agent using the skill may inspect files, run commands, use a browser, connect
 
 The website source uses no analytics, remote fonts, cookies, account storage, or external runtime assets. It makes no programmatic network request to a project-operated endpoint. External links transmit a request only when a visitor follows them.
 
-If the static website is later hosted by a third-party platform such as GitHub Pages, that platform may process ordinary request metadata under its own terms. This repository does not claim that Pages is currently deployed; consult [`docs/current-state.md`](docs/current-state.md).
+The official static website is hosted by GitHub Pages at <https://indeliblevivi.github.io/mcp-boundary/>. GitHub may process ordinary request metadata under its own terms. MCP Boundary adds no project analytics, cookies, account storage, or project-operated collection endpoint on top of that hosting layer. Consult [`docs/current-state.md`](docs/current-state.md) for the observed deployment state.
 
 ## Reports
 

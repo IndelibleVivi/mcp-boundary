@@ -12,7 +12,7 @@ skill-validate plugins/mcp-boundary/skills/mcp-boundary
 python3 scripts/package_plugin.py
 ```
 
-These checks cover author/generated parity, portable manifest fields, referenced assets, pure-skill packaging, exact-copy hashes, license/provenance presence, safe archive paths, passive SVG assets, the single approved public identity, three bounded contract fixtures, website resource integrity, and numeric contrast for the selected palette.
+These checks cover author/generated parity, portable and Codex-native manifest parity, Codex composer/logo asset resolution, pure-skill packaging, exact-copy hashes, license/provenance presence, safe archive paths, passive SVG assets, the single approved public identity, three bounded contract fixtures, website resource integrity, and numeric contrast for the selected palette.
 
 The fixtures provide deterministic evidence for package and teaching-contract checks. They do **not** prove that a model will invoke the skill correctly or produce the expected diagnosis.
 
@@ -24,10 +24,14 @@ Check Playwright availability first, then serve the repository root and run the 
 command -v npx >/dev/null 2>&1
 python3 -m http.server 8877 --bind 127.0.0.1
 ~/.codex/skills/playwright/scripts/playwright_cli.sh \
+  -s=mcp-boundary open http://127.0.0.1:8877/site/
+~/.codex/skills/playwright/scripts/playwright_cli.sh \
   -s=mcp-boundary run-code --filename tests/browser_check.js
+~/.codex/skills/playwright/scripts/playwright_cli.sh \
+  -s=mcp-boundary close
 ```
 
-The browser check covers:
+Keep the local server running while the three Playwright commands execute, then stop it. The browser check covers:
 
 - fixed Offset + Porcelain identity, including hostile legacy query parameters;
 - case and prompt selection with keyboard behavior;
