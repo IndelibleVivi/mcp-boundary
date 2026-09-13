@@ -13,8 +13,9 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "src/skills/mcp-boundary"
+SOURCE_MANIFEST = ROOT / "src/plugin/plugin.json"
 PACKAGE = ROOT / "plugins/mcp-boundary"
-MANIFEST = PACKAGE / "plugin.json"
+ROOT_MANIFEST = PACKAGE / "plugin.json"
 CODEX_MANIFEST = PACKAGE / ".codex-plugin/plugin.json"
 
 
@@ -28,37 +29,31 @@ def png_dimensions(path: Path) -> tuple[int, int]:
 class DistributablePackageTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        cls.manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
         cls.codex_manifest = json.loads(CODEX_MANIFEST.read_text(encoding="utf-8"))
 
-    def test_portable_manifest_identity(self) -> None:
-        self.assertEqual(
-            self.manifest["$schema"],
-            "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-        )
-        self.assertEqual(self.manifest["name"], "mcp-boundary")
-        self.assertEqual(self.manifest["version"], (ROOT / "VERSION").read_text().strip())
-        self.assertNotIn("skills", self.manifest)
-
-    def test_codex_manifest_is_normalized_and_complete(self) -> None:
+    def test_codex_manifest_identity(self) -> None:
+        self.assertEqual(CODEX_MANIFEST.read_bytes(), SOURCE_MANIFEST.read_bytes())
         self.assertNotIn("$schema", self.codex_manifest)
         self.assertNotIn("extensions", self.codex_manifest)
-        self.assertEqual(self.codex_manifest["name"], self.manifest["name"])
-        self.assertEqual(self.codex_manifest["version"], self.manifest["version"])
-        self.assertEqual(self.codex_manifest["skills"], "./skills/")
+        self.assertEqual(self.codex_manifest["name"], "mcp-boundary")
         self.assertEqual(
-            self.codex_manifest["interface"],
-            self.manifest["extensions"]["com.openai"],
+            self.codex_manifest["version"],
+            (ROOT / "VERSION").read_text().strip(),
         )
+        self.assertEqual(self.codex_manifest["skills"], "./skills/")
+
+    def test_submission_package_avoids_agent_plugins_conversion(self) -> None:
+        self.assertFalse(ROOT_MANIFEST.exists())
+
+    def test_codex_interface_assets_resolve(self) -> None:
         for field in ("composerIcon", "logo"):
             self.assertTrue(
                 self.resolve_package_path(self.codex_manifest["interface"][field]).is_file()
             )
 
     def test_plugin_is_pure_skill(self) -> None:
-        for manifest in (self.manifest, self.codex_manifest):
-            for key in ("mcpServers", "apps", "hooks", "commands", "services"):
-                self.assertNotIn(key, manifest)
+        for key in ("mcpServers", "apps", "hooks", "commands", "services"):
+            self.assertNotIn(key, self.codex_manifest)
         self.assertEqual(
             [path.name for path in (PACKAGE / "skills").iterdir() if path.is_dir()],
             ["mcp-boundary"],

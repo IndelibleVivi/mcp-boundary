@@ -33,7 +33,7 @@ codex plugin marketplace add IndelibleVivi/mcp-boundary --ref main
 codex plugin add mcp-boundary@mcp-boundary
 ```
 
-Restart Codex after installation so the new plugin is discovered. The committed distributable package lives at [`plugins/mcp-boundary/`](plugins/mcp-boundary/). It retains the portable Agent Plugins `plugin.json` at the package root and includes a normalized Codex manifest at `.codex-plugin/plugin.json`, with explicit composer icon and logo paths.
+Restart Codex after installation so the new plugin is discovered. The committed distributable package lives at [`plugins/mcp-boundary/`](plugins/mcp-boundary/) and uses the canonical Codex manifest at `.codex-plugin/plugin.json`, with explicit composer icon and logo paths. It intentionally has no root `plugin.json`: that filename selects the submission system's Agent Plugins conversion path instead of the native Codex manifest.
 
 Installation is distinct from publication in any external plugin directory. See [current state](docs/current-state.md) for what has actually been published and verified.
 
@@ -57,7 +57,7 @@ The skill also allows implicit invocation for clearly MCP-specific engineering t
 
 ```text
 src/skills/mcp-boundary/   author source for the skill and references
-src/plugin/plugin.json     author source for both generated manifest formats
+src/plugin/plugin.json     author source for the Codex-native manifest
 plugins/mcp-boundary/      committed, generated distributable package
 scripts/                   package build and deterministic ZIP tooling
 tests/                     static, package, fixture, and website checks
@@ -66,7 +66,7 @@ brand/                     approved Offset + Porcelain identity only
 provenance/                exact-source and adaptation records
 ```
 
-`src/` is the authoring truth. `scripts/build_plugin.py` copies the portable manifest to the package root and deterministically normalizes its OpenAI extension metadata into `.codex-plugin/plugin.json`; the two generated formats are checked for semantic parity. `plugins/mcp-boundary/` must otherwise match its author sources byte-for-byte for the files it distributes.
+`src/` is the authoring truth. `scripts/build_plugin.py` copies the author manifest byte-for-byte to `.codex-plugin/plugin.json`. `plugins/mcp-boundary/` must match its author sources byte-for-byte for the files it distributes.
 
 ## Build and verify
 
@@ -80,7 +80,7 @@ skill-validate plugins/mcp-boundary/skills/mcp-boundary
 python3 scripts/package_plugin.py
 ```
 
-The final command creates a deterministic local ZIP and SHA-256 record under ignored `dist/`. Packaging fails unless both manifest formats are present and the Codex manifest resolves its composer icon and logo to bundled assets. It does not upload or install anything.
+The final command creates a deterministic local ZIP and SHA-256 record under ignored `dist/`. Packaging fails if a root `plugin.json` could select the conversion path, or if the Codex manifest and its composer icon/logo assets are missing. It does not upload or install anything.
 
 Browser checks are documented in [tests/CHECKS.md](tests/CHECKS.md). They use the installed Playwright skill wrapper to exercise the static website, responsive layouts, keyboard interactions, clipboard fallback, no-JavaScript readability, and the no-external-request claim. They do not establish model behavior, named-host interoperability, directory acceptance, or a complete accessibility certification.
 

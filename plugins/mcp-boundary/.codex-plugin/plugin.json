@@ -18,32 +18,32 @@
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "MCP Boundary",
-    "shortDescription": "MCP engineering at the real boundary",
-    "longDescription": "A pure-skill engineering plugin for building, inspecting, migrating, debugging, and verifying MCP systems without confusing source inspection, local runtime evidence, transport behavior, named-host admission, or owner acceptance.",
-    "developerName": "Faye & Cove",
-    "category": "Developer Tools",
-    "capabilities": [
-      "Build MCP implementations",
-      "Review protocol and transport boundaries",
-      "Plan and execute MCP migrations",
-      "Debug host integration",
-      "Design proportionate verification"
-    ],
-    "websiteURL": "https://indeliblevivi.github.io/mcp-boundary/",
-    "privacyPolicyURL": "https://github.com/IndelibleVivi/mcp-boundary/blob/main/PRIVACY.md",
-    "termsOfServiceURL": "https://github.com/IndelibleVivi/mcp-boundary/blob/main/TERMS.md",
-    "brandColor": "#315BE8",
-    "composerIcon": "./assets/composer-icon.png",
-    "logo": "./assets/logo.png",
-    "screenshots": [
-      "./assets/screenshots/home-desktop.png",
-      "./assets/screenshots/home-mobile.png"
-    ],
-    "defaultPrompt": [
-      "Use $mcp-boundary to inspect this MCP implementation against its actual protocol, transport, and runtime.",
-      "Use $mcp-boundary to build this MCP capability and verify the complete behavior.",
-      "Use $mcp-boundary to migrate this MCP implementation and prove compatibility and deliberate retirement."
-    ]
+      "displayName": "MCP Boundary",
+      "shortDescription": "MCP engineering at the real boundary",
+      "longDescription": "A pure-skill engineering plugin for building, inspecting, migrating, debugging, and verifying MCP systems without confusing source inspection, local runtime evidence, transport behavior, named-host admission, or owner acceptance.",
+      "developerName": "Faye & Cove",
+      "category": "Developer Tools",
+      "capabilities": [
+        "Build MCP implementations",
+        "Review protocol and transport boundaries",
+        "Plan and execute MCP migrations",
+        "Debug host integration",
+        "Design proportionate verification"
+      ],
+      "websiteURL": "https://indeliblevivi.github.io/mcp-boundary/",
+      "privacyPolicyURL": "https://github.com/IndelibleVivi/mcp-boundary/blob/main/PRIVACY.md",
+      "termsOfServiceURL": "https://github.com/IndelibleVivi/mcp-boundary/blob/main/TERMS.md",
+      "brandColor": "#315BE8",
+      "composerIcon": "./assets/composer-icon.png",
+      "logo": "./assets/logo.png",
+      "screenshots": [
+        "./assets/screenshots/home-desktop.png",
+        "./assets/screenshots/home-mobile.png"
+      ],
+      "defaultPrompt": [
+        "Use $mcp-boundary to inspect this MCP implementation against its actual protocol, transport, and runtime.",
+        "Use $mcp-boundary to build this MCP capability and verify the complete behavior.",
+        "Use $mcp-boundary to migrate this MCP implementation and prove compatibility and deliberate retirement."
+      ]
   }
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create a deterministic, portable MCP Boundary plugin ZIP."""
+"""Create a deterministic Codex-native MCP Boundary plugin ZIP."""
 
 from __future__ import annotations
 
@@ -26,13 +26,16 @@ def package_files() -> list[Path]:
             raise ValueError(f"Symlinks are not portable: {path}")
         if path.is_file():
             files.append(path)
-    required_manifests = (
-        SOURCE / "plugin.json",
-        SOURCE / ".codex-plugin/plugin.json",
-    )
-    if not files or any(not path.is_file() for path in required_manifests):
-        raise ValueError("Build the dual-manifest plugin package before creating the ZIP.")
-    codex_manifest = json.loads(required_manifests[1].read_text(encoding="utf-8"))
+    root_manifest = SOURCE / "plugin.json"
+    codex_manifest_path = SOURCE / ".codex-plugin/plugin.json"
+    if root_manifest.exists():
+        raise ValueError(
+            "Root plugin.json would select the Agent Plugins conversion path; "
+            "ship only .codex-plugin/plugin.json."
+        )
+    if not files or not codex_manifest_path.is_file():
+        raise ValueError("Build the Codex-native plugin package before creating the ZIP.")
+    codex_manifest = json.loads(codex_manifest_path.read_text(encoding="utf-8"))
     interface = codex_manifest.get("interface", {})
     for field in ("composerIcon", "logo"):
         value = interface.get(field)

@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Build or verify the committed dual-manifest plugin package from author sources."""
+"""Build or verify the committed Codex-native plugin package from author sources."""
 
 from __future__ import annotations
 
 import argparse
 import filecmp
-import json
 import os
 from pathlib import Path
 import shutil
@@ -21,27 +20,9 @@ def copy_file(source: Path, destination: Path) -> None:
     shutil.copy2(source, destination)
 
 
-def write_codex_manifest(source: Path, destination: Path) -> None:
-    """Normalize the portable author manifest into Codex's native manifest shape."""
-    portable = json.loads(source.read_text(encoding="utf-8"))
-    codex = {
-        key: value
-        for key, value in portable.items()
-        if key not in {"$schema", "extensions"}
-    }
-    codex["skills"] = "./skills/"
-    codex["interface"] = portable["extensions"]["com.openai"]
-    destination.parent.mkdir(parents=True, exist_ok=True)
-    destination.write_text(
-        json.dumps(codex, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-
-
 def build_candidate(destination: Path) -> None:
     manifest_source = ROOT / "src/plugin/plugin.json"
-    copy_file(manifest_source, destination / "plugin.json")
-    write_codex_manifest(
+    copy_file(
         manifest_source,
         destination / ".codex-plugin/plugin.json",
     )

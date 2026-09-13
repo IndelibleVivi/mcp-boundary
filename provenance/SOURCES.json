@@ -113,7 +113,7 @@
     {
       "url": "https://developers.openai.com/plugins/build/plugins",
       "assessed_at": "2026-09-14",
-      "purpose": "Portable Agent Plugin manifest and package layout."
+      "purpose": "Codex-native plugin manifest and package layout."
     },
     {
       "url": "https://developers.openai.com/plugins/build/skills",

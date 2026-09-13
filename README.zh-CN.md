@@ -32,7 +32,7 @@ codex plugin marketplace add IndelibleVivi/mcp-boundary --ref main
 codex plugin add mcp-boundary@mcp-boundary
 ```
 
-安装后重启 Codex。可分发 package 已提交在 [`plugins/mcp-boundary/`](plugins/mcp-boundary/)：根目录保留 portable Agent Plugins `plugin.json`，同时内含 normalized Codex manifest `.codex-plugin/plugin.json`；后者明确声明 composer icon 与 logo，不需要上传器替你推断或转换。
+安装后重启 Codex。可分发 package 已提交在 [`plugins/mcp-boundary/`](plugins/mcp-boundary/)，唯一 manifest 是 canonical `.codex-plugin/plugin.json`，其中明确声明 composer icon 与 logo。Package 刻意不含 root `plugin.json`，因为该文件名会让提交器选择 Agent Plugins conversion path，而不是直接使用 Codex-native manifest。
 
 “源码已公开”“本地已安装”“外部 plugin directory 已收录”是三个不同状态；实际状态以 [docs/current-state.md](docs/current-state.md) 为准。
 
@@ -62,7 +62,7 @@ skill-validate plugins/mcp-boundary/skills/mcp-boundary
 python3 scripts/package_plugin.py
 ```
 
-最后一条只在 ignored `dist/` 里生成 deterministic ZIP 和 SHA-256 记录；缺少任一 manifest，或 Codex manifest 的 composer icon / logo 无法解析到包内文件时，打包会直接失败。它不会上传或安装。浏览器检查范围见 [tests/CHECKS.md](tests/CHECKS.md)。
+最后一条只在 ignored `dist/` 里生成 deterministic ZIP 和 SHA-256 记录；若 package 含有会触发 conversion 的 root `plugin.json`，或 Codex manifest 的 composer icon / logo 无法解析到包内文件，打包都会直接失败。它不会上传或安装。浏览器检查范围见 [tests/CHECKS.md](tests/CHECKS.md)。
 
 ## Privacy 与 licensing
 

@@ -1,5 +1,4 @@
 {
-  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "mcp-boundary",
   "version": "0.1.0",
   "description": "Build, inspect, migrate, and verify MCP systems at the protocol, transport, runtime, and host boundary.",
@@ -17,8 +16,8 @@
     "verification",
     "codex"
   ],
-  "extensions": {
-    "com.openai": {
+  "skills": "./skills/",
+  "interface": {
       "displayName": "MCP Boundary",
       "shortDescription": "MCP engineering at the real boundary",
       "longDescription": "A pure-skill engineering plugin for building, inspecting, migrating, debugging, and verifying MCP systems without confusing source inspection, local runtime evidence, transport behavior, named-host admission, or owner acceptance.",
@@ -46,6 +45,5 @@
         "Use $mcp-boundary to build this MCP capability and verify the complete behavior.",
         "Use $mcp-boundary to migrate this MCP implementation and prove compatibility and deliberate retirement."
       ]
-    }
   }
 }
