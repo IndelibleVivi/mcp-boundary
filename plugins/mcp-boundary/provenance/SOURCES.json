@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-14",
+  "project_version": "0.1.0",
+  "exact_copies": [
+    {
+      "source_project": "MCP Server Engineering Field Guide",
+      "source_repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
+      "source_commit": "87238302209d654358dd64eb3972677e4cacf256",
+      "source_path": "skill/mcp-server-engineering/references/protocol-selection.md",
+      "destination_path": "src/skills/mcp-boundary/references/protocol-selection.md",
+      "sha256": "196048bd50783b7e124560ab578c5d1b9d6fb25f60b89cdaaf77c5af350205c8",
+      "license": "Apache-2.0"
+    },
+    {
+      "source_project": "MCP Server Engineering Field Guide",
+      "source_repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
+      "source_commit": "87238302209d654358dd64eb3972677e4cacf256",
+      "source_path": "skill/mcp-server-engineering/references/mcp-apps.md",
+      "destination_path": "src/skills/mcp-boundary/references/mcp-apps.md",
+      "sha256": "9c43babf898df67288819fb4509d0da88ca486354cac38c9a96fda44aacce38f",
+      "license": "Apache-2.0"
+    },
+    {
+      "source_project": "MCP Server Engineering Field Guide",
+      "source_repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
+      "source_commit": "87238302209d654358dd64eb3972677e4cacf256",
+      "source_path": "skill/mcp-server-engineering/references/profiles/json-rpc-2.0.md",
+      "destination_path": "src/skills/mcp-boundary/references/profiles/json-rpc-2.0.md",
+      "sha256": "eb92caa9e7e8414a3351015d67b13a0f22dd54337c2f22e7360469aef89ec86f",
+      "license": "Apache-2.0"
+    },
+    {
+      "source_project": "MCP Server Engineering Field Guide",
+      "source_repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
+      "source_commit": "87238302209d654358dd64eb3972677e4cacf256",
+      "source_path": "skill/mcp-server-engineering/references/profiles/http-rfc9110-rfc9112.md",
+      "destination_path": "src/skills/mcp-boundary/references/profiles/http-rfc9110-rfc9112.md",
+      "sha256": "1859674b4d2a22d9cb4becfc4df0a011c2f0865fd4a5f0f262a5756090adf349",
+      "license": "Apache-2.0"
+    },
+    {
+      "source_project": "MCP Server Engineering Field Guide",
+      "source_repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
+      "source_commit": "87238302209d654358dd64eb3972677e4cacf256",
+      "source_path": "skill/mcp-server-engineering/references/profiles/mcp-2025-06-18.md",
+      "destination_path": "src/skills/mcp-boundary/references/profiles/mcp-2025-06-18.md",
+      "sha256": "f2e59ad24eb51df392340d7f1e88b7a01a6a25a967e52d54563e382f2cf68b5a",
+      "license": "Apache-2.0"
+    },
+    {
+      "source_project": "MCP Server Engineering Field Guide",
+      "source_repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
+      "source_commit": "87238302209d654358dd64eb3972677e4cacf256",
+      "source_path": "skill/mcp-server-engineering/references/profiles/mcp-2025-11-25.md",
+      "destination_path": "src/skills/mcp-boundary/references/profiles/mcp-2025-11-25.md",
+      "sha256": "ec024345678601db437ea981a32713623a41f53f505fcd0fd7292c4849068b45",
+      "license": "Apache-2.0"
+    },
+    {
+      "source_project": "MCP Server Engineering Field Guide",
+      "source_repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
+      "source_commit": "87238302209d654358dd64eb3972677e4cacf256",
+      "source_path": "skill/mcp-server-engineering/references/profiles/mcp-2026-07-28.md",
+      "destination_path": "src/skills/mcp-boundary/references/profiles/mcp-2026-07-28.md",
+      "sha256": "6386172e126d096cc68d2d3c5090500fe5c7f831a8399a4ca1d1d75ec412f8ac",
+      "license": "Apache-2.0"
+    },
+    {
+      "source_project": "MCP Server Engineering Field Guide",
+      "source_repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
+      "source_commit": "87238302209d654358dd64eb3972677e4cacf256",
+      "source_path": "skill/mcp-server-engineering/references/profiles/integration-guidance-2026-08-15.md",
+      "destination_path": "src/skills/mcp-boundary/references/profiles/integration-guidance-2026-08-15.md",
+      "sha256": "90ea697d33437040e478e3b6b87f9764c86fed3a15ce866db8c3d99b18c8fa12",
+      "license": "Apache-2.0"
+    }
+  ],
+  "influences": [
+    {
+      "source_project": "MCP Server Engineering Field Guide",
+      "source_repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
+      "source_commit": "87238302209d654358dd64eb3972677e4cacf256",
+      "source_path": "skill/mcp-server-engineering/SKILL.md",
+      "sha256": "f11d8e6466f57beae1da75e48c6d61863906c734a78ec0e19f6ccec17fafbb7f",
+      "relationship": "Method influence; no byte-identical copy in the authored MCP Boundary SKILL.md."
+    },
+    {
+      "source_project": "MCP App Production Field Lab",
+      "source_repository": "https://github.com/IndelibleVivi/mcp-app-production-fieldlab",
+      "source_commit": "5a6deebbac96089588658452a00f2c52bad0dd2f",
+      "source_paths": [
+        {
+          "path": "AGENTS.md",
+          "sha256": "2ef1530b6400b80961139ae0d40d5d867e7108102637ae94915c7c189aea4d3f"
+        },
+        {
+          "path": "docs/current-state.md",
+          "sha256": "cdfb91db36f44c6408dad086553d2d8ab790dd666ae21c17cdc1e6fb7d980774"
+        }
+      ],
+      "relationship": "Method and status-boundary influence; no byte-identical copy recorded."
+    },
+    {
+      "source_project": "Servotab",
+      "source_commit": "9fc4c6a5296a87eca6bb6fd48affd75882057136",
+      "source_path": "skill/servotab/SKILL.md",
+      "sha256": "de6f3345aed97f398d2487049cf536a2ebefc333cd8e1d56ca9f8c88cc82de49",
+      "relationship": "Proportionate engineering-method influence; no byte-identical copy recorded."
+    }
+  ],
+  "official_sources_assessed": [
+    {
+      "url": "https://developers.openai.com/plugins/build/plugins",
+      "assessed_at": "2026-09-14",
+      "purpose": "Portable Agent Plugin manifest and package layout."
+    },
+    {
+      "url": "https://developers.openai.com/plugins/build/skills",
+      "assessed_at": "2026-09-14",
+      "purpose": "Skills-only plugin discovery and packaging."
+    },
+    {
+      "url": "https://modelcontextprotocol.io/specification/2026-07-28",
+      "assessed_at": "2026-09-14",
+      "purpose": "Current published MCP revision at build time."
+    }
+  ],
+  "visual_identity": {
+    "origin": "Project-original design developed for MCP Boundary.",
+    "approved_direction": "Offset + Porcelain",
+    "public_scope": "Only the approved direction is included. Non-public comparison studies and alternatives are excluded.",
+    "license": "All rights reserved; see LICENSING.md section 4."
+  }
+}

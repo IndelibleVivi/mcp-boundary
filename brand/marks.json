@@ -1,0 +1,13 @@
+{
+  "version": "0.1.0",
+  "status": "approved",
+  "selected": "offset",
+  "viewBox": "0 0 64 64",
+  "mark": {
+    "id": "offset",
+    "label": "Offset",
+    "zh": "错位",
+    "rationale": "两段开口轮廓相向错开。它们有自己的边界，也留出共享的空间。",
+    "geometry": "<path d=\"M35 11H13V44H28\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"6\" stroke-linejoin=\"miter\"/><path d=\"M29 53H51V20H36\" fill=\"none\" stroke=\"var(--mark-accent,currentColor)\" stroke-width=\"6\" stroke-linejoin=\"miter\"/>"
+  }
+}

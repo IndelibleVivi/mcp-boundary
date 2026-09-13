@@ -1,0 +1,8 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+dist/
+output/
+.playwright-cli/
+tests/RESULTS.json
+tests/STATIC-RESULTS.json

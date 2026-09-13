@@ -1,0 +1,27 @@
+name: validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  source-and-package:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Verify generated package
+        run: python3 scripts/build_plugin.py --check
+      - name: Run package and contract tests
+        run: python3 -m unittest discover -s tests -p 'test_*.py'
+      - name: Run static website and identity checks
+        run: python3 tests/static_check.py --no-report

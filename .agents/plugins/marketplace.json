@@ -1,0 +1,20 @@
+{
+  "name": "mcp-boundary",
+  "interface": {
+    "displayName": "MCP Boundary"
+  },
+  "plugins": [
+    {
+      "name": "mcp-boundary",
+      "source": {
+        "source": "local",
+        "path": "./plugins/mcp-boundary"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

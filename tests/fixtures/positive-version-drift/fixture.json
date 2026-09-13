@@ -1,0 +1,6 @@
+{
+  "id": "positive-version-drift",
+  "claim": "The active server uses MCP revision 2026-07-28.",
+  "expected_outcome": "contradicted",
+  "reason": "The manifest declares 2026-07-28 while the active initialization path pins 2025-11-25."
+}

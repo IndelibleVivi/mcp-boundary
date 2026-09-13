@@ -1,0 +1,6 @@
+{
+  "id": "clean-tool",
+  "claim": "Malformed input is rejected before the tool effect executes.",
+  "expected_outcome": "verified",
+  "reason": "The negative probe leaves the effect counter at zero and the valid control executes once."
+}

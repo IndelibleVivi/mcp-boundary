@@ -1,0 +1,9 @@
+interface:
+  display_name: "MCP Boundary"
+  short_description: "MCP engineering at the real boundary"
+  icon_small: "./assets/icon-400.png"
+  icon_large: "./assets/mark.svg"
+  brand_color: "#315BE8"
+  default_prompt: "Use $mcp-boundary to inspect and repair this MCP implementation against its actual protocol and runtime boundary."
+policy:
+  allow_implicit_invocation: true

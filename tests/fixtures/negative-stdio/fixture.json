@@ -1,0 +1,6 @@
+{
+  "id": "negative-stdio",
+  "claim": "This stdio-only server must implement CORS and HTTP Origin checks.",
+  "expected_outcome": "not_applicable",
+  "reason": "The fixture exposes parent-owned stdio only and creates no reachable HTTP boundary."
+}
