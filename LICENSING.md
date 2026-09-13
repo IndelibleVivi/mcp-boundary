@@ -50,7 +50,7 @@ This reserved material includes:
 - `site/index.html`, `site/styles.css`, and static image/SVG assets under `site/assets/`;
 - `previews/`;
 - `mcp-boundary-demo.html` as a combined visual publication;
-- identity assets and screenshots copied into `plugins/mcp-boundary/assets/`.
+- identity assets copied into `plugins/mcp-boundary/assets/`.
 
 Repository access, plugin installation, or another license in this repository does not grant trademark or branding rights.
 

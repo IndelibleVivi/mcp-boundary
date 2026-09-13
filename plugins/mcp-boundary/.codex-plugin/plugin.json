@@ -36,10 +36,6 @@
       "brandColor": "#315BE8",
       "composerIcon": "./assets/composer-icon.png",
       "logo": "./assets/logo.png",
-      "screenshots": [
-        "./assets/screenshots/home-desktop.png",
-        "./assets/screenshots/home-mobile.png"
-      ],
       "defaultPrompt": [
         "Use $mcp-boundary to inspect this MCP implementation against its actual protocol, transport, and runtime.",
         "Use $mcp-boundary to build this MCP capability and verify the complete behavior.",

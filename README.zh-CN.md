@@ -34,6 +34,8 @@ codex plugin add mcp-boundary@mcp-boundary
 
 安装后重启 Codex。可分发 package 已提交在 [`plugins/mcp-boundary/`](plugins/mcp-boundary/)，唯一 manifest 是 canonical `.codex-plugin/plugin.json`，其中明确声明 composer icon 与 logo。Package 刻意不含 root `plugin.json`，因为该文件名会让提交器选择 Agent Plugins conversion path，而不是直接使用 Codex-native manifest。
 
+当前 ZIP submission surface 只接收 skills，因此 manifest 不声明 `interface.screenshots`，分发包也不携带 screenshot assets；公开官网截图仍保留在 [`previews/`](previews/) 中。
+
 “源码已公开”“本地已安装”“外部 plugin directory 已收录”是三个不同状态；实际状态以 [docs/current-state.md](docs/current-state.md) 为准。
 
 ## 调用示例

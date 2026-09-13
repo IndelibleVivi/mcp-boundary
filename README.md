@@ -35,6 +35,8 @@ codex plugin add mcp-boundary@mcp-boundary
 
 Restart Codex after installation so the new plugin is discovered. The committed distributable package lives at [`plugins/mcp-boundary/`](plugins/mcp-boundary/) and uses the canonical Codex manifest at `.codex-plugin/plugin.json`, with explicit composer icon and logo paths. It intentionally has no root `plugin.json`: that filename selects the submission system's Agent Plugins conversion path instead of the native Codex manifest.
 
+The ZIP submission surface currently admits skills only, so the plugin manifest does not declare `interface.screenshots` and the distributable does not contain screenshot assets. Public website previews remain in [`previews/`](previews/).
+
 Installation is distinct from publication in any external plugin directory. See [current state](docs/current-state.md) for what has actually been published and verified.
 
 ## Use it

@@ -34,14 +34,6 @@ def build_candidate(destination: Path) -> None:
 
     for name in ("composer-icon.png", "logo.png"):
         copy_file(ROOT / "brand/exports" / name, destination / "assets" / name)
-    copy_file(
-        ROOT / "previews/home-desktop.png",
-        destination / "assets/screenshots/home-desktop.png",
-    )
-    copy_file(
-        ROOT / "previews/home-mobile.png",
-        destination / "assets/screenshots/home-mobile.png",
-    )
 
     legal_files = {
         "LICENSE": "LICENSE",

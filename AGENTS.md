@@ -14,6 +14,7 @@
 
 - This is a pure-skill plugin. Adding an MCP server, app connector, hook, lifecycle service, authentication flow, telemetry, or remote runtime is an architecture change that requires owner intent.
 - Keep root `plugins/mcp-boundary/plugin.json` absent. Its presence selects the submission system's Agent Plugins conversion path and bypasses the native manifest metadata, including composer icon and logo fields.
+- ZIP submission currently admits skills only. Keep `interface.screenshots` and packaged screenshot assets absent; public website previews remain outside the plugin package.
 - Treat bundled protocol profiles as dated evidence. Verify current official sources for “latest” protocol, host, SDK, or plugin-platform claims.
 - Preserve the file-level license and provenance map in `LICENSING.md` and `provenance/SOURCES.json`.
 - Private Faye/Cove continuity, design studies, raw exports, and handoffs never enter this worktree or a remote. Keep them in the configured private-continuity root outside the worktree.

@@ -12,7 +12,7 @@ skill-validate plugins/mcp-boundary/skills/mcp-boundary
 python3 scripts/package_plugin.py
 ```
 
-These checks cover author/generated Codex manifest parity, absence of the root manifest that would select Agent Plugins conversion, Codex composer/logo asset resolution, pure-skill packaging, exact-copy hashes, license/provenance presence, safe archive paths, passive SVG assets, the single approved public identity, three bounded contract fixtures, website resource integrity, and numeric contrast for the selected palette.
+These checks cover author/generated Codex manifest parity, absence of the root manifest that would select Agent Plugins conversion, absence of unsupported screenshot configuration/assets, Codex composer/logo asset resolution, pure-skill packaging, exact-copy hashes, license/provenance presence, safe archive paths, passive SVG assets, the single approved public identity, three bounded contract fixtures, website resource integrity, and numeric contrast for the selected palette.
 
 The fixtures provide deterministic evidence for package and teaching-contract checks. They do **not** prove that a model will invoke the skill correctly or produce the expected diagnosis.
 

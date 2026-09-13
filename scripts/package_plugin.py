@@ -37,6 +37,11 @@ def package_files() -> list[Path]:
         raise ValueError("Build the Codex-native plugin package before creating the ZIP.")
     codex_manifest = json.loads(codex_manifest_path.read_text(encoding="utf-8"))
     interface = codex_manifest.get("interface", {})
+    if "screenshots" in interface or (SOURCE / "assets/screenshots").exists():
+        raise ValueError(
+            "ZIP uploads support skills only; remove interface.screenshots "
+            "and packaged screenshot assets."
+        )
     for field in ("composerIcon", "logo"):
         value = interface.get(field)
         if not isinstance(value, str) or not value.startswith("./assets/"):

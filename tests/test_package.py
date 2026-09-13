@@ -72,10 +72,8 @@ class DistributablePackageTests(unittest.TestCase):
         for field in ("composerIcon", "logo"):
             path = self.resolve_package_path(interface[field])
             self.assertTrue(path.is_file())
-        for item in interface["screenshots"]:
-            width, height = png_dimensions(self.resolve_package_path(item))
-            self.assertGreater(width, 300)
-            self.assertGreater(height, 300)
+        self.assertNotIn("screenshots", interface)
+        self.assertFalse((PACKAGE / "assets/screenshots").exists())
 
     def test_package_asset_dimensions(self) -> None:
         self.assertEqual(png_dimensions(PACKAGE / "assets/composer-icon.png"), (512, 512))
