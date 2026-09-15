@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  source-and-package:
+  plugin-and-workspace:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -21,7 +21,52 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Verify generated package
         run: python3 scripts/build_plugin.py --check
-      - name: Run package and contract tests
+      - name: Run plugin and workspace tests
         run: python3 -m unittest discover -s tests -p 'test_*.py'
       - name: Run static website and identity checks
         run: python3 tests/static_check.py --no-report
+
+  guide:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.13"]
+    defaults:
+      run:
+        working-directory: guide
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Check Python syntax
+        run: python skill/mcp-server-engineering/scripts/check_python_syntax.py skill/mcp-server-engineering/scripts tools tests
+      - name: Run Guide tests
+        run: python -m unittest discover -v
+      - name: Validate Guide registers and evidence
+        run: |
+          python skill/mcp-server-engineering/scripts/validate_version_register.py VERSION-REGISTER.json
+          python skill/mcp-server-engineering/scripts/sync_profile_mirrors.py --check VERSION-REGISTER.json
+          python skill/mcp-server-engineering/scripts/check_bilingual_coverage.py .
+          python tools/validate_evaluation_corpus.py .
+          python skill/mcp-server-engineering/scripts/validate_skill_package.py skill/mcp-server-engineering
+          python skill/mcp-server-engineering/scripts/check_markdown_links.py .
+          python skill/mcp-server-engineering/scripts/scan_review_bundle.py .
+
+  lab:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: lab
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.23.1"
+          cache: npm
+          cache-dependency-path: lab/package-lock.json
+      - run: npm ci
+      - run: npm run check
