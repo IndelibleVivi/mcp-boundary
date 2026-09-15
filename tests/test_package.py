@@ -82,9 +82,21 @@ class DistributablePackageTests(unittest.TestCase):
     def test_skill_frontmatter_and_references(self) -> None:
         skill = (PACKAGE / "skills/mcp-boundary/SKILL.md").read_text(encoding="utf-8")
         self.assertTrue(skill.startswith("---\nname: mcp-boundary\n"))
+        description = next(
+            line for line in skill.splitlines() if line.startswith("description: ")
+        )
+        self.assertTrue(description.startswith('description: "'), description)
+        self.assertTrue(description.endswith('"'), description)
         self.assertIn("allow_implicit_invocation: true", (PACKAGE / "skills/mcp-boundary/agents/openai.yaml").read_text())
-        for target in re.findall(r"\[[^]]+\]\((references/[^)]+)\)", skill):
+        pattern = r"\[[^]]+\]\(((?:references|assets)/[^)]+)\)"
+        targets = re.findall(pattern, skill)
+        self.assertTrue(any(target.startswith("references/") for target in targets), targets)
+        self.assertTrue(any(target.startswith("assets/") for target in targets), targets)
+        source_skill = (SOURCE / "SKILL.md").read_text(encoding="utf-8")
+        self.assertEqual(targets, re.findall(pattern, source_skill))
+        for target in targets:
             self.assertTrue((PACKAGE / "skills/mcp-boundary" / target).is_file(), target)
+            self.assertTrue((SOURCE / target).is_file(), target)
 
     def test_exact_copy_provenance(self) -> None:
         provenance = json.loads((ROOT / "provenance/SOURCES.json").read_text(encoding="utf-8"))

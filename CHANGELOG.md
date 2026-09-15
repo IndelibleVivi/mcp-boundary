@@ -1,12 +1,7 @@
 # Changelog
 
-## 0.1.0 — 2026-09-14
+Unreleased source work is tracked in `docs/current-state.md`, not here.
 
-- Add the first MCP Boundary pure-skill plugin package.
-- Add protocol, transport, boundary, evidence, migration, and MCP Apps references with file-level provenance.
-- Add a Codex-native manifest with composer/logo metadata and a repository marketplace catalog; keep the submission package free of the root manifest that selects Agent Plugins conversion.
-- Keep the skills-only upload package free of unsupported screenshot configuration and screenshot assets.
-- Add deterministic package build tooling, contract fixtures, static checks, and website browser checks.
-- Establish Offset + Porcelain as the sole public identity and publish the single-page official website through GitHub Pages.
+## 0.1.0
 
-This entry describes repository version `0.1.0`. It does not claim installation, external directory publication, or named-host acceptance.
+- Publish the initial pure-skill MCP Boundary plugin, deterministic package, source provenance, website, and bounded static fixtures.
