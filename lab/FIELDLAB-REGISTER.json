@@ -4,6 +4,12 @@
   "recorded_at": "2026-08-29",
   "scenario_schema_version": 1,
   "receipt_schema_version": 1,
+  "continuing_authority": {
+    "repository_contract": "../AGENTS.md",
+    "active_skill": "../src/skills/mcp-boundary/",
+    "method_and_profiles": "../guide/",
+    "distributed": false
+  },
   "method_authority": {
     "repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
     "guide_release": "2.0.1",

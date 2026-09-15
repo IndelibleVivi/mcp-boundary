@@ -38,14 +38,16 @@ The task closes only at the boundary requested by the user. Source-complete, pro
 
 ## Import model
 
-The first unified import copies complete trees from two pinned commits, including their local licenses and historical evidence:
+The initial unified import copied complete trees from two pinned commits, including their local licenses and historical evidence:
 
 - `guide/` from `IndelibleVivi/mcp-server-engineering-field-guide@87238302209d654358dd64eb3972677e4cacf256`;
 - `lab/` from `IndelibleVivi/mcp-app-production-fieldlab@5a6deebbac96089588658452a00f2c52bad0dd2f`.
 
-The import script verifies the exact commit before copying and records the pins in `provenance/UPSTREAMS.lock.json`. It does not merge Git histories or imply that the former repositories were authored under one blanket license.
+`provenance/UPSTREAMS.lock.json` records those two commits as the origin of the subtrees; `provenance/SOURCES.json` records the exact-copy and influence mapping. The import did not merge Git histories or imply that the former repositories were authored under one blanket license.
 
-After the candidate is accepted, normal development happens here. Another upstream import requires an explicit pin change and review; it is not a recurring synchronization job.
+`guide/` and `lab/` are ordinary maintained subtrees of this repository. There is no re-import, updater, or synchronization script: a later upstream change would arrive as an ordinary reviewed pull request with its own provenance note, not as a destructive re-copy this repository can run over local work. The former repositories remain unarchived historical sources.
+
+`guide/skill/mcp-server-engineering/` is frozen historical release and evaluation material for this candidate. It is not active, not distributed, and not a maintenance target; the active distributed skill is `src/skills/mcp-boundary/`.
 
 ## Release sequence
 

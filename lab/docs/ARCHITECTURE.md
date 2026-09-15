@@ -4,7 +4,7 @@
 
 [English](./ARCHITECTURE.en.md)
 
-MCP App Production Field Lab 的核心不是再造一套 framework，而是把 authority、execution surface 与 evidence ceiling 固定在同一张图里。Neutral specimen 足够真实，可以经过 MCP resource、App bridge、browser sandbox 与 package/runtime paths；又足够小，不会把 Refrain 产品逻辑搬进来。方法权威仍是 MCP Server Engineering Field Guide `2.0.1`。
+MCP App Production Field Lab 的核心不是再造一套 framework，而是把 authority、execution surface 与 evidence ceiling 固定在同一张图里。Neutral specimen 足够真实，可以经过 MCP resource、App bridge、browser sandbox 与 package/runtime paths；又足够小，不会把 Refrain 产品逻辑搬进来。持续的方法权威是本仓库的本地 `guide/` 子树；register 中的 Field Guide `2.0.1` pin 记录的是 assessed baseline。
 
 ![Field Lab front door：projection boundaries 与 local receipt chain](architecture/field-lab-evidence-chain.zh-CN.svg)
 
@@ -15,7 +15,7 @@ MCP App Production Field Lab 的核心不是再造一套 framework，而是把 a
 ```mermaid
 flowchart LR
   FG[Field Guide v2.0.1<br/>method and dated profiles] -->|exact version pin| REG[FIELDLAB-REGISTER.json]
-  SP[Softpowers<br/>generic work method] -. guides execution .-> LAB
+  MB[MCP Boundary<br/>repository contract and active skill] -. guides execution .-> LAB
   RF[Refrain @ pinned commit<br/>product and runtime truth] -->|public-safe mechanism extraction| CASE[Founding case study]
   REG --> LAB[Production Field Lab<br/>neutral executable evidence]
   CASE --> LAB
@@ -33,8 +33,8 @@ flowchart LR
 
 这些箭头不转移 authority：
 
-- Field Guide 拥有 method/profile interpretation；Lab 只拥有针对 exact selected profile set 的 executions。
-- Softpowers 拥有通用 implementation/debug/verification workflow；Lab 提供 MCP App-specific seams 与 receipts。
+- 持续 method/profile interpretation 属于本地 `guide/` 子树，repository contract 属于根目录 `AGENTS.md`；Lab 只拥有针对 exact selected profile set 的 executions。
+- 本仓库的通用 implementation/debug/verification workflow 属于 `src/skills/mcp-boundary/`；Lab 提供 MCP App-specific seams 与 receipts。
 - Refrain 拥有其 source、renderer、deployment、runtime 与 acceptance truth；case study 只抽取 mechanisms。
 - Local harness 只拥有其 declared observable envelope，不能替 ChatGPT 或其他 named host、host account policy、discovery cache 与 undocumented behavior 发言。
 

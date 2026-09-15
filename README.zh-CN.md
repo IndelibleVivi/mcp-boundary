@@ -12,7 +12,9 @@ MCP Boundary 现在是一项由三个表面组成的 MCP 工程项目：
 
 这是一个有意设计成单仓的项目。使用者只安装一个插件；维护者在同一个地方改进执行方法、保留深层解释、运行边界实验，也检验 skill 是否真正改善 agent 的结果。
 
-> `0.2.0-alpha.1` 是统一工作区候选版。当前已经公开发布的 `0.1.0` 仍然是稳定版，直到本分支完成审查与正式发布。
+插件本身保持轻量：它不启动 server、不注册 app connector、不要求认证、不发送 analytics 或 telemetry，也不引入 runtime dependency。Guide 与 Lab 都是仓库源码：可执行的 Lab 标本是工程证据，不是分发的插件运行时。
+
+> `0.2.0-alpha.1` 是尚未发布的源码版本。对外公开发布的稳定插件仍是 `0.1.0`，直到正式发布。
 
 [官网](https://indeliblevivi.github.io/mcp-boundary/) · [English](README.md) · [统一工作区设计](docs/UNIFIED-WORKSPACE.md) · [当前状态](docs/current-state.md) · [许可](LICENSING.md)
 
@@ -25,7 +27,7 @@ codex plugin marketplace add IndelibleVivi/mcp-boundary --ref main
 codex plugin add mcp-boundary@mcp-boundary
 ```
 
-测试候选分支时，将 `main` 替换成分支名。安装后重启 Codex。
+这条仓库安装命令取得的是所选 Git ref 上的源码版本，与外部已发布的稳定 listing 不同。若要在候选版进入 `main` 前检查它，将 `main` 替换成对应分支名。安装后重启 Codex。
 
 示例：
 
@@ -59,7 +61,7 @@ site/                      对外官网
 provenance/                精确复制与上游导入记录
 ```
 
-只有 `src/skills/mcp-boundary/` 是活跃分发的 skill。`guide/` 中保留的旧 `mcp-server-engineering` skill 只用于来源与复现，插件 manifest 不会暴露它。
+只有 `src/skills/mcp-boundary/` 是活跃分发的 skill。`guide/skill/mcp-server-engineering/` 是为候选版冻结的历史发布与评估材料，只用于来源与复现；它不是推荐的安装路径，插件 manifest 也不会暴露它。
 
 ## skill 实际改变什么
 
@@ -116,6 +118,6 @@ Lab 仍然是本地 surrogate，除非真的运行了某个明确外部 host。�
 - MCP Server Engineering Field Guide commit `87238302209d654358dd64eb3972677e4cacf256`；
 - MCP App Production Field Lab commit `5a6deebbac96089588658452a00f2c52bad0dd2f`。
 
-详见 [`provenance/UPSTREAMS.lock.json`](provenance/UPSTREAMS.lock.json)。导入完成后，本仓库成为统一项目的开发权威；原仓库暂时保留为历史来源，后续归档必须单独、明确地完成。
+详见 [`provenance/UPSTREAMS.lock.json`](provenance/UPSTREAMS.lock.json)。`guide/` 与 `lab/` 已成为本仓库正常维护的子树，不存在重新导入或同步路径。本仓库是统一项目的开发权威；原仓库暂时保留为未归档的历史来源，后续归档必须单独、明确地决定。
 
 由 Faye & Cove 共同创作。

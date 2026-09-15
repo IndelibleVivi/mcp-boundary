@@ -2,17 +2,22 @@
 
 [简体中文](MAINTENANCE.zh-CN.md) · English
 
-The guide, protocol profiles, moving integration guidance, case-study receipts, and skill have separate version pressures. Update the smallest authoritative surface and then synchronize its declared peers.
+The Guide, protocol profiles, moving integration guidance, case-study receipts, and active Boundary skill have separate version pressures. Update the smallest current authority, then synchronize only the peers that still serve the current product.
+
+## Unified repository status
+
+This tree is `guide/` inside the MCP Boundary repository. The repository contract is the root `AGENTS.md`; the one active distributed skill is `../src/skills/mcp-boundary/`; and the initial-import pins live in `../provenance/UPSTREAMS.lock.json`. `skill/mcp-server-engineering/` and its `VERSION-REGISTER.json` bindings are frozen historical release and evaluation material for this candidate. Current work updates `guide/` and the active Boundary skill directly; it never regenerates from or writes into the frozen skill. Commands below that inspect the historical package validate the retained snapshot only.
 
 ## When a new MCP revision appears
 
 1. Verify the official specification index and changelog.
-2. Add a new profile; do not rewrite historical requirements in an older profile.
+2. Add English and Simplified Chinese peers under `profiles/`; do not rewrite historical requirements in an older profile.
 3. Record migration boundaries in both the old and new profiles where useful.
-4. Update `VERSION-REGISTER.json`, `profiles/README*`, and the skill's protocol selection/reference set.
-5. Run `sync_profile_mirrors.py --write VERSION-REGISTER.json`, record the new canonical SHA-256 values in the register, then verify with `--check`. The hash is used here for a real canonical-to-mirror identity decision.
-6. Add revision-bound tests or test guidance for removed, added, and changed behavior.
-7. Keep host/product guidance in a dated moving profile unless it is normative protocol text.
+4. Update `profiles/README*` and any Guide prose whose current truth changes.
+5. Add the selected English profile to `../src/skills/mcp-boundary/references/profiles/`, update the active protocol-selection path and `../provenance/SOURCES.json`, then rebuild the plugin package. Root tests bind exact copies to the canonical Guide profile bytes.
+6. Do not update the frozen `VERSION-REGISTER.json` or historical skill for ordinary current work. Correct historical material only when its recorded evidence is wrong, and record the correction provenance.
+7. Add revision-bound tests or test guidance for removed, added, and changed behavior.
+8. Keep host/product guidance in a dated moving profile unless it is normative protocol text.
 
 ## Bilingual synchronization
 
@@ -31,7 +36,7 @@ The guide, protocol profiles, moving integration guidance, case-study receipts, 
 
 ## Skill updates
 
-- Keep `SKILL.md` as a thin controller; place detailed method in `references/` and reusable output files in `assets/templates/`.
+- Active-skill changes belong to `../src/skills/mcp-boundary/`, not to the frozen `skill/mcp-server-engineering/` tree. Keep its `SKILL.md` a proportional controller; place detailed method in `references/` and reusable output files in `assets/`.
 - Load only the task-relevant profile.
 - Add a reference only when it changes agent behavior.
 - Run the official skill validator and the repository-local structural validator.
@@ -76,6 +81,6 @@ python3 skill/mcp-server-engineering/scripts/scan_review_bundle.py .
 git diff --check
 ```
 
-The bundled script paths above are repository-maintenance paths. When invoking the installed skill against another repository, resolve scripts relative to that skill package's `SKILL.md`, not by same-name lookup in the target repository.
+The version-register, mirror, and historical-skill commands above validate the frozen `2.0.1` snapshot; they are not write instructions for the current active skill. After changing current Guide material or the active skill, return to the repository root and run the root plugin/workspace checks in `AGENTS.md` as well. When invoking the installed skill against another repository, resolve active package resources relative to that skill package's `SKILL.md`, not by same-name lookup in the target repository.
 
 Then inspect the staged diff, confirm no private continuity or raw logs entered the repository, commit intentionally, push, verify GitHub Actions, and tag the documented release only after the remote commit is known.

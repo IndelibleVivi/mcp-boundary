@@ -8,19 +8,21 @@ Updated: 2026-08-29
 
 ## Classification
 
+持续权威：本子树在 MCP Boundary 仓库内维护。根目录 `AGENTS.md` 拥有 repository contract，`src/skills/mcp-boundary/` 是唯一活跃分发的 skill，方法与 protocol profiles 就地读取本地 `guide/` 子树。下面的字段记录本子树原独立 source 的历史状态，以及其证据所针对的 method baseline。
+
 - Status: `public-source`
 - Version: `0.1.0-private.0`
-- Repository: `https://github.com/IndelibleVivi/mcp-app-production-fieldlab`
+- Historical source repository: `https://github.com/IndelibleVivi/mcp-app-production-fieldlab`
 - Visibility: public
 - Package publication: disabled by `package.json` `private: true`
 - Functional license: `SUL-1.0` (source-available; use-restricted)
 - Documentation license: `CC-BY-NC-SA-4.0`
 - License map: `LICENSING.md`
 - GitHub Release: none
-- Method authority: MCP Server Engineering Field Guide `2.0.1`，固定 commit `dcb2c61a060948f92d35918af43919bdfde8b01a`
+- Assessed method baseline: MCP Server Engineering Field Guide `2.0.1`，固定 commit `dcb2c61a060948f92d35918af43919bdfde8b01a`
 - Founding observation: Refrain commit `3e25c4b61eacaad502b4942e285855a7c38871ca`
 
-Field Guide 在本 Lab 尚无 versioned public release 时保持不变。Public source repository 本身不构成 companion release；`FIELDLAB-REGISTER.json` 仍是单向 method/provenance link。
+历史 Field Guide pin 记录的是本 Lab 的 selected profiles 所针对的 release，它不是现行的 method authority。Public source repository 本身不构成 companion release；`FIELDLAB-REGISTER.json` 现在还记录本子树的持续权威。
 
 ## Implemented source surfaces
 

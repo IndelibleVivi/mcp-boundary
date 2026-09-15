@@ -8,22 +8,24 @@ MCP App Production Field Lab is an executable, reproducible, claim-bounded engin
 
 The current publication state is **`public-source` / source-available / unreleased package**. The source repository is public at [`IndelibleVivi/mcp-app-production-fieldlab`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab), but there is no GitHub Release or registry publication. Project-original functional materials use `SUL-1.0`; original documentation, diagrams, and case-study expression use `CC-BY-NC-SA-4.0`. This is not OSI open source. `package.json` remains `private: true` to prevent accidental npm publication. The tunnel, named-host, and owner scenarios are operator runbooks and evidence contracts, not claims that those external steps have run.
 
+> **Unified repository note.** This subtree is `lab/` inside the MCP Boundary repository. The publication, repository, and version-pin statements below are historical facts about the former standalone source repository, kept because they record how this evidence was produced. Continuing authority for this subtree is the root [`AGENTS.md`](../AGENTS.md); the method and protocol profiles are read from the local [`guide/`](../guide/) subtree; and the one active distributed skill is `src/skills/mcp-boundary/`. This subtree is not a separate repository, is not an installation path, and is not part of the distributed plugin package.
+
 ![Field Lab: one neutral specimen, three projection boundaries, and four local receipts](docs/architecture/field-lab-evidence-chain.en.svg)
 
-## Why this is a separate repository
+## Why this was a separate repository
 
-The existing Field Guide and this Field Lab answer different questions:
+When this Lab was a standalone repository, the Field Guide and the Lab answered different questions:
 
 | Surface                                                                                                           | Authority                                                                                                                       |
 | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | [MCP Server Engineering Field Guide](https://github.com/IndelibleVivi/mcp-server-engineering-field-guide) `2.0.1` | Stable methods, dated protocol/integration profiles, evidence grammar, and the general MCP engineering skill                    |
 | This Field Lab                                                                                                    | Neutral executable specimen, declared local-host profiles, scenario definitions, package/runtime observations, bounded receipts |
-| Softpowers                                                                                                        | General implementation, debugging, and verification workflow                                                                    |
+| [MCP Boundary](https://github.com/IndelibleVivi/mcp-boundary) (continuing authority)                              | Repository contract, the active `mcp-boundary` skill, plugin packaging, and publication gates                                   |
 | [Refrain](https://github.com/IndelibleVivi/refrain) (private source authority; link requires access)              | Product source, renderer, deployment, runtime, and owner truth for the founding case                                            |
 
-The one-way version link lives in [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json): Field Guide release `2.0.1` is pinned to commit `dcb2c61a060948f92d35918af43919bdfde8b01a`. The Field Lab does not copy Field Guide profiles, create a second general-purpose skill, or make Refrain a runtime dependency. The Field Guide remains unchanged until a real public Field Lab release exists and a companion discoverability link can be considered.
+The historical method pin lives in [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json): the selected profiles were assessed against MCP Server Engineering Field Guide release `2.0.1` at commit `dcb2c61a060948f92d35918af43919bdfde8b01a`, and the register also records the continuing authority for this subtree. That pin is dated evidence of the assessed baseline, not a live method authority. The Lab reads method and protocol profiles from the local [`guide/`](../guide/) subtree in place; it copies no Field Guide profiles, creates no second general-purpose skill, and does not make Refrain a runtime dependency.
 
-![Field Guide and Field Lab: two repositories joined only by a version pin, scenario contract, and receipt grammar](docs/architecture/field-guide-field-lab.en.svg)
+![Field Guide and Field Lab in their former two-repository layout, joined by a version pin, scenario contract, and receipt grammar](docs/architecture/field-guide-field-lab.en.svg)
 
 ## Specimen contract
 
@@ -100,7 +102,7 @@ Every receipt has one `method_rung` and records `not_proven` explicitly. Lower-l
 | [`docs/TESTING.en.md`](docs/TESTING.en.md)                     | Command topology, scenario matrix, and failure localization                                     |
 | [`docs/runbooks/`](docs/runbooks)                              | Operator procedures; a runbook is not evidence that the procedure ran                           |
 | [`case-studies/refrain/`](case-studies/refrain)                | Pinned public-safe mechanism extraction; no product code or runtime-authority transfer          |
-| [`.github/workflows/verify.yml`](.github/workflows/verify.yml) | Credential-free public witness source; remote execution requires a real Actions run as evidence |
+| [`.github/workflows/verify.yml`](.github/workflows/verify.yml) | Retained historical witness workflow from the former standalone repository; GitHub does not execute nested workflow files, and the root `.github/workflows/validate.yml` now runs the Lab checks |
 
 Raw receipts, Playwright traces/screenshots, credentials, cookies, private URLs, and unsanitized named-host evidence must stay in ignored/local-only locations. A sanitized receipt is a derived projection, not independent reproduction.
 

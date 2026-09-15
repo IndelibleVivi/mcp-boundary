@@ -12,7 +12,9 @@ MCP Boundary is one MCP engineering project with three connected surfaces:
 
 The repository is intentionally a monorepo. A user installs one plugin. A maintainer has one place to improve the method, preserve the underlying explanation, exercise boundary behavior, and evaluate whether the skill changes agent outcomes.
 
-> `0.2.0-alpha.1` is a unified-workspace candidate. The published `0.1.0` plugin remains the public stable release until this branch is reviewed and released.
+The plugin stays small. It starts no server, registers no app connector, requests no authentication, sends no analytics or telemetry, and adds no runtime dependency. The Guide and the Lab are repository source: the executable Lab specimen is engineering evidence, not distributed plugin runtime.
+
+> `0.2.0-alpha.1` is an unreleased source version. The externally published stable plugin remains `0.1.0` until a release is deliberately published.
 
 [Website](https://indeliblevivi.github.io/mcp-boundary/) · [中文说明](README.zh-CN.md) · [Workspace design](docs/UNIFIED-WORKSPACE.md) · [Current state](docs/current-state.md) · [Licensing](LICENSING.md)
 
@@ -25,7 +27,7 @@ codex plugin marketplace add IndelibleVivi/mcp-boundary --ref main
 codex plugin add mcp-boundary@mcp-boundary
 ```
 
-For the candidate branch, replace `main` with its branch name. Restart Codex after installation.
+This repository command installs the source at the selected Git ref; it is distinct from the externally published stable listing. To inspect a candidate before it reaches `main`, replace `main` with that branch name. Restart Codex after installation.
 
 Example tasks:
 
@@ -59,7 +61,7 @@ site/                      public one-page product site
 provenance/                exact-copy and upstream-import records
 ```
 
-Only `src/skills/mcp-boundary/` is the active distributed skill. The historical `mcp-server-engineering` skill retained under `guide/` is provenance and reproducibility material; the plugin manifest does not expose it.
+Only `src/skills/mcp-boundary/` is the active distributed skill. `guide/skill/mcp-server-engineering/` is frozen historical release and evaluation material kept for provenance and reproducibility; it is not a recommended installation path, and the plugin manifest does not expose it.
 
 ## What the skill changes
 
@@ -116,6 +118,6 @@ The initial monorepo import is pinned to:
 - MCP Server Engineering Field Guide commit `87238302209d654358dd64eb3972677e4cacf256`;
 - MCP App Production Field Lab commit `5a6deebbac96089588658452a00f2c52bad0dd2f`.
 
-See [`provenance/UPSTREAMS.lock.json`](provenance/UPSTREAMS.lock.json). After import, this repository becomes the development authority for the unified project; the former repositories remain historical sources until their archival plan is deliberately completed.
+See [`provenance/UPSTREAMS.lock.json`](provenance/UPSTREAMS.lock.json). `guide/` and `lab/` are ordinary maintained subtrees here, with no re-import or synchronization path. This repository is the development authority for the unified project; the former repositories remain unarchived historical sources until a separate archival decision is deliberately completed.
 
 Created by Faye & Cove.

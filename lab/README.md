@@ -8,22 +8,24 @@ MCP App Production Field Lab 是一个可执行、可复现、claim-bounded 的�
 
 当前状态是 **`public-source` / source-available / unreleased package**：source repository 公开于 [`IndelibleVivi/mcp-app-production-fieldlab`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab)，但没有 GitHub Release 或 registry publication。Project-original functional materials 使用 `SUL-1.0`；原创 documentation、diagrams 与 case-study expression 使用 `CC-BY-NC-SA-4.0`。这不是 OSI open source。`package.json` 保持 `private: true`，用于阻止误发 npm。仓库里的 tunnel、named-host 与 owner scenarios 是 operator runbooks 和 evidence contracts，不代表这些外部步骤已经运行。
 
+> **统一仓库说明。** 本子树是 MCP Boundary 仓库中的 `lab/`。下面关于 publication、repository 与 version pin 的表述，是原独立 source repository 的历史事实，保留它们是为了记录这些证据是如何产生的。本子树的持续权威是根目录 [`AGENTS.md`](../AGENTS.md)；方法与 protocol profiles 就地读取本地 [`guide/`](../guide/) 子树；唯一活跃分发的 skill 是 `src/skills/mcp-boundary/`。本子树不是独立 repo，不提供安装路径，也不属于分发的插件包。
+
 ![Field Lab：一个 neutral specimen、三类 projection boundary 与四份 local receipt](docs/architecture/field-lab-evidence-chain.zh-CN.svg)
 
-## 为什么单独成 repo
+## 为什么曾经单独成 repo
 
-现有 Field Guide 与这个 Field Lab 解决不同问题：
+在 Field Lab 还是独立 repo 的时候，Field Guide 与它解决不同问题：
 
 | Surface                                                                                                           | Authority                                                                                                                         |
 | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | [MCP Server Engineering Field Guide](https://github.com/IndelibleVivi/mcp-server-engineering-field-guide) `2.0.1` | 稳定方法、dated protocol/integration profiles、evidence grammar 与通用 MCP engineering skill                                      |
 | 本 Field Lab                                                                                                      | neutral executable specimen、declared local-host profiles、scenario definitions、package/runtime observations 与 bounded receipts |
-| Softpowers                                                                                                        | 通用 implementation、debugging、verification workflow                                                                             |
+| [MCP Boundary](https://github.com/IndelibleVivi/mcp-boundary)（持续权威）                                          | repository contract、活跃 `mcp-boundary` skill、plugin packaging 与 publication gates                                             |
 | [Refrain](https://github.com/IndelibleVivi/refrain)（private source authority；link 需要访问权限）                | founding case 的 product source、renderer、deployment、runtime 与 owner truth                                                     |
 
-版本连接只通过 [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json) 单向固定：Field Guide release `2.0.1` 固定到 commit `dcb2c61a060948f92d35918af43919bdfde8b01a`。Field Lab 不复制 Field Guide profiles，不创建第二个通用 skill，也不把 Refrain 变成 runtime dependency。Field Guide 会保持不变，直到真正的 public Field Lab release 存在，再决定是否加入 companion discoverability link。
+历史 method pin 记录在 [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json)：selected profiles 是针对 MCP Server Engineering Field Guide release `2.0.1`、commit `dcb2c61a060948f92d35918af43919bdfde8b01a` 评估的；register 同时记录本子树的持续权威。该 pin 是 assessed baseline 的 dated evidence，不是现行的 method authority。Lab 就地读取本地 [`guide/`](../guide/) 子树中的方法与 protocol profiles；不复制任何 Field Guide profile，不创建第二个通用 skill，也不把 Refrain 变成 runtime dependency。
 
-![Field Guide 与 Field Lab：两座仓库只通过 version pin、scenario contract 与 receipt grammar 对接](docs/architecture/field-guide-field-lab.zh-CN.svg)
+![Field Guide 与 Field Lab 原有的双仓布局：仅通过 version pin、scenario contract 与 receipt grammar 对接](docs/architecture/field-guide-field-lab.zh-CN.svg)
 
 ## Specimen contract
 
@@ -100,7 +102,7 @@ npm run smoke:runtime -- --candidate=runtime-candidates/fieldlab-review
 | [`docs/TESTING.md`](docs/TESTING.md)                           | command topology、scenario matrix 与 failure localization                               |
 | [`docs/runbooks/`](docs/runbooks)                              | operator procedures；runbook 本身不是执行证据                                           |
 | [`case-studies/refrain/`](case-studies/refrain)                | pinned、public-safe mechanism extraction；无产品代码或 runtime authority transfer       |
-| [`.github/workflows/verify.yml`](.github/workflows/verify.yml) | credential-free public witness source；remote execution 必须由实际 Actions run 另行证明 |
+| [`.github/workflows/verify.yml`](.github/workflows/verify.yml) | 原独立仓库保留下来的历史 witness workflow；GitHub 不会执行嵌套的 workflow 文件，Lab 检查现由根目录 `.github/workflows/validate.yml` 运行 |
 
 Raw receipts、Playwright traces/screenshots、credentials、cookies、private URLs 与 unsanitized named-host evidence 必须留在 ignored/local-only locations。Sanitized receipt 是 derived projection，不是 independent reproduction。
 

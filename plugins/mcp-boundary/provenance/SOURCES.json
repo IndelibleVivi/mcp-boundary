@@ -25,7 +25,7 @@
       "source_project": "MCP Server Engineering Field Guide",
       "source_repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
       "source_commit": "87238302209d654358dd64eb3972677e4cacf256",
-      "source_path": "skill/mcp-server-engineering/references/profiles/json-rpc-2.0.md",
+      "source_path": "profiles/json-rpc-2.0.md",
       "destination_path": "src/skills/mcp-boundary/references/profiles/json-rpc-2.0.md",
       "sha256": "eb92caa9e7e8414a3351015d67b13a0f22dd54337c2f22e7360469aef89ec86f",
       "license": "Apache-2.0"
@@ -34,7 +34,7 @@
       "source_project": "MCP Server Engineering Field Guide",
       "source_repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
       "source_commit": "87238302209d654358dd64eb3972677e4cacf256",
-      "source_path": "skill/mcp-server-engineering/references/profiles/http-rfc9110-rfc9112.md",
+      "source_path": "profiles/http-rfc9110-rfc9112.md",
       "destination_path": "src/skills/mcp-boundary/references/profiles/http-rfc9110-rfc9112.md",
       "sha256": "1859674b4d2a22d9cb4becfc4df0a011c2f0865fd4a5f0f262a5756090adf349",
       "license": "Apache-2.0"
@@ -43,7 +43,7 @@
       "source_project": "MCP Server Engineering Field Guide",
       "source_repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
       "source_commit": "87238302209d654358dd64eb3972677e4cacf256",
-      "source_path": "skill/mcp-server-engineering/references/profiles/mcp-2025-06-18.md",
+      "source_path": "profiles/mcp-2025-06-18.md",
       "destination_path": "src/skills/mcp-boundary/references/profiles/mcp-2025-06-18.md",
       "sha256": "f2e59ad24eb51df392340d7f1e88b7a01a6a25a967e52d54563e382f2cf68b5a",
       "license": "Apache-2.0"
@@ -52,7 +52,7 @@
       "source_project": "MCP Server Engineering Field Guide",
       "source_repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
       "source_commit": "87238302209d654358dd64eb3972677e4cacf256",
-      "source_path": "skill/mcp-server-engineering/references/profiles/mcp-2025-11-25.md",
+      "source_path": "profiles/mcp-2025-11-25.md",
       "destination_path": "src/skills/mcp-boundary/references/profiles/mcp-2025-11-25.md",
       "sha256": "ec024345678601db437ea981a32713623a41f53f505fcd0fd7292c4849068b45",
       "license": "Apache-2.0"
@@ -61,7 +61,7 @@
       "source_project": "MCP Server Engineering Field Guide",
       "source_repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
       "source_commit": "87238302209d654358dd64eb3972677e4cacf256",
-      "source_path": "skill/mcp-server-engineering/references/profiles/mcp-2026-07-28.md",
+      "source_path": "profiles/mcp-2026-07-28.md",
       "destination_path": "src/skills/mcp-boundary/references/profiles/mcp-2026-07-28.md",
       "sha256": "6386172e126d096cc68d2d3c5090500fe5c7f831a8399a4ca1d1d75ec412f8ac",
       "license": "Apache-2.0"
@@ -70,7 +70,7 @@
       "source_project": "MCP Server Engineering Field Guide",
       "source_repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
       "source_commit": "87238302209d654358dd64eb3972677e4cacf256",
-      "source_path": "skill/mcp-server-engineering/references/profiles/integration-guidance-2026-08-15.md",
+      "source_path": "profiles/integration-guidance-2026-08-15.md",
       "destination_path": "src/skills/mcp-boundary/references/profiles/integration-guidance-2026-08-15.md",
       "sha256": "90ea697d33437040e478e3b6b87f9764c86fed3a15ce866db8c3d99b18c8fa12",
       "license": "Apache-2.0"
@@ -130,7 +130,7 @@
     "origin": "Project-original design developed for MCP Boundary.",
     "approved_direction": "Offset + Porcelain",
     "public_scope": "Only the approved direction is included. Non-public comparison studies and alternatives are excluded.",
-    "license": "All rights reserved; see LICENSING.md section 4."
+    "license": "All rights reserved; see LICENSING.md section 6."
   },
   "workspace_imports": [
     {

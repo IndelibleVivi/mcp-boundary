@@ -58,6 +58,10 @@ jobs:
 
   lab:
     runs-on: ubuntu-latest
+    env:
+      CI: "true"
+      DO_NOT_TRACK: "1"
+      SKYBRIDGE_TELEMETRY_DISABLED: "1"
     defaults:
       run:
         working-directory: lab

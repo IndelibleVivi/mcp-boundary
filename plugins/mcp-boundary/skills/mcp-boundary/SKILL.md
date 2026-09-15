@@ -1,6 +1,6 @@
 ---
 name: mcp-boundary
-description: Complete MCP engineering work on the live path: build or repair servers and Apps, debug stdio or Streamable HTTP, migrate protocol/SDK/transport versions, reconcile source with package and activated runtime, inspect capability/effect authorization, and verify named-host claims without promoting weaker evidence. Use for real Model Context Protocol implementation, review, migration, runtime, or host-integration tasks. Do not use for ordinary non-MCP APIs, generic frontend work, or incidental product copy.
+description: "Complete MCP engineering work on the live path: build or repair servers and Apps, debug stdio or Streamable HTTP, migrate protocol/SDK/transport versions, reconcile source with package and activated runtime, inspect capability/effect authorization, and verify named-host claims without promoting weaker evidence. Use for real Model Context Protocol implementation, review, migration, runtime, or host-integration tasks. Do not use for ordinary non-MCP APIs, generic frontend work, or incidental product copy."
 ---
 
 # MCP Boundary

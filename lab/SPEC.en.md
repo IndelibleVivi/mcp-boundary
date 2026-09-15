@@ -44,9 +44,9 @@ The LLM/host supplies intent routing, tool invocation, and conversation context.
 
 ## Product context
 
-- **Method authority:** MCP Server Engineering Field Guide release `2.0.1`, pinned to commit `dcb2c61a060948f92d35918af43919bdfde8b01a`. This repository does not copy its protocol profiles, claim taxonomy, or general-purpose skill.
+- **Assessed method baseline:** MCP Server Engineering Field Guide release `2.0.1`, pinned to commit `dcb2c61a060948f92d35918af43919bdfde8b01a`. That pin records the baseline this Lab's profiles were assessed against. The continuing method and protocol-profile authority is the local `guide/` subtree of this repository; this subtree copies no protocol profiles, claim taxonomy, or general-purpose skill.
 - **Founding target evidence:** Refrain commit `3e25c4b61eacaad502b4942e285855a7c38871ca`. Refrain retains product, renderer, audio, deployment, and current-state authority.
-- **Workflow authority:** the canonical Softpowers project. This repository does not create a second general debugging/testing router.
+- **Workflow authority:** the root `AGENTS.md` of this repository, with `src/skills/mcp-boundary/` as the one active distributed skill. This subtree does not create a second general debugging/testing router or an installation path.
 - **Initial protocol profile:** `mcp-2026-07-28`, as assessed by Field Guide profile `2026-08-15`; host-specific compatibility observations name their own date and environment.
 - **Reachability:** the specimen defaults to stdio/loopback. It includes no public origin, account, OAuth, or Refrain-operated backend.
 - **Dependencies:** only pinned production/dev dependencies needed for the neutral MCP App and real Chromium harness. Refrain's renderer, audio engine, and sound assets are absent.
@@ -60,7 +60,7 @@ The LLM/host supplies intent routing, tool invocation, and conversation context.
 | Field Guide          | Stable methods, dated protocol/integration profiles, evidence grammar, and general skill         | Target runtime or named-host truth             |
 | Production Field Lab | Neutral executable specimen, host harness, scenario policy/definitions, package/runtime receipts | Refrain product truth or universal host claims |
 | Refrain              | Product source, exact renderer/resource, deployment, and owner acceptance                        | General MCP engineering method                 |
-| Softpowers           | General implementation/debug/verification workflow                                               | Field Lab scenarios or MCP protocol authority  |
+| MCP Boundary         | Repository contract, active `mcp-boundary` skill, plugin packaging, publication gates            | Field Lab scenarios or MCP protocol authority  |
 
 ## Initial complete outcome
 

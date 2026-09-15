@@ -8,19 +8,21 @@ Updated: 2026-08-29
 
 ## Classification
 
+Continuing authority: this subtree is maintained inside the MCP Boundary repository. The root `AGENTS.md` owns the repository contract, `src/skills/mcp-boundary/` is the one active distributed skill, and method/protocol profiles are read from the local `guide/` subtree. The rows below record this subtree's historical standalone source and the method baseline its evidence was assessed against.
+
 - Status: `public-source`
 - Version: `0.1.0-private.0`
-- Repository: `https://github.com/IndelibleVivi/mcp-app-production-fieldlab`
+- Historical source repository: `https://github.com/IndelibleVivi/mcp-app-production-fieldlab`
 - Visibility: public
 - Package publication: disabled by `package.json` `private: true`
 - Functional license: `SUL-1.0` (source-available; use-restricted)
 - Documentation license: `CC-BY-NC-SA-4.0`
 - License map: `LICENSING.md`
 - GitHub Release: none
-- Method authority: MCP Server Engineering Field Guide `2.0.1`, pinned to commit `dcb2c61a060948f92d35918af43919bdfde8b01a`
+- Assessed method baseline: MCP Server Engineering Field Guide `2.0.1`, pinned to commit `dcb2c61a060948f92d35918af43919bdfde8b01a`
 - Founding observation: Refrain commit `3e25c4b61eacaad502b4942e285855a7c38871ca`
 
-The Field Guide remains unchanged while this Lab has no versioned public release. A public source repository is not a companion release; `FIELDLAB-REGISTER.json` remains the one-way method/provenance link.
+The historical Field Guide pin records the release this Lab's selected profiles were assessed against; it is not a live method authority. A public source repository is not a companion release, and `FIELDLAB-REGISTER.json` now also records the continuing authority for this subtree.
 
 ## Implemented source surfaces
 

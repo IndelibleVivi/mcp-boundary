@@ -4,7 +4,7 @@
 
 [简体中文](./ARCHITECTURE.md)
 
-MCP App Production Field Lab does not introduce another framework. Its core job is to place authority, execution surfaces, and evidence ceilings in one explicit topology. The neutral specimen is realistic enough to exercise MCP resources, the App bridge, a browser sandbox, and package/runtime paths, yet small enough to keep Refrain product logic outside the repository. MCP Server Engineering Field Guide `2.0.1` remains the method authority.
+MCP App Production Field Lab does not introduce another framework. Its core job is to place authority, execution surfaces, and evidence ceilings in one explicit topology. The neutral specimen is realistic enough to exercise MCP resources, the App bridge, a browser sandbox, and package/runtime paths, yet small enough to keep Refrain product logic outside the repository. The local `guide/` subtree of this repository is the continuing method authority; the Field Guide `2.0.1` pin in the register records the assessed baseline.
 
 ![Field Lab front door: projection boundaries and local receipt chain](architecture/field-lab-evidence-chain.en.svg)
 
@@ -15,7 +15,7 @@ MCP App Production Field Lab does not introduce another framework. Its core job 
 ```mermaid
 flowchart LR
   FG[Field Guide v2.0.1<br/>method and dated profiles] -->|exact version pin| REG[FIELDLAB-REGISTER.json]
-  SP[Softpowers<br/>generic work method] -. guides execution .-> LAB
+  MB[MCP Boundary<br/>repository contract and active skill] -. guides execution .-> LAB
   RF[Refrain @ pinned commit<br/>product and runtime truth] -->|public-safe mechanism extraction| CASE[Founding case study]
   REG --> LAB[Production Field Lab<br/>neutral executable evidence]
   CASE --> LAB
@@ -33,8 +33,8 @@ flowchart LR
 
 The arrows do not transfer authority:
 
-- The Field Guide owns method/profile interpretation; the Lab owns executions against an exact selected profile set.
-- Softpowers owns general implementation/debugging/verification workflow; the Lab supplies MCP App-specific seams and receipts.
+- The local `guide/` subtree owns continuing method/profile interpretation and the root `AGENTS.md` owns the repository contract; this Lab owns executions against an exact selected profile set.
+- `src/skills/mcp-boundary/` owns the general implementation/debugging/verification workflow for this repository; the Lab supplies MCP App-specific seams and receipts.
 - Refrain owns its source, renderer, deployment, runtime, and acceptance truth; the case study extracts mechanisms only.
 - A local harness owns only its declared observable envelope. It cannot speak for ChatGPT or another named host, host account policy, discovery cache, or undocumented behavior.
 

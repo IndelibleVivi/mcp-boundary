@@ -44,9 +44,9 @@ LLM/host 提供 intent routing、tool invocation 与 conversation context；spec
 
 ## Product context
 
-- **Method authority**：MCP Server Engineering Field Guide release `2.0.1`，固定 commit `dcb2c61a060948f92d35918af43919bdfde8b01a`；本 repo 不复制其 protocol profiles、claim taxonomy 或通用 skill。
+- **Assessed method baseline**：MCP Server Engineering Field Guide release `2.0.1`，固定 commit `dcb2c61a060948f92d35918af43919bdfde8b01a`；该 pin 记录的是本 Lab profiles 所针对的 baseline。持续的方法与 protocol-profile 权威是本仓库的本地 `guide/` 子树；本子树不复制任何 protocol profiles、claim taxonomy 或通用 skill。
 - **Founding target evidence**：Refrain commit `3e25c4b61eacaad502b4942e285855a7c38871ca`；Refrain 保留其产品、renderer、audio、deployment 与 current-state authority。
-- **Workflow authority**：canonical Softpowers project；本 repo 不创建第二个通用 debugging/testing router。
+- **Workflow authority**：本仓库根目录 `AGENTS.md`，唯一活跃分发的 skill 是 `src/skills/mcp-boundary/`；本子树不创建第二个通用 debugging/testing router，也不提供安装路径。
 - **Initial protocol profile**：`mcp-2026-07-28`，as assessed by Field Guide profile `2026-08-15`；host-specific compatibility observations 另行注明日期与环境。
 - **Reachability**：specimen 默认 stdio/loopback；不包含 public origin、账户、OAuth 或 Refrain-operated backend。
 - **Dependencies**：只保留 neutral MCP App 与真实 Chromium harness 所需的 pinned production/dev dependencies；不引入 Refrain renderer、audio engine 或 sound assets。
@@ -60,7 +60,7 @@ LLM/host 提供 intent routing、tool invocation 与 conversation context；spec
 | Field Guide          | Stable method、dated protocol/integration profiles、evidence grammar、general skill              | Target runtime 或 named-host truth             |
 | Production Field Lab | Neutral executable specimen、host harness、scenario policy/definitions、package/runtime receipts | Refrain product truth 或 universal host claims |
 | Refrain              | Product source、exact renderer/resource、deployment 与 owner acceptance                          | General MCP engineering method                 |
-| Softpowers           | General implementation/debug/verification workflow                                               | Field Lab scenarios 或 MCP protocol authority  |
+| MCP Boundary         | Repository contract、活跃 `mcp-boundary` skill、plugin packaging 与 publication gates             | Field Lab scenarios 或 MCP protocol authority  |
 
 ## Initial complete outcome
 

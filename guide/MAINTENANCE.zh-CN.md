@@ -2,17 +2,22 @@
 
 简体中文 · [English](MAINTENANCE.md)
 
-Guide、protocol profiles、moving integration guidance、case-study receipts 与 skill 的 version pressure 不同。只更新最小 authoritative surface，再同步其 declared peers。
+Guide、protocol profiles、moving integration guidance、case-study receipts 与活跃 Boundary skill 的 version pressure 不同。只更新当前最小 authority，再同步仍然服务于现行产品的 peers。
+
+## 统一仓库状态
+
+本目录是 MCP Boundary 仓库中的 `guide/`。Repository contract 是根目录 `AGENTS.md`；唯一活跃分发的 skill 是 `../src/skills/mcp-boundary/`；初次导入的 pin 位于 `../provenance/UPSTREAMS.lock.json`。`skill/mcp-server-engineering/` 及其 `VERSION-REGISTER.json` bindings 已为本次候选冻结为历史 release 与 evaluation 材料。当前工作直接更新 `guide/` 与活跃 Boundary skill；不能从冻结 skill 重新生成，也不能写回冻结 skill。下方检查历史 package 的命令只验证保留的 snapshot。
 
 ## 出现新 MCP revision 时
 
 1. 核验 official specification index 与 changelog。
-2. 新建 profile，不要在旧 profile 中重写 historical requirements。
+2. 在 `profiles/` 下新增 English 与简体中文 peers，不要在旧 profile 中重写 historical requirements。
 3. 在有必要时，于新旧 profiles 同时记录 migration boundary。
-4. 更新 `VERSION-REGISTER.json`、`profiles/README*` 与 skill protocol selection/reference set。
-5. 运行 `sync_profile_mirrors.py --write VERSION-REGISTER.json`，把新的 canonical SHA-256 values 记录进 register，再用 `--check` 验证。这里的 hash 服务于真实 canonical-to-mirror identity decision，不是仪式性 checksum。
-6. 为 removed、added、changed behavior 加入 revision-bound tests 或 test guidance。
-7. 除非属于 normative protocol text，否则 host/product guidance 留在带日期的 moving profile。
+4. 更新 `profiles/README*`，以及 current truth 已改变的 Guide prose。
+5. 把选定 English profile 加入 `../src/skills/mcp-boundary/references/profiles/`，更新 active protocol-selection path 与 `../provenance/SOURCES.json`，再重新生成 plugin package。Root tests 会把 exact copies 与 canonical Guide profile bytes 绑定。
+6. 普通 current work 不更新已冻结的 `VERSION-REGISTER.json` 或历史 skill。只有历史材料记录的 evidence 确实错误时才修正，并记录 correction provenance。
+7. 为 removed、added、changed behavior 加入 revision-bound tests 或 test guidance。
+8. 除非属于 normative protocol text，否则 host/product guidance 留在带日期的 moving profile。
 
 ## Bilingual synchronization
 
@@ -31,7 +36,7 @@ Guide、protocol profiles、moving integration guidance、case-study receipts �
 
 ## Skill updates
 
-- `SKILL.md` 保持 thin controller；详细 method 放在 `references/`，可复用 output files 放在 `assets/templates/`。
+- 活跃 skill 的改动属于 `../src/skills/mcp-boundary/`，而不是已冻结的 `skill/mcp-server-engineering/`。其 `SKILL.md` 保持成比例的 controller；详细 method 放在 `references/`，可复用 output files 放在 `assets/`。
 - 只加载 task-relevant profile。
 - Reference 只有在会改变 agent behavior 时才加入。
 - 同时运行 official skill validator 与 repository-local structural validator。
@@ -72,6 +77,6 @@ python3 skill/mcp-server-engineering/scripts/scan_review_bundle.py .
 git diff --check
 ```
 
-上面的 bundled script paths 属于 repository maintenance。若 installed skill 正在检查另一个 repository，应相对该 skill package 的 `SKILL.md` 解析 scripts，不能在 target repository 中按同名文件碰运气。
+上方 version-register、mirror 与 historical-skill 命令只验证冻结的 `2.0.1` snapshot；它们不是 current active skill 的写入步骤。Current Guide 或活跃 skill 改动后，还要回到仓库根目录运行 `AGENTS.md` 中的 root plugin/workspace checks。若 installed skill 正在检查另一个 repository，应相对该 active skill package 的 `SKILL.md` 解析资源，不能在 target repository 中按同名文件碰运气。
 
 随后 inspect staged diff，确认没有 private continuity 或 raw logs 进入 repo，intentional commit、push、verify GitHub Actions；只有 remote commit 确定后再为 documented release 打 tag。

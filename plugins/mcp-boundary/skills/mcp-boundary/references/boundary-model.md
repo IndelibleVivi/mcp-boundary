@@ -46,3 +46,7 @@ Add a control only where the path can enforce it. Add a check only where its obs
 - Treating local browser rendering as evidence of named-host admission.
 - Treating a newer protocol profile as the meaning of an older declared baseline.
 - Treating an SDK upgrade as proof that every active caller uses the upgraded path.
+- Treating a deployment or topology change (proxy, replica count, tunnel) as a code-level control.
+- Treating a retried request as proof that the effect happened exactly once.
+- Reporting a domain failure as a protocol error, or a protocol violation as a domain result.
+- Treating a log line, trace, or transcript as reproduction of the effect it describes.
