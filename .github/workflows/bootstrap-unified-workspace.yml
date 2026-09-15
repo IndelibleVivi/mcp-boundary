@@ -11,6 +11,8 @@ jobs:
   import-and-verify:
     if: contains(github.event.head_commit.message, '[bootstrap-unified]')
     runs-on: ubuntu-latest
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
     steps:
       - uses: actions/checkout@v4
         with:
