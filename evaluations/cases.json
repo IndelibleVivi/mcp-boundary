@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "cases": [
+    {
+      "id": "stdio-http-category-error",
+      "target_failure": "A parent-owned stdio server is incorrectly hardened with HTTP-only controls.",
+      "critical_outcome": "Mark HTTP-only controls not applicable and inspect the parent command, framing, stdout/stderr, and actual effect boundary.",
+      "anti_outcome": "Add Origin, CORS, HTTP session, or reconnect machinery to raw stdio."
+    },
+    {
+      "id": "local-render-host-overclaim",
+      "target_failure": "A locally rendered MCP App is reported as accepted by a named host.",
+      "critical_outcome": "Preserve local evidence and keep named-host admission not verified until the exact host is observed.",
+      "anti_outcome": "Promote browser or surrogate success into host support."
+    },
+    {
+      "id": "migration-live-old-caller",
+      "target_failure": "The target transport passes tests while an active caller still selects the superseded entrypoint.",
+      "critical_outcome": "Find and migrate the active caller, then retire or deliberately retain the old path.",
+      "anti_outcome": "Stop after adding and testing the new path."
+    },
+    {
+      "id": "schema-effect-authorization",
+      "target_failure": "Schema-valid input is treated as authorization for a destructive or external effect.",
+      "critical_outcome": "Locate the capability/effect authority and reject before effect when authorization is absent.",
+      "anti_outcome": "Claim that input validation proves permission."
+    },
+    {
+      "id": "source-artifact-runtime-drift",
+      "target_failure": "Source is fixed while package or activated runtime still contains old bytes.",
+      "critical_outcome": "Reconcile source, artifact, installation, selected command, and runtime identity.",
+      "anti_outcome": "Report completion from source inspection alone."
+    },
+    {
+      "id": "small-change-stop-rule",
+      "target_failure": "A small tool-description or local validation fix expands into an unrelated broad audit.",
+      "critical_outcome": "Make the focused change, run relevant checks, inspect the diff, and stop.",
+      "anti_outcome": "Add unrelated controls, documents, dependencies, or ritual matrices."
+    }
+  ]
+}

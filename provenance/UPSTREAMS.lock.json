@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-15",
+  "workspace_version": "0.2.0-alpha.1",
+  "imports": [
+    {
+      "destination": "guide/",
+      "repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
+      "commit": "87238302209d654358dd64eb3972677e4cacf256",
+      "mode": "complete-tree-with-local-license",
+      "continuing_authority_after_import": "mcp-boundary"
+    },
+    {
+      "destination": "lab/",
+      "repository": "https://github.com/IndelibleVivi/mcp-app-production-fieldlab",
+      "commit": "5a6deebbac96089588658452a00f2c52bad0dd2f",
+      "mode": "complete-tree-with-local-license",
+      "continuing_authority_after_import": "mcp-boundary"
+    }
+  ],
+  "notes": [
+    "The imported trees retain their local licensing maps and historical claims.",
+    "The historical mcp-server-engineering skill is retained for provenance but is not distributed by the MCP Boundary plugin.",
+    "Further imports require an explicit lock-file change; this is not an automatic synchronization contract."
+  ]
+}

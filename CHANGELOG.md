@@ -1,12 +1,17 @@
 # Changelog
 
-## 0.1.0 — 2026-09-14
+## 0.2.0-alpha.1 — unified-workspace candidate
 
-- Add the first MCP Boundary pure-skill plugin package.
-- Add protocol, transport, boundary, evidence, migration, and MCP Apps references with file-level provenance.
-- Add a Codex-native manifest with composer/logo metadata and a repository marketplace catalog; keep the submission package free of the root manifest that selects Agent Plugins conversion.
-- Keep the skills-only upload package free of unsupported screenshot configuration and screenshot assets.
-- Add deterministic package build tooling, contract fixtures, static checks, and website browser checks.
-- Establish Offset + Porcelain as the sole public identity and publish the single-page official website through GitHub Pages.
+- Consolidate the installable plugin, complete MCP Server Engineering Field Guide, and executable MCP App Production Field Lab under one repository authority.
+- Keep one active distributed skill: `mcp-boundary`.
+- Rework the skill around the live caller-to-observer path, complete implementation, migration retirement, control order, package/runtime identity, named-host evidence, and proportionate stopping.
+- Add durable Boundary Run and migration inventory templates without requiring them for small tasks.
+- Register six behavior cases and a hard-outcome rubric for no-skill, historical-skill, and candidate comparisons.
+- Add pinned, reproducible complete-tree imports for the Guide and Lab, preserving their local licensing maps and historical evidence.
+- Expand CI to validate the plugin/workspace, Guide, and Lab independently.
 
-This entry describes repository version `0.1.0`. It does not claim installation, external directory publication, or named-host acceptance.
+This is a candidate branch. It does not update the stable external plugin listing or archive the former repositories.
+
+## 0.1.0
+
+- Publish the initial pure-skill MCP Boundary plugin, deterministic package, source provenance, website, and bounded static fixtures.

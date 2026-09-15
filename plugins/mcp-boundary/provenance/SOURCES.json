@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "recorded_at": "2026-09-14",
-  "project_version": "0.1.0",
+  "recorded_at": "2026-09-15",
+  "project_version": "0.2.0-alpha.1",
   "exact_copies": [
     {
       "source_project": "MCP Server Engineering Field Guide",
@@ -131,5 +131,21 @@
     "approved_direction": "Offset + Porcelain",
     "public_scope": "Only the approved direction is included. Non-public comparison studies and alternatives are excluded.",
     "license": "All rights reserved; see LICENSING.md section 4."
-  }
+  },
+  "workspace_imports": [
+    {
+      "destination": "guide/",
+      "repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
+      "commit": "87238302209d654358dd64eb3972677e4cacf256",
+      "mode": "complete-tree-with-local-license",
+      "continuing_authority_after_import": "mcp-boundary"
+    },
+    {
+      "destination": "lab/",
+      "repository": "https://github.com/IndelibleVivi/mcp-app-production-fieldlab",
+      "commit": "5a6deebbac96089588658452a00f2c52bad0dd2f",
+      "mode": "complete-tree-with-local-license",
+      "continuing_authority_after_import": "mcp-boundary"
+    }
+  ]
 }
