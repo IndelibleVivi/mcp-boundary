@@ -1,80 +1,124 @@
-<p align="center"><img src="brand/exports/logo.png" width="152" alt="MCP Boundary 标志"></p>
+<p align="center"><img src="brand/exports/logo.png" width="152" alt="MCP Boundary mark"></p>
 
 # MCP Boundary
 
-**让你的 MCP 真正站得住。**
+**让真实运行的 MCP 路径经得起检查。**
 
-MCP Boundary 是一个 pure-skill engineering plugin，用来 build、inspect、migrate、debug 和 verify MCP 系统。它先找到真正拥有行为的边界——protocol、SDK、transport、capability/effect 或 named host——再实施和验证，而不是把所有问题含混地叫作“MCP 合规”。
+MCP Boundary 现在是一项由三个表面组成的 MCP 工程项目：
 
-它不会启动 server、注册 app connector、要求 auth、发送 analytics 或加入 runtime dependency。整个 plugin 只有一个 Codex skill 和一组有明确日期、revision 与 provenance 的工程参考。
+- **Plugin**：可安装的 `$mcp-boundary` skill，负责实现、修复、迁移和验证真实 MCP 工程。
+- **Guide**：完整的版本感知方法、协议 profiles、案例和证据纪律。
+- **Lab**：可执行的 MCP App 标本与 receipt 机制，用来分别检验 source、process、artifact、runtime 和 host 层面的主张。
 
-[官网](https://indeliblevivi.github.io/mcp-boundary/) · [English README](README.md) · [官网源码](site/) · [当前状态](docs/current-state.md) · [许可边界](LICENSING.md)
+这是一个有意设计成单仓的项目。使用者只安装一个插件；维护者在同一个地方改进执行方法、保留深层解释、运行边界实验，也检验 skill 是否真正改善 agent 的结果。
 
-## 它解决什么
+插件本身保持轻量：它不启动 server、不注册 app connector、不要求认证、不发送 analytics 或 telemetry，也不引入 runtime dependency。Guide 与 Lab 都是仓库源码：可执行的 Lab 标本是工程证据，不是分发的插件运行时。
 
-很多 MCP 问题不是语法错，而是 boundary category error：把 HTTP 控制直接套到 parent-owned stdio；把 local render 写成 named-host support；用新协议 profile 重写历史 baseline；或把 tool schema 当成执行副作用的 authorization。
+> `0.2.0-alpha.1` 是尚未发布的源码版本。对外公开发布的稳定插件仍是 `0.1.0`，直到正式发布。
 
-MCP Boundary 会要求 agent：
+[官网](https://indeliblevivi.github.io/mcp-boundary/) · [English](README.md) · [统一工作区设计](docs/UNIFIED-WORKSPACE.md) · [当前状态](docs/current-state.md) · [许可](LICENSING.md)
 
-- 先识别 declared / negotiated protocol、实际 SDK 和 active code path；
-- 沿 transport、handler 与 downstream effect 追踪 ownership；
-- implementation 请求必须做出完整可用的 change，不能偷换成报告；
-- migration 必须分别处理 target、retained compatibility 与 retired behavior；
-- 每个结论都绑定能证明它的 observer；
-- 把 `verified`、`contradicted`、`not verified`、`not applicable` 用在具体 claim 上，而不是当万能进度条。
+## 使用插件
 
-## 从这个 repo 安装
-
-使用支持 Agent Plugin marketplace 的当前 Codex CLI：
+在支持 Agent Plugin marketplace 的当前 Codex CLI 中：
 
 ```bash
 codex plugin marketplace add IndelibleVivi/mcp-boundary --ref main
 codex plugin add mcp-boundary@mcp-boundary
 ```
 
-安装后重启 Codex。可分发 package 已提交在 [`plugins/mcp-boundary/`](plugins/mcp-boundary/)，唯一 manifest 是 canonical `.codex-plugin/plugin.json`，其中明确声明 composer icon 与 logo。Package 刻意不含 root `plugin.json`，因为该文件名会让提交器选择 Agent Plugins conversion path，而不是直接使用 Codex-native manifest。
+这条仓库安装命令取得的是所选 Git ref 上的源码版本，与外部已发布的稳定 listing 不同。若要在候选版进入 `main` 前检查它，将 `main` 替换成对应分支名。安装后重启 Codex。
 
-当前 ZIP submission surface 只接收 skills，因此 manifest 不声明 `interface.screenshots`，分发包也不携带 screenshot assets；公开官网截图仍保留在 [`previews/`](previews/) 中。
-
-“源码已公开”“本地已安装”“外部 plugin directory 已收录”是三个不同状态；实际状态以 [docs/current-state.md](docs/current-state.md) 为准。
-
-## 调用示例
+示例：
 
 ```text
-Use $mcp-boundary to inspect this MCP implementation against its actual protocol,
-transport, runtime, and intended host. Do not edit the repository.
+使用 $mcp-boundary 修复这个 MCP 接入。沿真实 caller、entrypoint、
+transport、handler、package 与 runtime 追查；完成修复，并在真正能证明
+该行为的边界运行检查。
 ```
 
 ```text
-Use $mcp-boundary to migrate this server to the selected protocol revision.
-Preserve evidenced callers, retire the superseded path, and verify each boundary.
+使用 $mcp-boundary 将这个 server 迁移到选定协议版本。保留有证据支持的
+caller，退休旧路径，并区分 source、process、artifact、runtime 与
+named-host 的结果。
 ```
 
-它允许在明显的 MCP engineering task 中 implicit invocation，但不应因为普通 API、泛 frontend work 或随口提到 MCP 就触发。
+skill 可以为明确的 MCP 工程任务隐式触发；普通 API、泛前端工作和仅仅提到 MCP 的文案不应触发它。
+
+## 仓库结构
+
+```text
+src/skills/mcp-boundary/   唯一维护并发布的 skill 源码与参考资料
+plugins/mcp-boundary/      自动生成的可分发插件
+
+guide/                     完整 Field Guide：方法、profiles、案例与证据
+lab/                       可执行 MCP App production field lab
+evaluations/               对 skill 行为进行比较的案例与评分规则
+
+scripts/                   插件打包与工作区验证工具
+tools/guide-validation/    现役 Guide validators
+tests/                     插件与统一工作区契约
+site/                      对外官网
+provenance/                精确复制与上游导入记录
+```
+
+只有 `src/skills/mcp-boundary/` 是活跃分发的 skill。`guide/skill/mcp-server-engineering/` 是为候选版冻结的历史发布与评估材料，只用于来源与复现；它不是推荐的安装路径，插件 manifest 也不会暴露它。
+
+## skill 实际改变什么
+
+MCP 工作经常停在错误的一层：源码已经正确，安装产物仍旧；本地页面能渲染，named host 却拒绝；新 transport 测试通过，caller 仍然进入旧路径；tool schema 合法，实际 effect 仍未被授权。
+
+MCP Boundary 会要求 agent：
+
+1. 固定用户真正要的结果和获准操作的范围；
+2. 从 caller 或 host 一直追到返回观察结果的活跃路径；
+3. 找到真正拥有该行为的层；
+4. 在活跃路径上完成修改；
+5. 运行能够推翻关键错误行为的最窄检查；
+6. 关闭迁移和 runtime 缺口，同时保留证据上限。
+
+它也有明确停止条件：清楚的小改动保持小，不扩张成仪式化全面审计。
 
 ## 构建与验证
+
+插件和统一工作区：
 
 ```bash
 python3 scripts/build_plugin.py --write
 python3 scripts/build_plugin.py --check
 python3 -m unittest discover -s tests -p 'test_*.py'
-python3 tests/static_check.py
-skill-validate src/skills/mcp-boundary
-skill-validate plugins/mcp-boundary/skills/mcp-boundary
-python3 scripts/package_plugin.py
+python3 tests/static_check.py --no-report
 ```
 
-最后一条只在 ignored `dist/` 里生成 deterministic ZIP 和 SHA-256 记录；若 package 含有会触发 conversion 的 root `plugin.json`，或 Codex manifest 的 composer icon / logo 无法解析到包内文件，打包都会直接失败。它不会上传或安装。浏览器检查范围见 [tests/CHECKS.md](tests/CHECKS.md)。
+Guide：
 
-## Privacy 与 licensing
+```bash
+cd guide
+python -m unittest discover -v
+python ../tools/guide-validation/validate_version_register.py VERSION-REGISTER.json
+python ../tools/guide-validation/check_profile_mirrors.py VERSION-REGISTER.json
+python ../tools/guide-validation/check_bilingual_coverage.py .
+python tools/validate_evaluation_corpus.py .
+python ../tools/guide-validation/check_markdown_links.py .
+```
 
-Plugin 本身只是本地 instruction/reference content：没有 developer-operated service、telemetry、账号、credential 或网络 endpoint。Agent 依照用户任务调用的 repo tool、browser、host 或外部系统仍各自拥有独立的数据与授权边界，详见 [PRIVACY.md](PRIVACY.md)。
+Lab：
 
-这个 repo 使用 layered licensing，并不是一张 MIT 式总授权：
+```bash
+cd lab
+npm ci
+npm run check
+```
 
-- project-original functional material：`SUL-1.0`；
-- project-original documentation：`CC BY-NC-SA 4.0`；
-- Field Guide 精确复制的 reference：`Apache-2.0`；
-- Offset identity 与官网视觉表达：保留全部权利。
+Lab 仍然是本地 surrogate，除非真的运行了某个明确外部 host。仓库检查通过无法证明 named-host admission、production activation、owner acceptance，也无法单独证明模型行为普遍改善。
 
-精确到文件的 map 见 [LICENSING.md](LICENSING.md)。
+## 合并来源
+
+第一次单仓导入固定到：
+
+- MCP Server Engineering Field Guide commit `87238302209d654358dd64eb3972677e4cacf256`；
+- MCP App Production Field Lab commit `5a6deebbac96089588658452a00f2c52bad0dd2f`。
+
+详见 [`provenance/UPSTREAMS.lock.json`](provenance/UPSTREAMS.lock.json)。`guide/` 与 `lab/` 已成为本仓库正常维护的子树，不存在重新导入或同步路径。本仓库是统一项目的开发权威；原仓库暂时保留为未归档的历史来源，后续归档必须单独、明确地决定。
+
+由 Faye & Cove 共同创作。

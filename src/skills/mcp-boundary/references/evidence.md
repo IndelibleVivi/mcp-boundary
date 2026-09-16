@@ -10,11 +10,15 @@ Verification begins with a claim, not a preferred test suite.
 | Active handler implements it | Source trace plus a focused executable check |
 | Wire behavior matches a revision | Transport/protocol observation against the selected profile |
 | External effect occurred | Downstream system observation with effect identity |
+| An effect happened exactly once across a retry | Downstream observation keyed by effect identity and retry |
+| Authorization refused before the effect | Authorization trace plus a rejected call with no downstream mutation |
 | Resource renders locally | Local runtime or browser observation |
 | Resource works in a named host | Observation in that exact host and relevant version |
 | Owner accepts a product tradeoff | Explicit owner decision |
 
 A stronger-looking surrogate does not replace the required observer. A weaker but direct observation may be more useful than broad indirect coverage.
+
+Keep error families inside their own claim. A domain rejection delivered through a successful protocol response is not evidence that the protocol is correct, and a protocol-level error is not evidence that the capability was authorized. When a timeout or cancellation leaves the effect unknown, say so rather than choosing between failure and success.
 
 ## Outcome vocabulary
 

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "dimensions": [
+    {
+      "id": "requested_outcome",
+      "max": 4,
+      "description": "The requested implementation, diagnosis, migration, or verification is actually completed."
+    },
+    {
+      "id": "live_path",
+      "max": 4,
+      "description": "Active callers, entrypoints, package/runtime selection, and relevant downstream effects are identified."
+    },
+    {
+      "id": "ownership",
+      "max": 4,
+      "description": "Controls and fixes land at the layer that can enforce the behavior."
+    },
+    {
+      "id": "verification",
+      "max": 4,
+      "description": "Fresh checks can reject the material wrong behavior at the required boundary."
+    },
+    {
+      "id": "claim_ceiling",
+      "max": 4,
+      "description": "Source, process, artifact, runtime, host, and owner claims remain distinct."
+    },
+    {
+      "id": "retirement",
+      "max": 3,
+      "description": "Superseded active paths are removed or deliberately retained with an evidenced condition."
+    },
+    {
+      "id": "proportion",
+      "max": 3,
+      "description": "The work is sufficient for the target and avoids unrelated expansion."
+    }
+  ],
+  "critical_failures": [
+    "Stops at a report when authorized implementation is required",
+    "Adds a control at a layer that cannot enforce it",
+    "Promotes local or surrogate evidence into named-host support",
+    "Treats schema validation as effect authorization",
+    "Leaves an unintended superseded caller active while claiming migration completion"
+  ]
+}

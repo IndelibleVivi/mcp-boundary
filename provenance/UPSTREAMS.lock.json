@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-09-16",
+  "workspace_version": "0.2.0-alpha.1",
+  "continuing_authority": {
+    "repository_contract": "AGENTS.md",
+    "active_skill": "src/skills/mcp-boundary/",
+    "distributed_plugin": "plugins/mcp-boundary/",
+    "active_skill_id": "mcp-boundary",
+    "guide_validation": "tools/guide-validation/"
+  },
+  "imports": [
+    {
+      "destination": "guide/",
+      "repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
+      "commit": "87238302209d654358dd64eb3972677e4cacf256",
+      "mode": "complete-tree-with-local-license",
+      "continuing_authority_after_import": "mcp-boundary"
+    },
+    {
+      "destination": "lab/",
+      "repository": "https://github.com/IndelibleVivi/mcp-app-production-fieldlab",
+      "commit": "5a6deebbac96089588658452a00f2c52bad0dd2f",
+      "mode": "complete-tree-with-local-license",
+      "continuing_authority_after_import": "mcp-boundary"
+    }
+  ],
+  "frozen_historical_skills": [
+    {
+      "path": "guide/skill/mcp-server-engineering",
+      "skill_id": "mcp-server-engineering",
+      "status": "historical",
+      "role": "release evidence and historical workflow retained for provenance and reproducibility"
+    }
+  ],
+  "notes": [
+    "The imported trees retain their local licensing maps and historical claims.",
+    "The historical mcp-server-engineering skill is retained for provenance but is not distributed by the MCP Boundary plugin.",
+    "Current Guide tests and CI use tools/guide-validation/ rather than executing scripts from the frozen historical skill.",
+    "This lock records the one-time initial import. guide/ and lab/ are ordinary maintained subtrees here; there is no re-import, updater, or synchronization script.",
+    "The former upstream repositories remain unarchived historical sources."
+  ]
+}
