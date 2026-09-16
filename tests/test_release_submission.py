@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import re
 import unittest
 
 
@@ -35,20 +36,22 @@ class ReleaseSubmissionTests(unittest.TestCase):
 
     def test_submission_targets_existing_plugin_and_skills_only(self) -> None:
         text = SUBMISSION.read_text(encoding="utf-8")
+        lower = text.lower()
         self.assertIn("plugins_6aa72e81844081918770991deb1dbfc8", text)
         self.assertIn("Submission type: **Skills only**", text)
         self.assertIn("dist/mcp-boundary-0.2.0.zip", text)
-        self.assertIn("create an update/new version for the existing MCP Boundary plugin", text)
-        self.assertNotIn("create a second public plugin", text.lower())
+        self.assertIn(
+            "create an update/new version for the existing mcp boundary plugin",
+            lower,
+        )
+        self.assertNotIn("create a second public plugin", lower)
 
     def test_submission_has_five_positive_and_three_negative_cases(self) -> None:
         text = SUBMISSION.read_text(encoding="utf-8")
-        for index in range(1, 6):
-            self.assertIn(f"### P{index} —", text)
-        for index in range(1, 4):
-            self.assertIn(f"### N{index} —", text)
-        self.assertEqual(text.count("### P"), 5)
-        self.assertEqual(text.count("### N"), 3)
+        positive = re.findall(r"^### P([1-5]) —", text, flags=re.MULTILINE)
+        negative = re.findall(r"^### N([1-3]) —", text, flags=re.MULTILINE)
+        self.assertEqual(positive, ["1", "2", "3", "4", "5"])
+        self.assertEqual(negative, ["1", "2", "3"])
 
     def test_public_site_describes_current_source_without_directory_overclaim(self) -> None:
         text = SITE.read_text(encoding="utf-8")
