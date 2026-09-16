@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "recorded_at": "2026-09-16",
-  "project_version": "0.2.0-alpha.1",
+  "project_version": "0.2.0",
   "exact_copies": [
     {
       "source_project": "MCP Server Engineering Field Guide",
@@ -171,6 +171,11 @@
       "url": "https://developers.openai.com/plugins/build/skills",
       "assessed_at": "2026-09-14",
       "purpose": "Skills-only plugin discovery and packaging."
+    },
+    {
+      "url": "https://developers.openai.com/plugins/deploy/submission",
+      "assessed_at": "2026-09-16",
+      "purpose": "Existing-plugin version update, review test cases, release notes, approval, and developer publication workflow."
     },
     {
       "url": "https://modelcontextprotocol.io/specification/2026-07-28",
