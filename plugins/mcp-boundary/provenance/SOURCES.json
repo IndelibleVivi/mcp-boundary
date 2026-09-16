@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "recorded_at": "2026-09-16",
-  "project_version": "0.2.0-alpha.1",
+  "project_version": "0.2.0",
   "exact_copies": [
     {
       "source_project": "MCP Server Engineering Field Guide",
@@ -18,7 +18,7 @@
       "source_commit": "87238302209d654358dd64eb3972677e4cacf256",
       "source_path": "skill/mcp-server-engineering/references/mcp-apps.md",
       "destination_path": "src/skills/mcp-boundary/references/mcp-apps.md",
-      "sha256": "9c43babf898df67288819fb4509d0da88ca486354cac38c9a96fda44aacce38f",
+      "sha256": "9c43babf898df67288819fb45090da88ca486354cac38c9a96fda44aacce38f",
       "license": "Apache-2.0"
     },
     {
@@ -171,6 +171,11 @@
       "url": "https://developers.openai.com/plugins/build/skills",
       "assessed_at": "2026-09-14",
       "purpose": "Skills-only plugin discovery and packaging."
+    },
+    {
+      "url": "https://developers.openai.com/plugins/deploy/submission",
+      "assessed_at": "2026-09-16",
+      "purpose": "Existing-plugin version update, review test cases, release notes, approval, and developer publication workflow."
     },
     {
       "url": "https://modelcontextprotocol.io/specification/2026-07-28",
