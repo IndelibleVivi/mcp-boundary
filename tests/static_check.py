@@ -57,6 +57,10 @@ for name, dimensions in expected_pngs.items():
     assert png_dimensions(ROOT / name) == dimensions, name
 passed("public PNG dimensions", "Composer, logo, icon, and social-card dimensions match the manifest/design contract.")
 
+for name in ("social-card.png", "mark-accent.svg", "logo.png"):
+    assert (ROOT / "site/assets" / name).read_bytes() == (ROOT / "brand/exports" / name).read_bytes(), name
+passed("site identity asset parity", "Generated site identity assets match the approved brand exports byte-for-byte.")
+
 
 class Paths(HTMLParser):
     def __init__(self) -> None:
@@ -70,20 +74,42 @@ class Paths(HTMLParser):
                 self.references.append((tag, field, values[field] or "", values.get("rel") or ""))
 
 
-for path in (ROOT / "site/index.html", ROOT / "mcp-boundary-demo.html"):
+site_pages = (
+    ROOT / "site/index.html",
+    ROOT / "site/library.html",
+    ROOT / "site/zh/index.html",
+    ROOT / "site/zh/library.html",
+)
+expected_canonicals = {
+    ROOT / "site/index.html": "https://indeliblevivi.github.io/mcp-boundary/",
+    ROOT / "site/library.html": "https://indeliblevivi.github.io/mcp-boundary/library.html",
+    ROOT / "site/zh/index.html": "https://indeliblevivi.github.io/mcp-boundary/zh/",
+    ROOT / "site/zh/library.html": "https://indeliblevivi.github.io/mcp-boundary/zh/library.html",
+    ROOT / "mcp-boundary-demo.html": "https://indeliblevivi.github.io/mcp-boundary/",
+}
+alternate_urls = {
+    "https://indeliblevivi.github.io/mcp-boundary/",
+    "https://indeliblevivi.github.io/mcp-boundary/library.html",
+    "https://indeliblevivi.github.io/mcp-boundary/zh/",
+    "https://indeliblevivi.github.io/mcp-boundary/zh/library.html",
+}
+for path in (*site_pages, ROOT / "mcp-boundary-demo.html"):
     document = Paths()
     document.feed(path.read_text(encoding="utf-8"))
     for tag, _, reference, rel in document.references:
         if reference.startswith(("#", "https://", "http://", "data:", "blob:")):
             if reference.startswith(("https://", "http://")) and tag == "link":
-                assert rel == "canonical", (path, tag, rel, reference)
-                assert reference == "https://indeliblevivi.github.io/mcp-boundary/", (path, reference)
+                assert rel in {"canonical", "alternate"}, (path, tag, rel, reference)
+                if rel == "canonical":
+                    assert reference == expected_canonicals[path], (path, reference)
+                else:
+                    assert reference in alternate_urls, (path, reference)
             elif tag not in {"a", "meta"}:
                 assert not reference.startswith(("https://", "http://")), (path, tag, reference)
             continue
         target = (path.parent / reference.split("?", 1)[0].split("#", 1)[0]).resolve()
         assert target.is_file(), (path, reference)
-passed("static resources and links", "Local site resources resolve and only anchors target external origins.")
+passed("static resources and links", "All four site routes and the portable page resolve local resources; only anchors and canonical/alternate metadata target external origins.")
 
 standalone = (ROOT / "mcp-boundary-demo.html").read_text(encoding="utf-8")
 assert not re.search(r'<script\b[^>]*\bsrc=', standalone, re.IGNORECASE)
@@ -94,10 +120,13 @@ passed("portable standalone", "CSS, JavaScript, favicon, and social metadata ima
 identity = (ROOT / "site/assets/identity.js").read_text(encoding="utf-8")
 assert '"id": "offset"' in identity and '"id": "porcelain"' in identity
 assert '"marks"' not in identity and '"palettes"' not in identity
+for page in site_pages:
+    source = page.read_text(encoding="utf-8")
+    assert "identity.js" in source and "data-mark" in source, page
 app = (ROOT / "site/app.js").read_text(encoding="utf-8")
 for network_api in ("fetch(", "XMLHttpRequest", "WebSocket(", "EventSource(", "sendBeacon("):
     assert network_api not in app, network_api
-passed("fixed identity and no programmatic network API", "The website cannot switch identity and declares no programmatic request primitive.")
+passed("fixed identity and no programmatic network API", "All four routes load the approved identity, cannot switch it, and declare no programmatic request primitive.")
 
 
 def luminance(color: str) -> float:
@@ -127,7 +156,7 @@ contrast.append({"foreground": "white", "background": "accent", "ratio": round(b
 passed("selected text-token contrast", "Core Porcelain text pairings meet 4.5:1 numerically; this is not a full accessibility audit.")
 
 report = {
-    "scope": "Selected public identity, static resource integrity, standalone portability, no-network source guard, and token contrast. No model, plugin installation, host, or deployment claims.",
+    "scope": "Selected public identity, four-route static resource integrity, standalone portability, no-network source guard, and token contrast. No model, plugin installation, host, or deployment claims.",
     "checks": checks,
     "passed": len(checks),
     "contrast": contrast,

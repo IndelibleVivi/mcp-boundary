@@ -12,6 +12,7 @@ Last reviewed: 2026-09-16
 | Guide import | Pinned to `87238302209d654358dd64eb3972677e4cacf256` | Initial import only; there is no re-import or synchronization path |
 | Lab import | Pinned to `5a6deebbac96089588658452a00f2c52bad0dd2f` | Executable local specimen; its checks do not establish arbitrary production or named-host behavior |
 | Plugin package | Generated from `src/` | `plugins/mcp-boundary/` contains the one distributed skill `mcp-boundary` and no Guide or Lab runtime |
+| Website candidate | Four-route bilingual source, not deployed | `site/` contains English/Chinese product pages and a filterable Guide/Lab library; the currently published Pages site remains the stable public surface until this branch is merged and deployed |
 | Behavior evaluation | Cases and rubric registered | No-skill / historical-skill / candidate runs are not yet executed; comparative improvement remains not verified |
 | External plugin directory | Stable listing exists | Updating the external listing remains a deliberate release action after review |
 | Former repositories | Historical sources, not archived | Redirect and archive work follows acceptance of the unified repository; no irreversible action in this candidate |

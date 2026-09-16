@@ -58,7 +58,7 @@ evaluations/               对 skill 行为进行比较的案例与评分规则
 scripts/                   插件打包与工作区验证工具
 tools/guide-validation/    现役 Guide validators
 tests/                     插件与统一工作区契约
-site/                      对外官网
+site/                      中英文产品官网与 Guide/Lab 工程资料库
 provenance/                精确复制与上游导入记录
 ```
 

@@ -108,7 +108,7 @@ class DistributablePackageTests(unittest.TestCase):
             self.assertEqual(packaged.read_bytes(), source.read_bytes())
             self.assertEqual(record["license"], "Apache-2.0")
 
-    def test_public_website_has_one_approved_identity_and_one_page(self) -> None:
+    def test_public_website_has_one_approved_identity_and_four_routes(self) -> None:
         marks = json.loads((ROOT / "brand/marks.json").read_text(encoding="utf-8"))
         tokens = json.loads((ROOT / "brand/tokens.json").read_text(encoding="utf-8"))
         self.assertEqual(marks["status"], "approved")
@@ -117,13 +117,28 @@ class DistributablePackageTests(unittest.TestCase):
         self.assertEqual(tokens["status"], "approved")
         self.assertEqual(tokens["selected"], tokens["palette"]["id"])
         self.assertNotIn("palettes", tokens)
-        self.assertEqual([path.name for path in (ROOT / "site").glob("*.html")], ["index.html"])
+        pages = sorted(
+            path.relative_to(ROOT / "site").as_posix()
+            for path in (ROOT / "site").rglob("*.html")
+        )
+        self.assertEqual(
+            pages,
+            ["index.html", "library.html", "zh/index.html", "zh/library.html"],
+        )
         self.assertEqual([path.name for path in ROOT.glob("mcp-boundary*.html")], ["mcp-boundary-demo.html"])
-        page = (ROOT / "site/index.html").read_text(encoding="utf-8")
+        page_sources = [
+            (ROOT / "site" / page).read_text(encoding="utf-8")
+            for page in pages
+        ]
         app = (ROOT / "site/app.js").read_text(encoding="utf-8")
         for retired_control in ("data-open-studio", "data-mark-choices", "data-palette-choices"):
-            self.assertNotIn(retired_control, page + app)
-        self.assertNotIn("URLSearchParams", app)
+            self.assertNotIn(retired_control, "".join(page_sources) + app)
+        for page in page_sources:
+            self.assertIn("identity.js", page)
+            self.assertIn("data-mark", page)
+        self.assertIn("URLSearchParams", app)
+        self.assertIn("data-workflow", page_sources[0])
+        self.assertIn("data-resource", page_sources[1])
 
     def test_generated_package_matches_author_sources(self) -> None:
         result = subprocess.run(

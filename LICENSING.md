@@ -50,7 +50,7 @@ Except for third-party rights and functional code separately licensed above, no 
 This reserved material includes:
 
 - `brand/`;
-- `site/index.html`, `site/styles.css`, and static image/SVG assets under `site/assets/`;
+- `site/`, including the bilingual pages, engineering library, interaction code, styles, and static assets;
 - `previews/`;
 - `mcp-boundary-demo.html` as a combined visual publication;
 - identity assets copied into `plugins/mcp-boundary/assets/`.

@@ -89,16 +89,14 @@ def text(x: int, y: int, value: str, size: int = 16, fill: str | None = None, se
     return f'<text x="{x}" y="{y}" fill="{fill or palette["ink"]}" font-family="{family}" font-size="{size}" {extra}>{html.escape(value)}</text>'
 
 
-social_inner = f'<rect width="1200" height="630" fill="{palette["bg"]}"/><path d="M64 110H1136M64 542H1136" stroke="{palette["line"]}"/>'
-social_inner += f'<g transform="translate(58 40) scale(.8)">{geometry(palette["ink"], palette["accent"])}</g>'
-social_inner += text(122, 77, "MCP Boundary", 27, serif=True)
-social_inner += text(1136, 75, "SOURCE PACKAGE 0.1.0", 12, palette["muted"], extra='text-anchor="end" letter-spacing="2"')
-social_inner += text(64, 235, "Make your MCP", 78, serif=True)
-social_inner += text(64, 332, "hold up.", 94, palette["accent"], serif=True, extra='font-style="italic"')
-social_inner += text(68, 414, "Build. Inspect. Migrate. Verify the actual boundary.", 22, palette["muted"])
-social_inner += f'<g transform="translate(887 186) scale(3.5)">{geometry(palette["ink"], palette["accent"])}</g>'
-social_inner += text(64, 586, "A pure-skill engineering plugin / Codex-first", 16, palette["muted"])
-social_inner += text(1136, 586, "Faye & Cove", 16, palette["muted"], extra='text-anchor="end"')
+social_inner = f'<rect width="1200" height="630" fill="{palette["bg"]}"/><path d="M76 502H1124" stroke="{palette["strongLine"]}"/>'
+social_inner += f'<g transform="translate(70 50) scale(.62)">{geometry(palette["ink"], palette["accent"])}</g>'
+social_inner += text(126, 83, "MCP Boundary", 29, serif=True, extra='letter-spacing="-.8"')
+social_inner += text(1124, 80, "v0.2.0-alpha.1", 13, palette["accent"], extra='text-anchor="end" letter-spacing="1"')
+social_inner += text(76, 258, "MCP engineering.", 81, serif=True, extra='letter-spacing="-3"')
+social_inner += text(76, 362, "On the real path.", 86, palette["accent"], serif=True, extra='font-style="italic" letter-spacing="-3"')
+social_inner += text(76, 551, "Build · Repair · Migrate · Inspect · Verify", 13, palette["muted"], extra='letter-spacing=".4"')
+social_inner += text(1124, 551, "Plugin / Guide / Lab", 13, palette["accent"], extra='text-anchor="end" letter-spacing=".4"')
 social = exports / "social-card.svg"
 write(social, svg(social_inner, 1200, 630, "0 0 1200 630", "MCP Boundary social card"))
 try:

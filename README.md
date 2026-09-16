@@ -58,7 +58,7 @@ evaluations/               behavior cases and rubric for the installed skill
 scripts/                   plugin packaging and workspace validation
 tools/guide-validation/    maintained Guide validators
 tests/                     plugin and unified-workspace contracts
-site/                      public one-page product site
+site/                      bilingual product site and Guide/Lab library
 provenance/                exact-copy and upstream-import records
 ```
 
