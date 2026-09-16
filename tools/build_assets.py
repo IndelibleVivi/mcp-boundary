@@ -92,7 +92,7 @@ def text(x: int, y: int, value: str, size: int = 16, fill: str | None = None, se
 social_inner = f'<rect width="1200" height="630" fill="{palette["bg"]}"/><path d="M76 502H1124" stroke="{palette["strongLine"]}"/>'
 social_inner += f'<g transform="translate(70 50) scale(.62)">{geometry(palette["ink"], palette["accent"])}</g>'
 social_inner += text(126, 83, "MCP Boundary", 29, serif=True, extra='letter-spacing="-.8"')
-social_inner += text(1124, 80, "v0.2.0-alpha.1", 13, palette["accent"], extra='text-anchor="end" letter-spacing="1"')
+social_inner += text(1124, 80, "v0.2.0", 13, palette["accent"], extra='text-anchor="end" letter-spacing="1"')
 social_inner += text(76, 258, "MCP engineering.", 81, serif=True, extra='letter-spacing="-3"')
 social_inner += text(76, 362, "On the real path.", 86, palette["accent"], serif=True, extra='font-style="italic" letter-spacing="-3"')
 social_inner += text(76, 551, "Build · Repair · Migrate · Inspect · Verify", 13, palette["muted"], extra='letter-spacing=".4"')

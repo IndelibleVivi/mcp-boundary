@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "recorded_at": "2026-09-16",
-  "workspace_version": "0.2.0-alpha.1",
+  "workspace_version": "0.2.0",
   "continuing_authority": {
     "repository_contract": "AGENTS.md",
     "active_skill": "src/skills/mcp-boundary/",

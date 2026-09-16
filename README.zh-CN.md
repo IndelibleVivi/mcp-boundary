@@ -4,7 +4,7 @@
 
 **让真实运行的 MCP 路径经得起检查。**
 
-MCP Boundary 现在是一项由三个表面组成的 MCP 工程项目：
+MCP Boundary 是一项由三个相连表面组成的 MCP 工程项目：
 
 - **Plugin**：可安装的 `$mcp-boundary` skill，负责实现、修复、迁移和验证真实 MCP 工程。
 - **Guide**：完整的版本感知方法、协议 profiles、案例和证据纪律。
@@ -14,9 +14,9 @@ MCP Boundary 现在是一项由三个表面组成的 MCP 工程项目：
 
 插件本身保持轻量：它不启动 server、不注册 app connector、不要求认证、不发送 analytics 或 telemetry，也不引入 runtime dependency。Guide 与 Lab 都是仓库源码：可执行的 Lab 标本是工程证据，不是分发的插件运行时。
 
-> `0.2.0-alpha.1` 是尚未发布的源码版本。对外公开发布的稳定插件仍是 `0.1.0`，直到正式发布。
+> `0.2.0` 已在公开插件目录上线。仓库源码与目录产物仍是两个独立的 release surface；确切的观察状态见当前状态记录。
 
-[官网](https://indeliblevivi.github.io/mcp-boundary/) · [English](README.md) · [统一工作区设计](docs/UNIFIED-WORKSPACE.md) · [当前状态](docs/current-state.md) · [许可](LICENSING.md)
+[官网](https://indeliblevivi.github.io/mcp-boundary/) · [English](README.md) · [统一工作区设计](docs/UNIFIED-WORKSPACE.md) · [当前状态](docs/current-state.md) · [0.2.0 发布记录](docs/submission/0.2.0.md) · [许可](LICENSING.md)
 
 ## 使用插件
 
@@ -27,7 +27,7 @@ codex plugin marketplace add IndelibleVivi/mcp-boundary --ref main
 codex plugin add mcp-boundary@mcp-boundary
 ```
 
-这条仓库安装命令取得的是所选 Git ref 上的源码版本，与外部已发布的稳定 listing 不同。若要在候选版进入 `main` 前检查它，将 `main` 替换成对应分支名。安装后重启 Codex。
+这条仓库安装命令取得的是所选 Git ref 上的源码版本，与外部目录中已发布的产物不同。若要在候选版进入 `main` 前检查它，将 `main` 替换成对应分支名。安装后重启 Codex。
 
 示例：
 
@@ -51,18 +51,18 @@ skill 可以为明确的 MCP 工程任务隐式触发；普通 API、泛前端�
 src/skills/mcp-boundary/   唯一维护并发布的 skill 源码与参考资料
 plugins/mcp-boundary/      自动生成的可分发插件
 
-guide/                     完整 Field Guide：方法、profiles、案例与证据
-lab/                       可执行 MCP App production field lab
+guide/                     现役 Field Guide：方法、profiles、案例与证据
+lab/                       现役可执行 MCP App production field lab
 evaluations/               对 skill 行为进行比较的案例与评分规则
 
 scripts/                   插件打包与工作区验证工具
 tools/guide-validation/    现役 Guide validators
 tests/                     插件与统一工作区契约
 site/                      中英文产品官网与 Guide/Lab 工程资料库
-provenance/                精确复制与上游导入记录
+provenance/                精确复制与首次导入记录
 ```
 
-只有 `src/skills/mcp-boundary/` 是活跃分发的 skill。`guide/skill/mcp-server-engineering/` 是为候选版冻结的历史发布与评估材料，只用于来源与复现；它不是推荐的安装路径，插件 manifest 也不会暴露它。
+只有 `src/skills/mcp-boundary/` 是活跃分发的 skill。`guide/skill/mcp-server-engineering/` 是冻结的历史发布与评估材料，只用于来源与复现；它不是推荐的安装路径，插件 manifest 也不会暴露它。
 
 ## skill 实际改变什么
 
@@ -88,6 +88,10 @@ python3 scripts/build_plugin.py --write
 python3 scripts/build_plugin.py --check
 python3 -m unittest discover -s tests -p 'test_*.py'
 python3 tests/static_check.py --no-report
+python3 scripts/validate_skill_schema.py \
+  src/skills/mcp-boundary \
+  plugins/mcp-boundary/skills/mcp-boundary
+python3 scripts/package_plugin.py
 ```
 
 Guide：

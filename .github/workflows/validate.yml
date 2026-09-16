@@ -92,3 +92,30 @@ jobs:
           cache-dependency-path: lab/package-lock.json
       - run: npm ci
       - run: npm run check
+
+  submission-bundle:
+    needs: [plugin-and-workspace, skill-schema]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build deterministic submission bundle
+        run: |
+          python3 scripts/build_plugin.py --check
+          python3 scripts/package_plugin.py
+      - name: Verify bundle digest and file count
+        run: |
+          version="$(cat VERSION)"
+          (cd dist && sha256sum -c "mcp-boundary-${version}.zip.sha256")
+          test "$(unzip -Z1 "dist/mcp-boundary-${version}.zip" | wc -l | tr -d ' ')" = "29"
+      - name: Upload submission bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcp-boundary-submission-${{ github.sha }}
+          path: |
+            dist/mcp-boundary-*.zip
+            dist/mcp-boundary-*.zip.sha256
+          if-no-files-found: error
+          retention-days: 30

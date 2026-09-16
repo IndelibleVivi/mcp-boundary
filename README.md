@@ -14,9 +14,9 @@ The repository is intentionally a monorepo. A user installs one plugin. A mainta
 
 The plugin stays small. It starts no server, registers no app connector, requests no authentication, sends no analytics or telemetry, and adds no runtime dependency. The Guide and the Lab are repository source: the executable Lab specimen is engineering evidence, not distributed plugin runtime.
 
-> `0.2.0-alpha.1` is an unreleased source version. The externally published stable plugin remains `0.1.0` until a release is deliberately published.
+> `0.2.0` is live in the public plugin directory. Repository source and the directory artifact remain separate release surfaces; see the current-state record for the exact observed status.
 
-[Website](https://indeliblevivi.github.io/mcp-boundary/) · [中文说明](README.zh-CN.md) · [Workspace design](docs/UNIFIED-WORKSPACE.md) · [Current state](docs/current-state.md) · [Licensing](LICENSING.md)
+[Website](https://indeliblevivi.github.io/mcp-boundary/) · [中文说明](README.zh-CN.md) · [Workspace design](docs/UNIFIED-WORKSPACE.md) · [Current state](docs/current-state.md) · [0.2.0 publication record](docs/submission/0.2.0.md) · [Licensing](LICENSING.md)
 
 ## Use the plugin
 
@@ -27,7 +27,7 @@ codex plugin marketplace add IndelibleVivi/mcp-boundary --ref main
 codex plugin add mcp-boundary@mcp-boundary
 ```
 
-This repository command installs the source at the selected Git ref; it is distinct from the externally published stable listing. To inspect a candidate before it reaches `main`, replace `main` with that branch name. Restart Codex after installation.
+This repository command installs the source at the selected Git ref; it is distinct from the externally published directory artifact. To inspect a candidate before it reaches `main`, replace `main` with that branch name. Restart Codex after installation.
 
 Example tasks:
 
@@ -51,15 +51,15 @@ The skill may activate implicitly for clearly MCP-specific engineering work. It 
 src/skills/mcp-boundary/   canonical skill source and packaged references
 plugins/mcp-boundary/      generated distributable plugin
 
-guide/                     imported Field Guide: method, profiles, cases, evidence
-lab/                       imported executable MCP App production field lab
+guide/                     maintained Field Guide: method, profiles, cases, evidence
+lab/                       maintained executable MCP App production field lab
 evaluations/               behavior cases and rubric for the installed skill
 
 scripts/                   plugin packaging and workspace validation
 tools/guide-validation/    maintained Guide validators
 tests/                     plugin and unified-workspace contracts
 site/                      bilingual product site and Guide/Lab library
-provenance/                exact-copy and upstream-import records
+provenance/                exact-copy and initial-import records
 ```
 
 Only `src/skills/mcp-boundary/` is the active distributed skill. `guide/skill/mcp-server-engineering/` is frozen historical release and evaluation material kept for provenance and reproducibility; it is not a recommended installation path, and the plugin manifest does not expose it.
@@ -88,6 +88,10 @@ python3 scripts/build_plugin.py --write
 python3 scripts/build_plugin.py --check
 python3 -m unittest discover -s tests -p 'test_*.py'
 python3 tests/static_check.py --no-report
+python3 scripts/validate_skill_schema.py \
+  src/skills/mcp-boundary \
+  plugins/mcp-boundary/skills/mcp-boundary
+python3 scripts/package_plugin.py
 ```
 
 Guide checks:
