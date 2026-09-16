@@ -52,6 +52,7 @@ class ReleaseSubmissionTests(unittest.TestCase):
         negative = re.findall(r"^### N([1-3]) —", text, flags=re.MULTILINE)
         self.assertEqual(positive, ["1", "2", "3", "4", "5"])
         self.assertEqual(negative, ["1", "2", "3"])
+        self.assertEqual(text.count("**Test account or fixture data**"), 5)
 
     def test_public_site_describes_current_source_without_directory_overclaim(self) -> None:
         text = SITE.read_text(encoding="utf-8")
