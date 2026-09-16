@@ -9,6 +9,9 @@ ROOT = Path(__file__).resolve().parents[1]
 VERSION = ROOT / "VERSION"
 SOURCE_MANIFEST = ROOT / "src/plugin/plugin.json"
 PACKAGE_MANIFEST = ROOT / "plugins/mcp-boundary/.codex-plugin/plugin.json"
+SOURCE_PROVENANCE = ROOT / "provenance/SOURCES.json"
+PACKAGE_PROVENANCE = ROOT / "plugins/mcp-boundary/provenance/SOURCES.json"
+UPSTREAM_LOCK = ROOT / "provenance/UPSTREAMS.lock.json"
 SUBMISSION = ROOT / "docs/submission/0.2.0.md"
 SITE = ROOT / "site/index.html"
 CURRENT_STATE = ROOT / "docs/current-state.md"
@@ -21,8 +24,13 @@ class ReleaseSubmissionTests(unittest.TestCase):
         self.assertEqual(version, "0.2.0")
         source = json.loads(SOURCE_MANIFEST.read_text(encoding="utf-8"))
         package = json.loads(PACKAGE_MANIFEST.read_text(encoding="utf-8"))
+        provenance = json.loads(SOURCE_PROVENANCE.read_text(encoding="utf-8"))
+        lock = json.loads(UPSTREAM_LOCK.read_text(encoding="utf-8"))
         self.assertEqual(source["version"], version)
         self.assertEqual(package, source)
+        self.assertEqual(provenance["project_version"], version)
+        self.assertEqual(lock["workspace_version"], version)
+        self.assertEqual(PACKAGE_PROVENANCE.read_bytes(), SOURCE_PROVENANCE.read_bytes())
         self.assertIn("## 0.2.0", CHANGELOG.read_text(encoding="utf-8"))
 
     def test_submission_targets_existing_plugin_and_skills_only(self) -> None:
@@ -48,6 +56,7 @@ class ReleaseSubmissionTests(unittest.TestCase):
         self.assertIn("Version 0.2.0 / pure skill", text)
         self.assertIn("/mcp-boundary/tree/main/guide", text)
         self.assertIn("/mcp-boundary/tree/main/lab", text)
+        self.assertNotIn("mcp-boundary-demo.html", text)
         for stale in (
             "SOURCE PACKAGE 0.1.0",
             "Version 0.1.0 / explicitly bounded",
