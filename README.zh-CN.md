@@ -55,7 +55,8 @@ guide/                     完整 Field Guide：方法、profiles、案例与证
 lab/                       可执行 MCP App production field lab
 evaluations/               对 skill 行为进行比较的案例与评分规则
 
-scripts/                   打包、导入与验证工具
+scripts/                   插件打包与工作区验证工具
+tools/guide-validation/    现役 Guide validators
 tests/                     插件与统一工作区契约
 site/                      对外官网
 provenance/                精确复制与上游导入记录
@@ -94,11 +95,11 @@ Guide：
 ```bash
 cd guide
 python -m unittest discover -v
-python skill/mcp-server-engineering/scripts/validate_version_register.py VERSION-REGISTER.json
-python skill/mcp-server-engineering/scripts/sync_profile_mirrors.py --check VERSION-REGISTER.json
-python skill/mcp-server-engineering/scripts/check_bilingual_coverage.py .
+python ../tools/guide-validation/validate_version_register.py VERSION-REGISTER.json
+python ../tools/guide-validation/check_profile_mirrors.py VERSION-REGISTER.json
+python ../tools/guide-validation/check_bilingual_coverage.py .
 python tools/validate_evaluation_corpus.py .
-python skill/mcp-server-engineering/scripts/check_markdown_links.py .
+python ../tools/guide-validation/check_markdown_links.py .
 ```
 
 Lab：

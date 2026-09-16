@@ -6,7 +6,7 @@ Guide、protocol profiles、moving integration guidance、case-study receipts �
 
 ## 统一仓库状态
 
-本目录是 MCP Boundary 仓库中的 `guide/`。Repository contract 是根目录 `AGENTS.md`；唯一活跃分发的 skill 是 `../src/skills/mcp-boundary/`；初次导入的 pin 位于 `../provenance/UPSTREAMS.lock.json`。`skill/mcp-server-engineering/` 及其 `VERSION-REGISTER.json` bindings 已为本次候选冻结为历史 release 与 evaluation 材料。当前工作直接更新 `guide/` 与活跃 Boundary skill；不能从冻结 skill 重新生成，也不能写回冻结 skill。下方检查历史 package 的命令只验证保留的 snapshot。
+本目录是 MCP Boundary 仓库中的 `guide/`。Repository contract 是根目录 `AGENTS.md`；唯一活跃分发的 skill 是 `../src/skills/mcp-boundary/`；现役 Guide validators 位于 `../tools/guide-validation/`；初次导入的 pin 位于 `../provenance/UPSTREAMS.lock.json`。`skill/mcp-server-engineering/` 及其 `VERSION-REGISTER.json` bindings 已为本次候选冻结为历史 release 与 evaluation 材料。当前工作直接更新 `guide/`、现役 validators 与活跃 Boundary skill；不能从冻结 skill 重新生成，也不能写回冻结 skill。下方检查历史 package 的命令只验证保留的 snapshot。
 
 ## 出现新 MCP revision 时
 
@@ -56,7 +56,7 @@ Guide、protocol profiles、moving integration guidance、case-study receipts �
 ## External review handoff
 
 - 优先传递 public repository URL 与 full commit hash，不把 ZIP attachment 作为默认路径。
-- 必须使用 archive 时，在传输前运行 `scan_review_bundle.py`，并要求 reviewer 在 ingestion 后重新检查 strict UTF-8、`U+FFFD`、inventory 与 manifest。
+- 必须使用 archive 时，在传输前运行 `../tools/guide-validation/scan_review_bundle.py`，并要求 reviewer 在 ingestion 后重新检查 strict UTF-8、`U+FFFD`、inventory 与 manifest。
 - Read-only sandbox 只能防止 mutation，不能证明 evaluation agent 无法读取 oracle。每次只把当前 fixture、prompt 与 fixture-local metadata 物化到独立 temporary repository。
 - 若传输改变 bytes，立即停止 exact-code claims，改从 pinned public commit 或经过验证的 strict-UTF-8 text bundle 恢复；损坏 artifact 只作为 transfer evidence 保留。
 
@@ -65,18 +65,18 @@ Guide、protocol profiles、moving integration guidance、case-study receipts �
 运行：
 
 ```bash
-PYTHONDONTWRITEBYTECODE=1 python3 skill/mcp-server-engineering/scripts/check_python_syntax.py skill/mcp-server-engineering/scripts tools tests
+PYTHONDONTWRITEBYTECODE=1 python3 ../tools/guide-validation/check_python_syntax.py ../tools/guide-validation tools tests
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -v
-python3 skill/mcp-server-engineering/scripts/validate_version_register.py VERSION-REGISTER.json
-python3 skill/mcp-server-engineering/scripts/sync_profile_mirrors.py --check VERSION-REGISTER.json
-python3 skill/mcp-server-engineering/scripts/check_bilingual_coverage.py .
+python3 ../tools/guide-validation/validate_version_register.py VERSION-REGISTER.json
+python3 ../tools/guide-validation/check_profile_mirrors.py VERSION-REGISTER.json
+python3 ../tools/guide-validation/check_bilingual_coverage.py .
 python3 tools/validate_evaluation_corpus.py .
-python3 skill/mcp-server-engineering/scripts/validate_skill_package.py skill/mcp-server-engineering
-python3 skill/mcp-server-engineering/scripts/check_markdown_links.py .
-python3 skill/mcp-server-engineering/scripts/scan_review_bundle.py .
+python3 ../tools/guide-validation/validate_skill_package.py skill/mcp-server-engineering
+python3 ../tools/guide-validation/check_markdown_links.py .
+python3 ../tools/guide-validation/scan_review_bundle.py .
 git diff --check
 ```
 
-上方 version-register、mirror 与 historical-skill 命令只验证冻结的 `2.0.1` snapshot；它们不是 current active skill 的写入步骤。Current Guide 或活跃 skill 改动后，还要回到仓库根目录运行 `AGENTS.md` 中的 root plugin/workspace checks。若 installed skill 正在检查另一个 repository，应相对该 active skill package 的 `SKILL.md` 解析资源，不能在 target repository 中按同名文件碰运气。
+上方 version-register、mirror 与 historical-skill 命令由现役 validators 检查冻结的 `2.0.1` snapshot；它们不会写入历史 skill，也不是 current active skill 的写入步骤。Current Guide 或活跃 skill 改动后，还要回到仓库根目录运行 `AGENTS.md` 中的 root plugin/workspace checks。若 installed skill 正在检查另一个 repository，应相对该 active skill package 的 `SKILL.md` 解析资源，不能在 target repository 中按同名文件碰运气。
 
 随后 inspect staged diff，确认没有 private continuity 或 raw logs 进入 repo，intentional commit、push、verify GitHub Actions；只有 remote commit 确定后再为 documented release 打 tag。

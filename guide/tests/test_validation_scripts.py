@@ -17,7 +17,8 @@ sys.dont_write_bytecode = True
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPTS = ROOT / "skill" / "mcp-server-engineering" / "scripts"
+REPOSITORY_ROOT = ROOT.parent
+SCRIPTS = REPOSITORY_ROOT / "tools" / "guide-validation"
 TOOLS = ROOT / "tools"
 
 
@@ -471,7 +472,7 @@ class RepositoryContractTests(ScriptRunnerMixin, unittest.TestCase):
 
     def test_profile_mirrors(self):
         result = self.run_script(
-            "sync_profile_mirrors", "--check", "VERSION-REGISTER.json"
+            "check_profile_mirrors", "VERSION-REGISTER.json"
         )
         self.assertEqual(result.returncode, 0, result.stderr)
 

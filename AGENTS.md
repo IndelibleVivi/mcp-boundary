@@ -7,7 +7,8 @@
 - `plugins/mcp-boundary/` is generated distributable output. Change `src/`, legal, provenance, or approved public assets first, then run `python3 scripts/build_plugin.py --write`.
 - `plugins/mcp-boundary/.codex-plugin/plugin.json` is the only distributed manifest and is copied byte-for-byte from the author source. Do not hand-edit it.
 - `guide/` and `lab/` are ordinary maintained subtrees of this repository, not mirrors of still-authoritative upstream repositories. `provenance/UPSTREAMS.lock.json` owns the initial-import pins and continuing-authority record; `provenance/SOURCES.json` owns the exact-copy and influence map.
-- `guide/skill/mcp-server-engineering/` is frozen historical release and evaluation material. It is not active, not distributed, not a recommended installation path, and not a maintenance target.
+- `tools/guide-validation/` is the maintained authority for Guide validators used by current tests and CI.
+- `guide/skill/mcp-server-engineering/` is frozen historical release and evaluation material, including its self-contained historical scripts. It is not active, not distributed, not a recommended installation path, and not a maintenance target. Current callers must not execute its scripts.
 - `evaluations/` owns behavior cases and scoring rules for the installed skill. Registered cases do not establish behavior change without an executed run.
 - `brand/`, `site/`, and `previews/` contain the one approved public identity: Offset + Porcelain. Do not reintroduce private identity comparisons, alternative marks, alternative palettes, or appearance controls.
 - Root `.github/workflows/` owns repository CI and deployment: `pages.yml` is the canonical Pages path and publishes only `site/` to the `github-pages` environment, and `validate.yml` runs the plugin, Guide, and Lab checks. The imported `guide/.github/workflows/` and `lab/.github/workflows/` files are retired historical sources and are not executed.
@@ -39,17 +40,19 @@ skill-validate plugins/mcp-boundary/skills/mcp-boundary
 python3 scripts/package_plugin.py
 ```
 
+Remote CI reproduces the current Codex skill-schema checks with pinned PyYAML via `scripts/validate_skill_schema.py` and validates both the author source and generated package. Local `skill-validate` remains the release-candidate command backed by the installed Codex Skill tooling.
+
 Run the affected subtree checks when changing `guide/`:
 
 ```bash
 cd guide
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -v
-python3 skill/mcp-server-engineering/scripts/validate_version_register.py VERSION-REGISTER.json
-python3 skill/mcp-server-engineering/scripts/sync_profile_mirrors.py --check VERSION-REGISTER.json
-python3 skill/mcp-server-engineering/scripts/check_bilingual_coverage.py .
+python3 ../tools/guide-validation/validate_version_register.py VERSION-REGISTER.json
+python3 ../tools/guide-validation/check_profile_mirrors.py VERSION-REGISTER.json
+python3 ../tools/guide-validation/check_bilingual_coverage.py .
 python3 tools/validate_evaluation_corpus.py .
-python3 skill/mcp-server-engineering/scripts/validate_skill_package.py skill/mcp-server-engineering
-python3 skill/mcp-server-engineering/scripts/check_markdown_links.py .
+python3 ../tools/guide-validation/validate_skill_package.py skill/mcp-server-engineering
+python3 ../tools/guide-validation/check_markdown_links.py .
 ```
 
 Run the affected subtree checks when changing `lab/`:

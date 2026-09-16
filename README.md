@@ -55,7 +55,8 @@ guide/                     imported Field Guide: method, profiles, cases, eviden
 lab/                       imported executable MCP App production field lab
 evaluations/               behavior cases and rubric for the installed skill
 
-scripts/                   package, import, and verification tooling
+scripts/                   plugin packaging and workspace validation
+tools/guide-validation/    maintained Guide validators
 tests/                     plugin and unified-workspace contracts
 site/                      public one-page product site
 provenance/                exact-copy and upstream-import records
@@ -94,11 +95,11 @@ Guide checks:
 ```bash
 cd guide
 python -m unittest discover -v
-python skill/mcp-server-engineering/scripts/validate_version_register.py VERSION-REGISTER.json
-python skill/mcp-server-engineering/scripts/sync_profile_mirrors.py --check VERSION-REGISTER.json
-python skill/mcp-server-engineering/scripts/check_bilingual_coverage.py .
+python ../tools/guide-validation/validate_version_register.py VERSION-REGISTER.json
+python ../tools/guide-validation/check_profile_mirrors.py VERSION-REGISTER.json
+python ../tools/guide-validation/check_bilingual_coverage.py .
 python tools/validate_evaluation_corpus.py .
-python skill/mcp-server-engineering/scripts/check_markdown_links.py .
+python ../tools/guide-validation/check_markdown_links.py .
 ```
 
 Lab checks:

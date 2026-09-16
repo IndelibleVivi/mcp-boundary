@@ -26,6 +26,24 @@ jobs:
       - name: Run static website and identity checks
         run: python3 tests/static_check.py --no-report
 
+  skill-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements/skill-validation.txt
+      - name: Install skill validation dependency
+        run: python -m pip install --requirement requirements/skill-validation.txt
+      - name: Validate author and generated skill schemas
+        run: |
+          python scripts/validate_skill_schema.py \
+            src/skills/mcp-boundary \
+            plugins/mcp-boundary/skills/mcp-boundary
+          python -m unittest -v tests.test_skill_schema_validator
+
   guide:
     runs-on: ubuntu-latest
     env:
@@ -43,18 +61,18 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: Check Python syntax
-        run: python skill/mcp-server-engineering/scripts/check_python_syntax.py skill/mcp-server-engineering/scripts tools tests
+        run: python ../tools/guide-validation/check_python_syntax.py ../tools/guide-validation tools tests
       - name: Run Guide tests
         run: python -m unittest discover -v
       - name: Validate Guide registers and evidence
         run: |
-          python skill/mcp-server-engineering/scripts/validate_version_register.py VERSION-REGISTER.json
-          python skill/mcp-server-engineering/scripts/sync_profile_mirrors.py --check VERSION-REGISTER.json
-          python skill/mcp-server-engineering/scripts/check_bilingual_coverage.py .
+          python ../tools/guide-validation/validate_version_register.py VERSION-REGISTER.json
+          python ../tools/guide-validation/check_profile_mirrors.py VERSION-REGISTER.json
+          python ../tools/guide-validation/check_bilingual_coverage.py .
           python tools/validate_evaluation_corpus.py .
-          python skill/mcp-server-engineering/scripts/validate_skill_package.py skill/mcp-server-engineering
-          python skill/mcp-server-engineering/scripts/check_markdown_links.py .
-          python skill/mcp-server-engineering/scripts/scan_review_bundle.py .
+          python ../tools/guide-validation/validate_skill_package.py skill/mcp-server-engineering
+          python ../tools/guide-validation/check_markdown_links.py .
+          python ../tools/guide-validation/scan_review_bundle.py .
 
   lab:
     runs-on: ubuntu-latest

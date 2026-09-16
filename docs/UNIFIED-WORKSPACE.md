@@ -15,7 +15,9 @@ A method can explain a control without proving an implementation. A Lab run can 
 
 ## One active skill
 
-`src/skills/mcp-boundary/` is the only maintained and distributed skill. The historical `guide/skill/mcp-server-engineering/` directory remains inside the imported Guide because it contains release evidence, validators, and the exact historical workflow. It is excluded from `plugins/mcp-boundary/` and must not be offered as a second installation path.
+`src/skills/mcp-boundary/` is the only maintained and distributed skill. The historical `guide/skill/mcp-server-engineering/` directory remains byte-preserved inside the imported Guide because it contains release evidence and the exact historical workflow, including the scripts that shipped with it. It is excluded from `plugins/mcp-boundary/` and must not be offered as a second installation path.
+
+Current Guide validation is owned by `tools/guide-validation/`. CI, tests, and maintainer commands call that directory, so the historical package can remain frozen while validators evolve with the continuing Guide. The active profile-mirror tool is check-only and cannot rewrite the historical snapshot.
 
 Future method improvements should land in the canonical Guide material and the active Boundary skill in the same pull request when both truths change. Historical evidence stays immutable unless the evidence itself is being corrected with provenance.
 

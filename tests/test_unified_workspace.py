@@ -22,6 +22,7 @@ CURRENT_FACING_DOCS = (
     "guide/README.zh-CN.md",
     "guide/MAINTENANCE.md",
     "guide/MAINTENANCE.zh-CN.md",
+    "guide/MONOREPO-NOTE.md",
     "lab/README.md",
     "lab/README.en.md",
     "lab/docs/current-state.md",
@@ -84,6 +85,7 @@ class UnifiedWorkspaceTests(unittest.TestCase):
         self.assertEqual(authority["active_skill"], "src/skills/mcp-boundary/")
         self.assertEqual(authority["distributed_plugin"], "plugins/mcp-boundary/")
         self.assertEqual(authority["active_skill_id"], "mcp-boundary")
+        self.assertEqual(authority["guide_validation"], "tools/guide-validation/")
         self.assertTrue((ROOT / authority["repository_contract"]).is_file())
         for item in lock["imports"]:
             self.assertEqual(item["continuing_authority_after_import"], "mcp-boundary")
@@ -96,9 +98,58 @@ class UnifiedWorkspaceTests(unittest.TestCase):
         )
         for item in frozen:
             self.assertEqual(item["status"], "historical")
+            self.assertNotIn("validators", item["role"])
             self.assertTrue((ROOT / item["path"] / "SKILL.md").is_file(), item["path"])
             self.assertFalse((PACKAGE / item["path"]).exists(), item["path"])
             self.assertNotIn(item["skill_id"], [p.name for p in (PACKAGE / "skills").iterdir()])
+
+    def test_current_guide_validators_are_outside_frozen_skill(self) -> None:
+        active = ROOT / "tools/guide-validation"
+        self.assertEqual(
+            sorted(path.name for path in active.glob("*.py")),
+            [
+                "check_bilingual_coverage.py",
+                "check_markdown_links.py",
+                "check_profile_mirrors.py",
+                "check_python_syntax.py",
+                "check_receipt_schema.py",
+                "scan_review_bundle.py",
+                "validate_skill_package.py",
+                "validate_version_register.py",
+            ],
+        )
+        mirror_validator = (active / "check_profile_mirrors.py").read_text()
+        self.assertNotIn("--write", mirror_validator)
+        self.assertNotIn("write_bytes", mirror_validator)
+
+        provenance = json.loads(SOURCES.read_text())["maintained_derivatives"]
+        self.assertEqual(len(provenance), 1)
+        derivative = provenance[0]
+        self.assertEqual(derivative["license"], "Apache-2.0")
+        self.assertEqual(len(derivative["files"]), 8)
+        for record in derivative["files"]:
+            source = ROOT / "guide" / record["source_path"]
+            destination = ROOT / record["destination_path"]
+            self.assertTrue(source.is_file(), record["source_path"])
+            self.assertTrue(destination.is_file(), record["destination_path"])
+            self.assertEqual(
+                hashlib.sha256(source.read_bytes()).hexdigest(),
+                record["source_sha256"],
+                record["source_path"],
+            )
+
+        for relative in CURRENT_FACING_DOCS:
+            self.assertNotIn(
+                "skill/mcp-server-engineering/scripts/",
+                (ROOT / relative).read_text(encoding="utf-8"),
+                relative,
+            )
+        for relative in (".github/workflows/validate.yml", "guide/tests/test_validation_scripts.py"):
+            self.assertNotIn(
+                "skill/mcp-server-engineering/scripts/",
+                (ROOT / relative).read_text(encoding="utf-8"),
+                relative,
+            )
 
     def test_no_reimport_or_sync_script_is_present(self) -> None:
         self.assertFalse((ROOT / "scripts/import_upstreams.sh").exists())

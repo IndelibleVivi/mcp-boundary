@@ -1,12 +1,13 @@
 {
   "schema_version": 1,
-  "recorded_at": "2026-09-15",
+  "recorded_at": "2026-09-16",
   "workspace_version": "0.2.0-alpha.1",
   "continuing_authority": {
     "repository_contract": "AGENTS.md",
     "active_skill": "src/skills/mcp-boundary/",
     "distributed_plugin": "plugins/mcp-boundary/",
-    "active_skill_id": "mcp-boundary"
+    "active_skill_id": "mcp-boundary",
+    "guide_validation": "tools/guide-validation/"
   },
   "imports": [
     {
@@ -29,12 +30,13 @@
       "path": "guide/skill/mcp-server-engineering",
       "skill_id": "mcp-server-engineering",
       "status": "historical",
-      "role": "release evidence, validators, and historical workflow retained for provenance and reproducibility"
+      "role": "release evidence and historical workflow retained for provenance and reproducibility"
     }
   ],
   "notes": [
     "The imported trees retain their local licensing maps and historical claims.",
     "The historical mcp-server-engineering skill is retained for provenance but is not distributed by the MCP Boundary plugin.",
+    "Current Guide tests and CI use tools/guide-validation/ rather than executing scripts from the frozen historical skill.",
     "This lock records the one-time initial import. guide/ and lab/ are ordinary maintained subtrees here; there is no re-import, updater, or synchronization script.",
     "The former upstream repositories remain unarchived historical sources."
   ]

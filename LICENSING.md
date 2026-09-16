@@ -8,7 +8,7 @@ The Sustainable Use License 1.0 in [`LICENSE`](LICENSE) applies to project-origi
 
 - `src/plugin/`;
 - project-original files under `src/skills/mcp-boundary/`, except exact Apache-2.0 reference copies listed in section 3;
-- `.agents/plugins/`, root `.github/workflows/`, root `scripts/`, root `tools/`, and project-original functional tests/fixtures under root `tests/` and `evaluations/`;
+- `.agents/plugins/`, root `.github/workflows/`, root `scripts/`, project-original root `tools/` except the Python derivatives under `tools/guide-validation/`, and project-original functional tests/fixtures under root `tests/` and `evaluations/`;
 - `site/app.js` and `site/assets/identity.js` as functional code/data;
 - corresponding generated functional files under `plugins/mcp-boundary/` and local ZIP packages.
 
@@ -19,16 +19,19 @@ SUL-1.0 is source-available and restricts use and distribution as stated in the 
 The documentation notice in [`LICENSE-DOCUMENTATION.md`](LICENSE-DOCUMENTATION.md) applies to project-original prose and documentation, including:
 
 - root `README.md`, `README.zh-CN.md`, `AGENTS.md`, `CHANGELOG.md`, `PRIVACY.md`, `TERMS.md`, and this file;
+- `tools/guide-validation/README.md`;
 - project-original files under root `docs/`, `evaluations/`, and `provenance/`;
 - project-original prose in the active skill and authored references, to the extent that prose is independently copyrightable and not an exact Apache-2.0 copy.
 
 Where a single file combines functional instructions and explanatory prose, both applicable grants operate on their respective material. The more restrictive applicable condition must be respected when the material cannot reasonably be separated.
 
-## 3. Exact Field Guide reference copies — Apache-2.0
+## 3. Selected Field Guide material — Apache-2.0
 
 The Apache License 2.0 in [`LICENSES/Apache-2.0.txt`](LICENSES/Apache-2.0.txt) applies to the exact copies listed in [`provenance/SOURCES.json`](provenance/SOURCES.json), including the selected protocol, JSON-RPC, HTTP, MCP Apps, and dated integration profiles under `src/skills/mcp-boundary/references/` and their generated package counterparts.
 
 Exact hashes, source commits, and destination paths are recorded in that provenance file.
+
+The same Apache-2.0 license applies to the maintained Python validator derivatives under `tools/guide-validation/`. They were migrated from the historical Field Guide skill so current CI and tests can evolve independently of the frozen package. Their source-to-destination mapping and the intentional check-only profile-mirror change are recorded in `provenance/SOURCES.json`; they are not relicensed under SUL-1.0.
 
 ## 4. Imported Guide tree
 

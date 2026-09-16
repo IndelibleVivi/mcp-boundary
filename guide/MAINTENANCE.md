@@ -6,7 +6,7 @@ The Guide, protocol profiles, moving integration guidance, case-study receipts, 
 
 ## Unified repository status
 
-This tree is `guide/` inside the MCP Boundary repository. The repository contract is the root `AGENTS.md`; the one active distributed skill is `../src/skills/mcp-boundary/`; and the initial-import pins live in `../provenance/UPSTREAMS.lock.json`. `skill/mcp-server-engineering/` and its `VERSION-REGISTER.json` bindings are frozen historical release and evaluation material for this candidate. Current work updates `guide/` and the active Boundary skill directly; it never regenerates from or writes into the frozen skill. Commands below that inspect the historical package validate the retained snapshot only.
+This tree is `guide/` inside the MCP Boundary repository. The repository contract is the root `AGENTS.md`; the one active distributed skill is `../src/skills/mcp-boundary/`; the maintained Guide validators live in `../tools/guide-validation/`; and the initial-import pins live in `../provenance/UPSTREAMS.lock.json`. `skill/mcp-server-engineering/` and its `VERSION-REGISTER.json` bindings are frozen historical release and evaluation material for this candidate. Current work updates `guide/`, the active validators, and the active Boundary skill directly; it never regenerates from or writes into the frozen skill. Commands below that inspect the historical package validate the retained snapshot only.
 
 ## When a new MCP revision appears
 
@@ -60,7 +60,7 @@ This tree is `guide/` inside the MCP Boundary repository. The repository contrac
 ## External review handoff
 
 - Prefer a public repository URL plus a full commit hash over a ZIP attachment.
-- If an archive is necessary, run `scan_review_bundle.py` before transfer and ask the reviewer to rerun strict UTF-8, `U+FFFD`, inventory, and manifest checks after ingestion.
+- If an archive is necessary, run `../tools/guide-validation/scan_review_bundle.py` before transfer and ask the reviewer to rerun strict UTF-8, `U+FFFD`, inventory, and manifest checks after ingestion.
 - A read-only sandbox prevents mutation; it does not prove that an evaluation agent could not read an oracle. Materialize only the selected fixture, prompt, and fixture-local metadata in a separate temporary repository.
 - If transfer changes bytes, stop exact-code claims and recover from the pinned public commit or a verified strict-UTF-8 text bundle. Keep the damaged artifact only as transfer evidence.
 
@@ -69,18 +69,18 @@ This tree is `guide/` inside the MCP Boundary repository. The repository contrac
 Run:
 
 ```bash
-PYTHONDONTWRITEBYTECODE=1 python3 skill/mcp-server-engineering/scripts/check_python_syntax.py skill/mcp-server-engineering/scripts tools tests
+PYTHONDONTWRITEBYTECODE=1 python3 ../tools/guide-validation/check_python_syntax.py ../tools/guide-validation tools tests
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -v
-python3 skill/mcp-server-engineering/scripts/validate_version_register.py VERSION-REGISTER.json
-python3 skill/mcp-server-engineering/scripts/sync_profile_mirrors.py --check VERSION-REGISTER.json
-python3 skill/mcp-server-engineering/scripts/check_bilingual_coverage.py .
+python3 ../tools/guide-validation/validate_version_register.py VERSION-REGISTER.json
+python3 ../tools/guide-validation/check_profile_mirrors.py VERSION-REGISTER.json
+python3 ../tools/guide-validation/check_bilingual_coverage.py .
 python3 tools/validate_evaluation_corpus.py .
-python3 skill/mcp-server-engineering/scripts/validate_skill_package.py skill/mcp-server-engineering
-python3 skill/mcp-server-engineering/scripts/check_markdown_links.py .
-python3 skill/mcp-server-engineering/scripts/scan_review_bundle.py .
+python3 ../tools/guide-validation/validate_skill_package.py skill/mcp-server-engineering
+python3 ../tools/guide-validation/check_markdown_links.py .
+python3 ../tools/guide-validation/scan_review_bundle.py .
 git diff --check
 ```
 
-The version-register, mirror, and historical-skill commands above validate the frozen `2.0.1` snapshot; they are not write instructions for the current active skill. After changing current Guide material or the active skill, return to the repository root and run the root plugin/workspace checks in `AGENTS.md` as well. When invoking the installed skill against another repository, resolve active package resources relative to that skill package's `SKILL.md`, not by same-name lookup in the target repository.
+The version-register, mirror, and historical-skill commands above run maintained validators against the frozen `2.0.1` snapshot; they are not write instructions for the historical or current active skill. After changing current Guide material or the active skill, return to the repository root and run the root plugin/workspace checks in `AGENTS.md` as well. When invoking the installed skill against another repository, resolve active package resources relative to that skill package's `SKILL.md`, not by same-name lookup in the target repository.
 
 Then inspect the staged diff, confirm no private continuity or raw logs entered the repository, commit intentionally, push, verify GitHub Actions, and tag the documented release only after the remote commit is known.

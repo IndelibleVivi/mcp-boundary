@@ -12,6 +12,8 @@ skill-validate plugins/mcp-boundary/skills/mcp-boundary
 python3 scripts/package_plugin.py
 ```
 
+GitHub Actions also installs the pinned dependency in `requirements/skill-validation.txt` and runs `scripts/validate_skill_schema.py` against both skill paths. That repository-local gate reproduces the frontmatter, naming, and unfinished-scaffold checks used by the current installed `skill-validate`, so schema validation is enforced remotely rather than relying only on a maintainer workstation.
+
 These checks cover author/generated Codex manifest parity, absence of the root manifest that would select Agent Plugins conversion, absence of unsupported screenshot configuration/assets, Codex composer/logo asset resolution, pure-skill packaging, exact-copy hashes, license/provenance presence, safe archive paths, passive SVG assets, the single approved public identity, three bounded contract fixtures, website resource integrity, and numeric contrast for the selected palette.
 
 The fixtures provide deterministic evidence for package and teaching-contract checks. They do **not** prove that a model will invoke the skill correctly or produce the expected diagnosis.
