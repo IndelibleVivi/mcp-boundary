@@ -116,6 +116,11 @@ npm run check
 
 Lab 仍然是本地 surrogate，除非真的运行了某个明确外部 host。仓库检查通过无法证明 named-host admission、production activation、owner acceptance，也无法单独证明模型行为普遍改善。
 
+## 相关项目
+
+- [Servotab](https://servotab.com/) — 为一般仓库工作提供 planning、implementation、debugging、review 与 verification 方法。
+- [Worker Routing](https://indeliblevivi.github.io/codex-worker-routing/zh/) — 将有明确边界的完整责任交给 native 或可选 ACP worker，并通过本地 Dispatch 面板查看工作记录。
+
 ## 合并来源
 
 第一次单仓导入固定到：

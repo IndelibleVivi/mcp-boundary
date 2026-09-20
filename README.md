@@ -116,6 +116,11 @@ npm run check
 
 The Lab remains a local surrogate unless an exact external host is exercised. Passing repository checks does not establish named-host admission, production activation, owner acceptance, or a general improvement in model behavior.
 
+## Related projects
+
+- [Servotab](https://servotab.com/) — engineering methods for general repository planning, implementation, debugging, review, and verification.
+- [Worker Routing](https://indeliblevivi.github.io/codex-worker-routing/) — delegate bounded responsibilities to native or optional ACP workers, with a local Dispatch dashboard for inspecting the work.
+
 ## Unified provenance
 
 The initial monorepo import is pinned to:
