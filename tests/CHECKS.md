@@ -20,6 +20,8 @@ Omit `lastmod` unless a real page-update timestamp is maintained. GitHub Pages
 serves this project under a subpath; a `robots.txt` file in that subpath would not
 control crawling for the host. Search Console verification and sitemap submission
 are separate account operations; source checks do not establish indexing.
+Keep the public Google verification meta tag in `site/index.html` after ownership
+verification, and regenerate the standalone projection after changing that page.
 
 GitHub Actions also installs the pinned dependency in `requirements/skill-validation.txt` and runs `scripts/validate_skill_schema.py` against both skill paths. That repository-local gate reproduces the frontmatter, naming, and unfinished-scaffold checks used by the current installed `skill-validate`, so schema validation is enforced remotely rather than relying only on a maintainer workstation.
 
