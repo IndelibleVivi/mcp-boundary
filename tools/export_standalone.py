@@ -37,13 +37,15 @@ value = value.replace(
     'content="https://indeliblevivi.github.io/mcp-boundary/assets/social-card.png"',
     f'content="data:image/png;base64,{social}"',
 )
-value = value.replace('href="./index.html', 'href="./mcp-boundary-demo.html')
+value = value.replace('href="./#', 'href="#')
+value = value.replace('href="./"', 'href="./mcp-boundary-demo.html"')
+value = value.replace('<a href="./sitemap.xml">Sitemap</a> · ', '')
 value = value.replace(
     'href="./library.html',
     'href="https://indeliblevivi.github.io/mcp-boundary/library.html',
 )
 value = value.replace(
-    'href="./zh/index.html',
+    'href="./zh/',
     'href="https://indeliblevivi.github.io/mcp-boundary/zh/',
 )
 (ROOT / "mcp-boundary-demo.html").write_text(value, encoding="utf-8")
