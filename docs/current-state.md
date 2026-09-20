@@ -1,6 +1,6 @@
 # Current state
 
-Last reviewed: 2026-09-16
+Last reviewed: 2026-09-21
 
 | Surface | State | Evidence / limit |
 | --- | --- | --- |
@@ -13,8 +13,8 @@ Last reviewed: 2026-09-16
 | Frozen historical skill | `guide/skill/mcp-server-engineering/` | Retained byte-preserved for provenance, release evidence, and historical reproducibility; no current CI or test caller executes its scripts |
 | Guide origin | Initial import from `87238302209d654358dd64eb3972677e4cacf256` | Initial origin only; `guide/` is now maintained here and has no destructive re-import path |
 | Lab origin | Initial import from `5a6deebbac96089588658452a00f2c52bad0dd2f` | Executable local specimen; its checks do not establish arbitrary production or named-host behavior |
-| Website | Four-route bilingual site live on GitHub Pages | Deploy run `35059026259` completed successfully for `98afefd`; all four English/Chinese product and Library routes returned `200` and passed fresh named-host heading, overflow, workflow, specimen, and filter checks on 2026-09-16 |
-| Site discoverability source | Four canonical URLs in `site/sitemap.xml`, unique titles/descriptions, reciprocal `hreflang`, and directory homepage links | Website source candidate, not deployed. Static checks cover metadata/sitemap parity; search-engine fetching, indexing, and ranking remain unverified |
+| Website | Four-route bilingual site live on GitHub Pages | SEO [PR #3](https://github.com/IndelibleVivi/mcp-boundary/pull/3) merged as `819a93f`; deploy run `35536674755` and main validation run `35536674785` succeeded. All four content routes and the sitemap returned `200` with matching canonical URLs on 2026-09-21 |
+| Site discoverability | Four canonical URLs in `site/sitemap.xml`, unique titles/descriptions, reciprocal `hreflang`, and directory homepage links | Deployed with unique titles/descriptions and reciprocal language alternates. Google Search Console ownership was verified and sitemap submission accepted on 2026-09-21; the live URL Inspection test reported crawl allowed and fetch successful, but the sitemap report still showed `Couldn't fetch` after one resubmission. Successful ingestion remains pending; homepage and Library indexing requests were accepted, without establishing indexing or ranking |
 | Submission materials | Published record under `docs/submission/0.2.0.md` | Includes the public outcome plus listing copy, release notes, starter prompts, and five positive plus three negative reviewer test cases |
 | Behavior comparison | Cases and rubric registered | No-skill / historical-skill / `0.2.0` comparative runs are not yet executed; comparative improvement remains not verified and must not be claimed |
 | Former repositories | Historical sources, not archived | Redirect and archival remain separate deliberate actions after the unified release is established |
