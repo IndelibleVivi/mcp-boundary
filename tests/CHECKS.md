@@ -12,6 +12,15 @@ skill-validate plugins/mcp-boundary/skills/mcp-boundary
 python3 scripts/package_plugin.py
 ```
 
+`site/sitemap.xml` is maintained beside the four hand-authored HTML pages.
+`tests/static_check.py` checks the exact canonical route set, reciprocal language
+alternates, and unique titles/descriptions. Keep the sitemap aligned whenever
+these pages change. Each footer links the sitemap without requiring JavaScript.
+Omit `lastmod` unless a real page-update timestamp is maintained. GitHub Pages
+serves this project under a subpath; a `robots.txt` file in that subpath would not
+control crawling for the host. Search Console verification and sitemap submission
+are separate account operations; source checks do not establish indexing.
+
 GitHub Actions also installs the pinned dependency in `requirements/skill-validation.txt` and runs `scripts/validate_skill_schema.py` against both skill paths. That repository-local gate reproduces the frontmatter, naming, and unfinished-scaffold checks used by the current installed `skill-validate`, so schema validation is enforced remotely rather than relying only on a maintainer workstation.
 
 These checks cover author/generated Codex manifest parity, absence of the root manifest that would select Agent Plugins conversion, absence of unsupported screenshot configuration/assets, Codex composer/logo asset resolution, pure-skill packaging, exact-copy hashes, license/provenance presence, safe archive paths, passive SVG assets, the single approved public identity, three bounded contract fixtures, the four-route bilingual website, portable standalone integrity, and numeric contrast for the selected palette.
@@ -45,6 +54,10 @@ Keep the local server running while the three Playwright commands execute, then 
 - readable no-JavaScript navigation, workflows, and installation content;
 - the portable standalone page when served from the same local origin;
 - absence of browser JavaScript errors and programmatic external requests.
+
+Navigation uses relative directory URLs for the canonical homepages and relative
+file URLs for the Library, so both the documented `/site/` preview and the
+published `/mcp-boundary/` subpath resolve the same pages.
 
 It refreshes the committed homepage desktop/mobile screenshots at the redesign reference viewports and returns a structured pass list. Static checks establish that all four route-local resources resolve and that the standalone file has its CSS, JavaScript, favicon, and social image inlined; this CLI run does not separately exercise `file://` navigation. The browser check requires the Playwright skill wrapper and its managed browser, so it is intentionally not part of dependency-free CI.
 

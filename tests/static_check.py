@@ -108,6 +108,8 @@ for path in (*site_pages, ROOT / "mcp-boundary-demo.html"):
                 assert not reference.startswith(("https://", "http://")), (path, tag, reference)
             continue
         target = (path.parent / reference.split("?", 1)[0].split("#", 1)[0]).resolve()
+        if target.is_dir():
+            target = target / "index.html"
         assert target.is_file(), (path, reference)
 passed("static resources and links", "All four site routes and the portable page resolve local resources; only anchors and canonical/alternate metadata target external origins.")
 
@@ -116,6 +118,35 @@ assert not re.search(r'<script\b[^>]*\bsrc=', standalone, re.IGNORECASE)
 assert not re.search(r'<link\b[^>]*rel="stylesheet"', standalone, re.IGNORECASE)
 assert 'content="data:image/png;base64,' in standalone
 passed("portable standalone", "CSS, JavaScript, favicon, and social metadata image are inlined.")
+
+# The sitemap and bilingual pages must describe the same four public URLs.
+ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9", "xhtml": "http://www.w3.org/1999/xhtml"}
+entries = ET.parse(ROOT / "site/sitemap.xml").findall("sm:url", ns)
+locations = [entry.findtext("sm:loc", namespaces=ns) for entry in entries]
+assert len(locations) == len(site_pages) and set(locations) == set(expected_canonicals.values())
+sitemap_alternates = {
+    entry.findtext("sm:loc", namespaces=ns): {
+        link.get("hreflang"): link.get("href") for link in entry.findall("xhtml:link", ns)
+    } for entry in entries
+}
+page_alternates = {}
+titles, descriptions = set(), set()
+for path in site_pages:
+    canonical = expected_canonicals[path]
+    source = path.read_text(encoding="utf-8")
+    title = re.search(r"<title>(.*?)</title>", source).group(1)
+    description = re.search(r'<meta name="description" content="([^"]+)">', source).group(1)
+    assert title not in titles and description not in descriptions, path
+    titles.add(title)
+    descriptions.add(description)
+    alternates = dict(re.findall(r'<link rel="alternate" hreflang="([^"]+)" href="([^"]+)">', source))
+    assert alternates == sitemap_alternates[canonical], path
+    assert set(alternates) == {"en", "zh-CN", "x-default"}, path
+    page_alternates[canonical] = alternates
+for canonical, alternates in page_alternates.items():
+    for destination in alternates.values():
+        assert page_alternates[destination] == alternates, (canonical, destination)
+passed("search discovery", "Unique titles and descriptions; four sitemap URLs match canonical pages and reciprocal language alternates.")
 
 identity = (ROOT / "site/assets/identity.js").read_text(encoding="utf-8")
 assert '"id": "offset"' in identity and '"id": "porcelain"' in identity
