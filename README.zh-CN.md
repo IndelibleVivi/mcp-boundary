@@ -128,6 +128,6 @@ Lab 仍然是本地 surrogate，除非真的运行了某个明确外部 host。�
 - MCP Server Engineering Field Guide commit `87238302209d654358dd64eb3972677e4cacf256`；
 - MCP App Production Field Lab commit `5a6deebbac96089588658452a00f2c52bad0dd2f`。
 
-详见 [`provenance/UPSTREAMS.lock.json`](provenance/UPSTREAMS.lock.json)。`guide/` 与 `lab/` 已成为本仓库正常维护的子树，不存在重新导入或同步路径。本仓库是统一项目的开发权威；原 Guide 与 Lab 仓库现已在首页指回这里，并继续作为未归档的历史来源保留，后续归档必须单独、明确地决定。
+详见 [`provenance/UPSTREAMS.lock.json`](provenance/UPSTREAMS.lock.json)。`guide/` 与 `lab/` 已成为本仓库正常维护的子树，不存在重新导入或同步路径。本仓库是统一项目的开发权威；原 Guide 与 Lab 仓库现已归档为只读历史来源，其迁移首页与仓库 homepage 均将后续开发指回这里。
 
 由 Faye & Cove 共同创作。
