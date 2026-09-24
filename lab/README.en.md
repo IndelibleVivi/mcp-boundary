@@ -4,11 +4,11 @@
 
 [简体中文](./README.md)
 
-MCP App Production Field Lab is an executable, reproducible, claim-bounded engineering laboratory. It separates the path from MCP App source through local process, exact resource delivery, browser host, clean package, activated runtime, tunnel, named host, and owner acceptance. The purpose is to stop “it opens locally” from becoming “the real host accepted it.”
-
-The current publication state is **`public-source` / source-available / unreleased package**. The source repository is public at [`IndelibleVivi/mcp-app-production-fieldlab`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab), but there is no GitHub Release or registry publication. Project-original functional materials use `SUL-1.0`; original documentation, diagrams, and case-study expression use `CC-BY-NC-SA-4.0`. This is not OSI open source. `package.json` remains `private: true` to prevent accidental npm publication. The tunnel, named-host, and owner scenarios are operator runbooks and evidence contracts, not claims that those external steps have run.
+MCP App Production Field Lab is the maintained executable, reproducible, claim-bounded engineering laboratory inside MCP Boundary. It separates the path from MCP App source through local process, exact resource delivery, browser host, clean package, activated runtime, tunnel, named host, and owner acceptance. The purpose is to stop “it opens locally” from becoming “the real host accepted it.”
 
 > **Unified repository note.** This subtree is `lab/` inside the MCP Boundary repository. The publication, repository, and version-pin statements below are historical facts about the former standalone source repository, kept because they record how this evidence was produced. Continuing authority for this subtree is the root [`AGENTS.md`](../AGENTS.md); the method and protocol profiles are read from the local [`guide/`](../guide/) subtree; and the one active distributed skill is `src/skills/mcp-boundary/`. This subtree is not a separate repository, is not an installation path, and is not part of the distributed plugin package.
+
+The former standalone repository's publication state was **`public-source` / source-available / unreleased package**. Its source remains available at [`IndelibleVivi/mcp-app-production-fieldlab`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab), but it has no GitHub Release or registry publication. Project-original functional materials use `SUL-1.0`; original documentation, diagrams, and case-study expression use `CC-BY-NC-SA-4.0`. This is not OSI open source. `package.json` remains `private: true` to prevent accidental npm publication. The tunnel, named-host, and owner scenarios are operator runbooks and evidence contracts, not claims that those external steps have run.
 
 ![Field Lab: one neutral specimen, three projection boundaries, and four local receipts](docs/architecture/field-lab-evidence-chain.en.svg)
 

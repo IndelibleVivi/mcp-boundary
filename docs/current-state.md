@@ -1,6 +1,6 @@
 # Current state
 
-Last reviewed: 2026-09-21
+Last reviewed: 2026-09-25
 
 | Surface | State | Evidence / limit |
 | --- | --- | --- |
@@ -18,6 +18,6 @@ Last reviewed: 2026-09-21
 | Related projects | English and Chinese README and Library entries link to Servotab and Worker Routing | Published static links sit outside the ten-document Guide/Lab filter; desktop/mobile layouts, no-JavaScript links, and empty-result filtering were checked before deployment |
 | Submission materials | Published record under `docs/submission/0.2.0.md` | Includes the public outcome plus listing copy, release notes, starter prompts, and five positive plus three negative reviewer test cases |
 | Behavior comparison | Cases and rubric registered | No-skill / historical-skill / `0.2.0` comparative runs are not yet executed; comparative improvement remains not verified and must not be claimed |
-| Former repositories | Historical sources, not archived | Redirect and archival remain separate deliberate actions after the unified release is established |
+| Former repositories | Migration front doors live on `main`; not archived | Guide commit [`c913c16`](https://github.com/IndelibleVivi/mcp-server-engineering-field-guide/commit/c913c16) and Lab commit [`e031c3f`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab/commit/e031c3f) route readers and agents here while preserving standalone release/evidence history. GitHub archival and repository metadata remain separate owner actions |
 
 Release validation run `35059026233` completed successfully for `98afefd`, including plugin/workspace tests on Python 3.11 and 3.12, schema validation, Guide checks on Python 3.11 and 3.13, Lab checks, deterministic bundle verification, and artifact upload.

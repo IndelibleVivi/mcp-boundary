@@ -47,7 +47,7 @@ The initial unified import copied complete trees from two pinned commits, includ
 
 `provenance/UPSTREAMS.lock.json` records those two commits as the origin of the subtrees; `provenance/SOURCES.json` records the exact-copy and influence mapping. The import did not merge Git histories or imply that the former repositories were authored under one blanket license.
 
-`guide/` and `lab/` are ordinary maintained subtrees of this repository. There is no re-import, updater, or synchronization script: a later upstream change would arrive as an ordinary reviewed pull request with its own provenance note, not as a destructive re-copy this repository can run over local work. The former repositories remain unarchived historical sources.
+`guide/` and `lab/` are ordinary maintained subtrees of this repository. There is no re-import, updater, or synchronization script: a later upstream change would arrive as an ordinary reviewed pull request with its own provenance note, not as a destructive re-copy this repository can run over local work. The former repositories now carry migration front doors to this repository and remain unarchived historical sources.
 
 `guide/skill/mcp-server-engineering/` is frozen historical release and evaluation material for this candidate. It is not active, not distributed, and not a maintenance target; the active distributed skill is `src/skills/mcp-boundary/`.
 
@@ -58,6 +58,7 @@ The initial unified import copied complete trees from two pinned commits, includ
 3. Compare the active Boundary skill against no-skill and historical-skill baselines on the registered cases.
 4. Review public wording, licenses, provenance, and website routes.
 5. Release the unified plugin.
-6. Update former repositories to point here, then archive them only after links and release history are preserved.
+6. Update former repositories to point here after links and release history are preserved. Completed on 2026-09-25 in Guide commit `c913c16` and Lab commit `e031c3f`.
+7. Archive the former repositories only through a separate deliberate owner action.
 
 The external plugin listing remains on the stable release until step 5.

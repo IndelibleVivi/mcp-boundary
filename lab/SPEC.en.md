@@ -55,12 +55,12 @@ The LLM/host supplies intent routing, tool invocation, and conversation context.
 
 ## Authority split
 
-| Surface              | Owns                                                                                             | Does not own                                   |
-| -------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------- |
-| Field Guide          | Stable methods, dated protocol/integration profiles, evidence grammar, and general skill         | Target runtime or named-host truth             |
-| Production Field Lab | Neutral executable specimen, host harness, scenario policy/definitions, package/runtime receipts | Refrain product truth or universal host claims |
-| Refrain              | Product source, exact renderer/resource, deployment, and owner acceptance                        | General MCP engineering method                 |
-| MCP Boundary         | Repository contract, active `mcp-boundary` skill, plugin packaging, publication gates            | Field Lab scenarios or MCP protocol authority  |
+| Surface                     | Owns                                                                                             | Does not own                                           |
+| --------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------ |
+| MCP Boundary skill / Plugin | Active agent workflow, plugin packaging, and publication gates                                   | Lab runtime truth or any target's implementation truth |
+| Guide module                | Stable methods, dated protocol/integration profiles, and evidence grammar                        | Target runtime or named-host truth                     |
+| Lab module                  | Neutral executable specimen, host harness, scenario policy/definitions, package/runtime receipts | Refrain product truth or universal host claims         |
+| Refrain                     | Product source, exact renderer/resource, deployment, and owner acceptance                        | General MCP engineering method                         |
 
 ## Initial complete outcome
 

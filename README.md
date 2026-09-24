@@ -128,6 +128,6 @@ The initial monorepo import is pinned to:
 - MCP Server Engineering Field Guide commit `87238302209d654358dd64eb3972677e4cacf256`;
 - MCP App Production Field Lab commit `5a6deebbac96089588658452a00f2c52bad0dd2f`.
 
-See [`provenance/UPSTREAMS.lock.json`](provenance/UPSTREAMS.lock.json). `guide/` and `lab/` are ordinary maintained subtrees here, with no re-import or synchronization path. This repository is the development authority for the unified project; the former repositories remain unarchived historical sources until a separate archival decision is deliberately completed.
+See [`provenance/UPSTREAMS.lock.json`](provenance/UPSTREAMS.lock.json). `guide/` and `lab/` are ordinary maintained subtrees here, with no re-import or synchronization path. This repository is the development authority for the unified project. The former Guide and Lab repositories now carry migration front doors back here and remain unarchived historical sources until a separate archival decision is deliberately completed.
 
 Created by Faye & Cove.

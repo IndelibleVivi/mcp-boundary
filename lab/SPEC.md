@@ -55,12 +55,12 @@ LLM/host 提供 intent routing、tool invocation 与 conversation context；spec
 
 ## Authority split
 
-| Surface              | Owns                                                                                             | Does not own                                   |
-| -------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------- |
-| Field Guide          | Stable method、dated protocol/integration profiles、evidence grammar、general skill              | Target runtime 或 named-host truth             |
-| Production Field Lab | Neutral executable specimen、host harness、scenario policy/definitions、package/runtime receipts | Refrain product truth 或 universal host claims |
-| Refrain              | Product source、exact renderer/resource、deployment 与 owner acceptance                          | General MCP engineering method                 |
-| MCP Boundary         | Repository contract、活跃 `mcp-boundary` skill、plugin packaging 与 publication gates             | Field Lab scenarios 或 MCP protocol authority  |
+| Surface                     | Owns                                                                                             | Does not own                                   |
+| --------------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------- |
+| MCP Boundary skill / Plugin | 活跃 agent workflow、plugin packaging 与 publication gates                                       | Lab runtime truth 或任意 target 的实现真相     |
+| Guide module                | Stable method、dated protocol/integration profiles 与 evidence grammar                           | Target runtime 或 named-host truth             |
+| Lab module                  | Neutral executable specimen、host harness、scenario policy/definitions、package/runtime receipts | Refrain product truth 或 universal host claims |
+| Refrain                     | Product source、exact renderer/resource、deployment 与 owner acceptance                          | General MCP engineering method                 |
 
 ## Initial complete outcome
 

@@ -4,11 +4,11 @@
 
 [English](./README.en.md)
 
-MCP App Production Field Lab 是一个可执行、可复现、claim-bounded 的工程实验室。它把 MCP App 从 source、local process、exact resource delivery、browser host、clean package、activated runtime，一直到 tunnel、named host 与 owner acceptance 的边界逐层拆开验证，避免把“本地能打开”误写成“真实 host 已接受”。
-
-当前状态是 **`public-source` / source-available / unreleased package**：source repository 公开于 [`IndelibleVivi/mcp-app-production-fieldlab`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab)，但没有 GitHub Release 或 registry publication。Project-original functional materials 使用 `SUL-1.0`；原创 documentation、diagrams 与 case-study expression 使用 `CC-BY-NC-SA-4.0`。这不是 OSI open source。`package.json` 保持 `private: true`，用于阻止误发 npm。仓库里的 tunnel、named-host 与 owner scenarios 是 operator runbooks 和 evidence contracts，不代表这些外部步骤已经运行。
+MCP App Production Field Lab 是 MCP Boundary 内持续维护的、可执行、可复现、claim-bounded 工程实验室。它把 MCP App 从 source、local process、exact resource delivery、browser host、clean package、activated runtime，一直到 tunnel、named host 与 owner acceptance 的边界逐层拆开验证，避免把“本地能打开”误写成“真实 host 已接受”。
 
 > **统一仓库说明。** 本子树是 MCP Boundary 仓库中的 `lab/`。下面关于 publication、repository 与 version pin 的表述，是原独立 source repository 的历史事实，保留它们是为了记录这些证据是如何产生的。本子树的持续权威是根目录 [`AGENTS.md`](../AGENTS.md)；方法与 protocol profiles 就地读取本地 [`guide/`](../guide/) 子树；唯一活跃分发的 skill 是 `src/skills/mcp-boundary/`。本子树不是独立 repo，不提供安装路径，也不属于分发的插件包。
+
+原独立仓库的 publication state 是 **`public-source` / source-available / unreleased package**：source repository 公开于 [`IndelibleVivi/mcp-app-production-fieldlab`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab)，但没有 GitHub Release 或 registry publication。Project-original functional materials 使用 `SUL-1.0`；原创 documentation、diagrams 与 case-study expression 使用 `CC-BY-NC-SA-4.0`。这不是 OSI open source。`package.json` 保持 `private: true`，用于阻止误发 npm。仓库里的 tunnel、named-host 与 owner scenarios 是 operator runbooks 和 evidence contracts，不代表这些外部步骤已经运行。
 
 ![Field Lab：一个 neutral specimen、三类 projection boundary 与四份 local receipt](docs/architecture/field-lab-evidence-chain.zh-CN.svg)
 
