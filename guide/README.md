@@ -80,3 +80,5 @@ The guide, profiles, case studies, and evidence prose are licensed under [CC BY 
 ## Authorship and provenance
 
 See [AUTHORS.md](AUTHORS.md) and [ATTRIBUTION.md](ATTRIBUTION.md). Private working continuity, raw model transcripts, local machine paths, and unsanitized execution logs are intentionally not part of this repository.
+
+October extension/host recipes: [Skills](profiles/skills-distribution-2026-10-15.md), [Cloudflare](profiles/cloudflare-deployment-2026-10-15.md), [OpenAI entrypoints](profiles/openai-entrypoints-2026-10-15.md), [Tasks/Events selection](profiles/async-selection-2026-10-15.md). These do not alter the frozen historical skill.

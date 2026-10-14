@@ -50,6 +50,17 @@ At minimum, establish:
 
 Read [references/protocol-selection.md](references/protocol-selection.md), then load the profile matching the declared or selected revision under `references/profiles/`. Load the JSON-RPC profile when message semantics matter and the HTTP profile only when an HTTP boundary owns the behavior. For the newest protocol or current host behavior, check current official sources; bundled profiles are dated evidence.
 
+## Complete a concrete extension or host path
+
+Load the matching dated recipe when the task uses one of these paths. Start with its positive implementation and the counterexample that distinguishes a wrong fix:
+
+- [Skills distribution](references/skills-distribution-2026-10-15.md): list/get/read, integrity, live reads versus imported snapshots, and the successful-rescan path.
+- [Cloudflare deployment](references/cloudflare-deployment-2026-10-15.md): combined versus split OAuth, business scopes, independent proxy hops, effect-safe retry, and optional Code Mode.
+- [OpenAI native entrypoints](references/openai-entrypoints-2026-10-15.md): useful empty-argument opens, user-supplied context, ordinary-call fallback, and portable packaging.
+- [Tasks and Events selection](references/async-selection-2026-10-15.md): continuation of initiated work versus experimental external notifications.
+
+Record base revision, extension/spec revision, host/platform, observation date, and live-read or snapshot-import behavior separately. These recipes are self-contained; installed use does not depend on the repository Guide or Lab. Running a repository fixture proves its declared mechanism, while actual host import/activation still needs that host's observation.
+
 ## Locate ownership before changing controls
 
 Read [references/boundary-model.md](references/boundary-model.md). Put validation, authorization, cancellation, retry, timeout, logging, recovery, and resource controls where they can act before the protected event.

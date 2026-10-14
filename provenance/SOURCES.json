@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "recorded_at": "2026-09-16",
-  "project_version": "0.2.0",
+  "recorded_at": "2026-10-15",
+  "project_version": "0.3.0-dev.1",
   "exact_copies": [
     {
       "source_project": "MCP Server Engineering Field Guide",
@@ -92,7 +92,8 @@
         {
           "source_path": "skill/mcp-server-engineering/scripts/check_markdown_links.py",
           "source_sha256": "5e8cfc28df098ef0308b8ce4b894206c21baab72defe0913a0534f8be7229f7a",
-          "destination_path": "tools/guide-validation/check_markdown_links.py"
+          "destination_path": "tools/guide-validation/check_markdown_links.py",
+          "change": "The maintained Guide scan permits relative links to sibling Lab/source files within MCP Boundary; standalone and test scan roots retain their own containment boundary."
         },
         {
           "source_path": "skill/mcp-server-engineering/scripts/check_python_syntax.py",
@@ -181,6 +182,51 @@
       "url": "https://modelcontextprotocol.io/specification/2026-07-28",
       "assessed_at": "2026-09-14",
       "purpose": "Current published MCP revision at build time."
+    },
+    {
+      "url": "https://developers.openai.com/plugins/build/plugins",
+      "assessed_at": "2026-10-15",
+      "purpose": "Portable root manifest and whole-object OpenAI extension precedence; legacy projection retained."
+    },
+    {
+      "url": "https://developers.openai.com/plugins/build/mcp-server",
+      "assessed_at": "2026-10-15",
+      "purpose": "Static bounded Skills snapshot importer and scan failure preserving prior skills."
+    },
+    {
+      "url": "https://skills.extensions.modelcontextprotocol.io/specification/stable/skills",
+      "assessed_at": "2026-10-15",
+      "purpose": "Current stable Skills transport binding; no copied source files."
+    },
+    {
+      "url": "https://modelcontextprotocol.io/seps/2640-skills-extension",
+      "assessed_at": "2026-10-15",
+      "purpose": "Final SEP status, separately from living extension requirements."
+    },
+    {
+      "url": "https://github.com/openai/mcp-extensions/blob/main/docs/spec.md",
+      "assessed_at": "2026-10-15",
+      "purpose": "Native entrypoint contract and platform-specific expected support."
+    },
+    {
+      "url": "https://developers.cloudflare.com/changelog/post/2026-10-01-workers-oauth-provider-1x/",
+      "assessed_at": "2026-10-15",
+      "purpose": "Split/combined OAuth topology and installed migration skill."
+    },
+    {
+      "url": "https://developers.cloudflare.com/cloudflare-one/access-controls/ai-controls/mcp-portals/",
+      "assessed_at": "2026-10-15",
+      "purpose": "Independent hops, response DLP and Code Mode constraints."
+    },
+    {
+      "url": "https://modelcontextprotocol.io/extensions/tasks/overview",
+      "assessed_at": "2026-10-15",
+      "purpose": "Negotiated Tasks continuation outside the core."
+    },
+    {
+      "url": "https://developers.cloudflare.com/changelog/post/2026-10-13-cloudflare-mcp-events/",
+      "assessed_at": "2026-10-15",
+      "purpose": "Vendor Events rollout; experimental WG boundary."
     }
   ],
   "visual_identity": {

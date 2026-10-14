@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Build or verify the committed Codex-native plugin package from author sources."""
+"""Build or verify portable and Codex compatibility manifests from one source."""
 
 from __future__ import annotations
 
 import argparse
 import filecmp
+import json
 import os
 from pathlib import Path
 import shutil
@@ -22,10 +23,12 @@ def copy_file(source: Path, destination: Path) -> None:
 
 def build_candidate(destination: Path) -> None:
     manifest_source = ROOT / "src/plugin/plugin.json"
-    copy_file(
-        manifest_source,
-        destination / ".codex-plugin/plugin.json",
-    )
+    copy_file(manifest_source, destination / "plugin.json")
+    manifest = json.loads(manifest_source.read_text(encoding="utf-8"))
+    compatibility = codex_manifest(manifest)
+    overlay = destination / ".codex-plugin/plugin.json"
+    overlay.parent.mkdir(parents=True, exist_ok=True)
+    overlay.write_text(json.dumps(compatibility, indent=2) + "\n", encoding="utf-8")
     shutil.copytree(
         ROOT / "src/skills/mcp-boundary",
         destination / "skills/mcp-boundary",
@@ -48,6 +51,13 @@ def build_candidate(destination: Path) -> None:
         ROOT / "provenance/SOURCES.json",
         destination / "provenance/SOURCES.json",
     )
+
+
+def codex_manifest(manifest: dict) -> dict:
+    """Legacy hosts consume this projection; portable hosts use the inline overlay."""
+    identity = {key: value for key, value in manifest.items() if key not in ("$schema", "extensions")}
+    settings = manifest["extensions"]["com.openai"]
+    return {**identity, "skills": "./skills/", **settings}
 
 
 def tree_files(root: Path) -> set[Path]:

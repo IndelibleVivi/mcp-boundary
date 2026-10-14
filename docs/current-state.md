@@ -1,12 +1,15 @@
 # Current state
 
-Last reviewed: 2026-09-25
+Last reviewed: 2026-10-15
 
 | Surface | State | Evidence / limit |
 | --- | --- | --- |
 | Unified repository | `0.2.0` integration and website merged to `main` at `98afefd` | One continuing authority with one distributed skill, the maintained Guide, and the executable Lab |
 | Source release | `v0.2.0` live on GitHub | Annotated tag points to `98afefd`; the non-draft, non-prerelease release carries the 29-file ZIP and checksum sidecar. The remote ZIP digest is `c07e843cb186b3deec96a77ec852a847f0d54c18d41ec0c2e7b7a125134bf0aa` |
 | External plugin directory | `0.2.0` live | Exact public listing `plugins_6aa72e81844081918770991deb1dbfc8` was observed on 2026-09-16 showing MCP Boundary version `0.2.0`, its three starter prompts, Developer Tools category, and public policy links |
+| Local Lab evidence | Verified on 2026-10-15 | 84 tests plus build/SDK resource smoke/four HTTP fixtures and one Events listener; five existing browser host tests; independent entrypoint UI through the installed SDK bridge. Real OAuth/Gateway/Events consumer and named-host behavior remain unverified |
+| October candidate | `0.3.0-dev.1`, local source/package candidate | Four dated extension/host recipes, portable manifest and generated legacy projection; not a GitHub release or directory update |
+| Local installation | Verified in an empty temporary Codex home with `codex-cli 0.159.1` | Both portable and legacy-only installation paths succeeded; installed cache bytes and icon/logo paths matched their package; daily profile, model activation, composer rendering and directory importer not exercised |
 | Active skill | `src/skills/mcp-boundary/` | Live-path execution, control ownership, migration retirement, artifact/runtime reconciliation, named-host claim ceilings, and a small-task stop rule |
 | Distributed package | `plugins/mcp-boundary/` | Contains the one pure skill `mcp-boundary`; no Guide, Lab runtime, server, app connector, auth flow, analytics, telemetry, or runtime dependency |
 | Guide validation | `tools/guide-validation/` | Maintained current validators used by Guide tests and root CI; active mirror validation is check-only |
@@ -17,7 +20,7 @@ Last reviewed: 2026-09-25
 | Site discoverability | Four canonical URLs in `site/sitemap.xml`, unique titles/descriptions, reciprocal `hreflang`, and directory homepage links | Deployed with unique titles/descriptions and reciprocal language alternates. Google Search Console ownership was verified and sitemap submission accepted on 2026-09-21; the live URL Inspection test reported crawl allowed and fetch successful, but the sitemap report still showed `Couldn't fetch` after one resubmission. Successful ingestion remains pending; a later URL Inspection check on 2026-09-21 confirmed that the homepage and Library are indexed. This does not establish ranking |
 | Related projects | English and Chinese README and Library entries link to Servotab and Worker Routing | Published static links sit outside the ten-document Guide/Lab filter; desktop/mobile layouts, no-JavaScript links, and empty-result filtering were checked before deployment |
 | Submission materials | Published record under `docs/submission/0.2.0.md` | Includes the public outcome plus listing copy, release notes, starter prompts, and five positive plus three negative reviewer test cases |
-| Behavior comparison | Cases and rubric registered | No-skill / historical-skill / `0.2.0` comparative runs are not yet executed; comparative improvement remains not verified and must not be claimed |
+| Behavior comparison | Nine initial runs + three candidate follow-ups executed | No skill `2/3`; released `0.2.0`, initial candidate and final candidate `3/3` each. Final candidate did not repeat an earlier extra scope question; incremental completion gain over `0.2.0` is not established. [Report](../evaluations/october-2026-report.md). Original six cases remain unexecuted |
 | Former repositories | Archived read-only on GitHub on 2026-09-25 | Final `main` heads remained Guide [`c913c16`](https://github.com/IndelibleVivi/mcp-server-engineering-field-guide/commit/c913c16) and Lab [`315eac0`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab/commit/315eac0) after archival. Their migration front doors, About descriptions, and homepage links route continued development to MCP Boundary while preserving the standalone histories |
 
 Release validation run `35059026233` completed successfully for `98afefd`, including plugin/workspace tests on Python 3.11 and 3.12, schema validation, Guide checks on Python 3.11 and 3.13, Lab checks, deterministic bundle verification, and artifact upload.

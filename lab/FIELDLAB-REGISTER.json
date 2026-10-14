@@ -39,6 +39,38 @@
       "guide_assessed_at": "2026-08-15"
     }
   ],
+  "extension_observations": [
+    {
+      "id": "skills-over-mcp",
+      "observed_at": "2026-10-15",
+      "source": "https://skills.extensions.modelcontextprotocol.io/specification/stable/skills",
+      "summary": "The stable Skills extension identifier is io.modelcontextprotocol/skills, declared under server/discover capabilities.resources plus capabilities.extensions; a static SkillResource carries uri, digest, and size. The OpenAI importer documents a bounded static subset (list/get plus resources/read). Locally exercised by the lab fixture skills-over-mcp."
+    },
+    {
+      "id": "openai-entrypoints",
+      "observed_at": "2026-10-15",
+      "source": "https://github.com/openai/mcp-extensions/blob/main/docs/spec.md",
+      "summary": "Global and thread entrypoints are declared under _meta[\"openai/ui\"].entrypoints and opened with an ordinary tools/call and empty arguments. The file entrypoint is a separate contract. Locally exercised by the lab fixture openai-entrypoint."
+    },
+    {
+      "id": "cloudflare-workers-oauth-provider-1x",
+      "observed_at": "2026-10-15",
+      "source": "https://developers.cloudflare.com/changelog/post/2026-10-01-workers-oauth-provider-1x/",
+      "summary": "Workers OAuth Provider v1 offers split and combined modes; HTTP POST is not evidence of tool-effect authorization. Locally modelled by the lab fixture cloudflare-deployment-seam."
+    },
+    {
+      "id": "cloudflare-mcp-events",
+      "observed_at": "2026-10-15",
+      "source": "https://developers.cloudflare.com/changelog/post/2026-10-13-cloudflare-mcp-events/",
+      "summary": "Events are an experimental working-group surface. The lab keeps them an independent opt-in fixture; no real consumer, signature, or replay was exercised."
+    },
+    {
+      "id": "mcp-tasks-extension",
+      "observed_at": "2026-10-15",
+      "source": "https://modelcontextprotocol.io/extensions/tasks/overview",
+      "summary": "Tasks remain the negotiated io.modelcontextprotocol/tasks extension outside core, not core background work."
+    }
+  ],
   "founding_observation": {
     "repository": "https://github.com/IndelibleVivi/refrain",
     "reviewed_commit": "3e25c4b61eacaad502b4942e285855a7c38871ca",

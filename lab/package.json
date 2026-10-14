@@ -12,7 +12,7 @@
   "type": "module",
   "scripts": {
     "build": "skybridge build && node scripts/assert-build.mjs",
-    "check": "npm run validate:register && npm run validate:licensing && npm run validate:docs && npm run validate:schemas && npm run validate:scenarios && npm run typecheck && npm run test && npm run build && npm run test:mcp",
+    "check": "npm run validate:register && npm run validate:licensing && npm run validate:docs && npm run validate:schemas && npm run validate:scenarios && npm run typecheck && npm run test && npm run build && npm run test:mcp && npm run test:fixtures",
     "dev": "skybridge dev",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
@@ -21,6 +21,7 @@
     "smoke:runtime": "node scripts/runtime-smoke.mjs",
     "start": "skybridge start",
     "test": "vitest run --maxWorkers=2",
+    "test:fixtures": "tsx scripts/run-lab-fixtures.ts",
     "test:host": "npm run build && tsx scripts/run-host-evidence.ts",
     "test:mcp": "tsx scripts/mcp-smoke.ts",
     "typecheck": "tsc --noEmit -p tsconfig.check.json",
@@ -28,7 +29,8 @@
     "validate:licensing": "node scripts/validate-licensing.mjs",
     "validate:docs": "node scripts/validate-docs.mjs",
     "validate:scenarios": "tsx scripts/validate-scenarios.ts",
-    "validate:schemas": "tsx scripts/generate-schemas.ts --check"
+    "validate:schemas": "tsx scripts/generate-schemas.ts --check",
+    "test:entrypoint-view": "tsx scripts/smoke-entrypoint-view.ts"
   },
   "dependencies": {
     "@modelcontextprotocol/ext-apps": "1.7.5",
@@ -48,7 +50,8 @@
     "prettier": "3.9.6",
     "tsx": "4.23.12",
     "typescript": "5.9.3",
-    "vitest": "3.2.7"
+    "vitest": "3.2.7",
+    "yaml": "2.9.0"
   },
   "engines": {
     "node": ">=22.23.1"

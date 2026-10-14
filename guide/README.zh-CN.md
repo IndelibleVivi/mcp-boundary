@@ -79,3 +79,5 @@ Guide、profiles、case studies 与 evidence prose 使用 [CC BY 4.0](LICENSES/C
 ## Authorship 与 provenance
 
 见 [AUTHORS.md](AUTHORS.md) 与 [ATTRIBUTION.md](ATTRIBUTION.md)。私人 working continuity、raw model transcripts、本机路径和未清理的 execution logs 均不属于这个 repo。
+
+十月扩展／宿主 recipes：[Skills](profiles/skills-distribution-2026-10-15.zh-CN.md)、[Cloudflare](profiles/cloudflare-deployment-2026-10-15.zh-CN.md)、[OpenAI 原生入口](profiles/openai-entrypoints-2026-10-15.zh-CN.md)、[Tasks/Events 选型](profiles/async-selection-2026-10-15.zh-CN.md)。这些材料不修改冻结的历史 skill。

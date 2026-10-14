@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create a deterministic Codex-native MCP Boundary plugin ZIP."""
+"""Create a deterministic portable MCP Boundary plugin ZIP."""
 
 from __future__ import annotations
 
@@ -8,6 +8,8 @@ import json
 from pathlib import Path, PurePosixPath
 import stat
 import zipfile
+
+from build_plugin import codex_manifest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,24 +30,26 @@ def package_files() -> list[Path]:
             files.append(path)
     root_manifest = SOURCE / "plugin.json"
     codex_manifest_path = SOURCE / ".codex-plugin/plugin.json"
-    if root_manifest.exists():
-        raise ValueError(
-            "Root plugin.json would select the Agent Plugins conversion path; "
-            "ship only .codex-plugin/plugin.json."
-        )
-    if not files or not codex_manifest_path.is_file():
-        raise ValueError("Build the Codex-native plugin package before creating the ZIP.")
-    codex_manifest = json.loads(codex_manifest_path.read_text(encoding="utf-8"))
-    interface = codex_manifest.get("interface", {})
+    if not files or not root_manifest.is_file() or not codex_manifest_path.is_file():
+        raise ValueError("Build both plugin manifests before creating the ZIP.")
+    portable = json.loads(root_manifest.read_text(encoding="utf-8"))
+    compatibility = json.loads(codex_manifest_path.read_text(encoding="utf-8"))
+    if compatibility != codex_manifest(portable):
+        raise ValueError("Codex compatibility manifest differs from the portable source.")
+    if portable.get("$schema") != "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json":
+        raise ValueError("Portable manifest must declare Agent Plugins 1.0.0.")
+    interface = portable["extensions"]["com.openai"]["interface"]
     if "screenshots" in interface or (SOURCE / "assets/screenshots").exists():
         raise ValueError(
-            "ZIP uploads support skills only; remove interface.screenshots "
+            "MCP Boundary excludes screenshots from its skills-only package; remove interface.screenshots "
             "and packaged screenshot assets."
         )
     for field in ("composerIcon", "logo"):
         value = interface.get(field)
         if not isinstance(value, str) or not value.startswith("./assets/"):
-            raise ValueError(f"Codex manifest is missing a valid interface.{field} path.")
+            raise ValueError(f"Manifest is missing a valid interface.{field} path.")
+        if ".." in PurePosixPath(value[2:]).parts:
+            raise ValueError(f"Manifest asset escapes package: {value}")
         asset = SOURCE.joinpath(*PurePosixPath(value[2:]).parts)
         if not asset.is_file():
             raise ValueError(f"Codex manifest asset does not exist: {value}")

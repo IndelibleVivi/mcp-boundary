@@ -1,6 +1,6 @@
 {
   "name": "mcp-boundary",
-  "version": "0.2.0",
+  "version": "0.3.0-dev.1",
   "description": "Complete MCP engineering work on the active protocol, transport, capability, artifact, runtime, and host path.",
   "author": {
     "name": "Faye & Cove",

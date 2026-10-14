@@ -4,7 +4,7 @@
 
 [English](./current-state.en.md)
 
-Updated: 2026-08-29
+Updated: 2026-10-15
 
 ## Classification
 
@@ -40,7 +40,19 @@ Updated: 2026-08-29
 - credential-free、read-only GitHub Actions workflow source；remote CI execution 在真实 remote run 前保持 `not_verified`；
 - operator runbooks 与 pinned、public-safe 的 Refrain mechanism case study。
 
-## Evidence status
+## 2026-10 local protocol fixtures
+
+2026-10-15 加入五个独立、可运行的本地 fixture，并把它们接入新增的 `npm run test:fixtures`（`scripts/run-lab-fixtures.ts`）；`npm run check` 现在同时运行这批 unit tests 与 fixture runner：
+
+- `wire-2026-07-28`：极小的 2026-07-28 wire specimen，覆盖 per-request `_meta`、`server/discover`、`MCP-Protocol-Version` / `Mcp-Method` / `Mcp-Name` 与 body 的一致性，以及 mismatch 与 unsupported-version rejection；
+- `skills-over-mcp`：一个 skill 加一个 supporting file，`skills/list` / `skills/get` / `resources/read`，精确 per-resource `sha256:` digest 与 byte size，静态 snapshot 对比 live read，以及 digest 失败时保留旧 snapshot 且 tools 仍然可见；
+- `cloudflare-deployment-seam`：read/write 业务调用都走 POST，authorization 依据 tool effect/scope/resource 而非 HTTP verb，client 与 upstream credential 独立，effect 之后 block result 时以 operation identity 去重；
+- `openai-entrypoint`：global/thread entrypoint 通过普通 `tools/call` 加 `{}` 打开并返回初始数据，随后补充 context；host 没有 entrypoint 时退回普通 tool call；
+- `experimental-events`：独立的 local opt-in Events fixture；没有真实 consumer、signature 或 replay 被验证。
+
+2026-10-15 在具备真实 loopback 的本机完成 `npm run check`：84 个 tests 通过，build、SDK resource smoke 与五个 fixture 摘要全部通过。另行执行 `npm run test:entrypoint-view`，用已安装的 MCP Apps SDK bridge 和 bundled Chromium 验证独立 UI resource、空参数初始视图及用户选择 context 后的调用；首屏没有重复调用。没有测试真实 OAuth library、Gateway、OpenAI importer 或 named host。去重身份隔离 principal/tool/resource，并绑定 payload；存储只在单个 proxy process 内有效，不能提供跨重启或跨 proxy 的 exactly-once 保证。
+
+## Historical clean-candidate evidence
 
 2026-08-29 已对 review-hardening source/process、declared local-browser、clean-package 与 isolated-runtime boundaries 完成 fresh local verification。当前 package/runtime proof 固定到 clean implementation commit `5eba892b6be5407b0ac4aa658f398f7b2eec5373`。本文件是随后只记录证据的 documentation update，不改变 candidate identity。更早的 `dbab424...` 与 `ed016da...` candidates 只保留为 historical evidence，不是当前 revision 的 proof。
 
@@ -85,6 +97,7 @@ Fresh run 已验证 candidate file/digest closure、candidate-owned full scenari
 | Boundary id                   | Status         | Current claim                                                                  |
 | ----------------------------- | -------------- | ------------------------------------------------------------------------------ |
 | `source-checks`               | `verified`     | Clean commit `5eba892...` 通过 docs/schema/scenario/type/unit/build/MCP checks |
+| `local-protocol-fixtures`     | `verified` | 2026-10-15 本机 loopback fixtures 与本地 SDK bridge 浏览器交互通过；ceiling=`process` |
 | `resource-roundtrip`          | `verified`     | Fresh clean process 返回上列 exact self-contained resource identity            |
 | `local-host-matrix`           | `verified`     | Exact five-test Playwright attestation 通过；ceiling=`process`                 |
 | `clean-runtime-candidate`     | `verified`     | `43`-file candidate 与 release manifest 绑定 clean commit `5eba892...`         |

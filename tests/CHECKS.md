@@ -73,3 +73,17 @@ It refreshes the committed homepage desktop/mobile screenshots at the redesign r
 - a complete accessibility, security, privacy, or legal certification.
 
 Those require the relevant exact observer and should remain `not verified` until exercised.
+
+## Portable candidate packaging
+
+After changing the manifest source, builder or package layout:
+
+```bash
+python3 scripts/build_plugin.py --write
+python3 scripts/build_plugin.py --check
+python3 scripts/package_plugin.py
+python3 scripts/check_plugin_archive.py
+python3 scripts/smoke_plugin_install.py
+```
+
+The last command requires the local Codex CLI and uses an empty temporary Codex home without copied credentials. It exercises portable and legacy-only packages through marketplace add, installation, cache byte equality, and installed asset paths. It does not modify the daily profile or establish model activation, desktop icon rendering, or directory ingestion. CI runs archive checks; local CLI installation is a separate observation.

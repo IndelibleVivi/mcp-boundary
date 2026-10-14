@@ -79,6 +79,14 @@ MCP Boundary 会要求 agent：
 
 它也有明确停止条件：清楚的小改动保持小，不扩张成仪式化全面审计。
 
+## 十月候选 recipes
+
+源码候选版 `0.3.0-dev.1` 新增 [Skills 分发](guide/profiles/skills-distribution-2026-10-15.zh-CN.md)、[Cloudflare 授权／代理](guide/profiles/cloudflare-deployment-2026-10-15.zh-CN.md)、[OpenAI 原生入口](guide/profiles/openai-entrypoints-2026-10-15.zh-CN.md)和 [Tasks/Events 选型](guide/profiles/async-selection-2026-10-15.zh-CN.md)。active skill 自带可独立使用的 recipes。现有七月核心 profile 保留；本轮补扩展与宿主行为。
+
+候选包采用根目录 portable `plugin.json`，内含 OpenAI 展示信息，同时生成 Codex 兼容清单；两者只维护 `src/plugin/plugin.json` 这一份作者源。拆包及 loader-contract 检查与真实安装、目录发布分别记录。公开目录版本仍为 `0.2.0`。
+
+[行为评估](evaluations/README.md)记录比较方法及实际执行状态。本地 fixture 证明其声明的机制，不代表真实宿主支持或模型能力提升。
+
 ## 构建与验证
 
 插件和统一工作区：
@@ -92,6 +100,7 @@ python3 scripts/validate_skill_schema.py \
   src/skills/mcp-boundary \
   plugins/mcp-boundary/skills/mcp-boundary
 python3 scripts/package_plugin.py
+python3 scripts/check_plugin_archive.py
 ```
 
 Guide：

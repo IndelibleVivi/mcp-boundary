@@ -18,6 +18,7 @@ Read `SPEC.md`, `README.md`, `docs/ARCHITECTURE.md`, `docs/TESTING.md`, `docs/cu
 - `src/resource-contract.ts` and `src/self-contained-view.ts`: resource URI, MIME, metadata, and exact JS/CSS inlining contract.
 - `src/views/inspect-boundary.tsx`: the neutral dual-consumer UI; optional host actions are capability-gated.
 - `host-harness/`: declared local host profiles and observation ledger. It is not a ChatGPT emulator and cannot issue named-host receipts.
+- `tests/support/` and `scripts/run-lab-fixtures.ts`: independent, repository-only protocol/distribution/deployment fixtures. `test:fixtures` requires real loopback; no in-process transport fallback. `scripts/smoke-entrypoint-view.ts` separately checks the standalone entrypoint UI through the installed MCP Apps SDK bridge and bundled Chromium (`npm run test:entrypoint-view`); it does not establish named-host support.
 - `scenarios/`: versioned domain scenarios. Keep scenario boundaries specific; do not group route, admission, asset, bridge, sandbox, capability, runtime, tunnel, named-host, and owner failures because they look alike in the UI.
 - `schemas/`: scenario and receipt structural contracts. Status is `verified`, `failed`, or `not_verified`; capability disposition and causal confidence remain separate dimensions.
 - `scripts/package-runtime.mjs`: clean committed-tree package candidate. It must refuse dirty source and existing outputs, and every candidate/image must carry the complete layered license boundary.

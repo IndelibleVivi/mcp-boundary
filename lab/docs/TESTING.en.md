@@ -134,6 +134,18 @@ Package/runtime checks must follow the [package and loopback runbook](runbooks/p
 
 If source/process checks pass but package creation fails, report an artifact-lane failure. If the package is valid but its process does not reproduce, report an isolated-runtime failure. Do not hot-patch a live service to conceal either defect.
 
+## Local protocol fixtures lane
+
+```bash
+npm run test:fixtures
+```
+
+`npm run test:fixtures` runs four loopback HTTP fixtures and one in-process Events fixture (`wire-2026-07-28`, `skills-over-mcp`, `cloudflare-deployment-seam`, `openai-entrypoint`, `experimental-events`) and prints a one-page `mcp-app-fieldlab-local-fixtures@1` JSON summary. The same contracts are covered by unit tests under `tests/unit/`, and `npm run check` runs both.
+
+This lane's claim ceiling is `process`, limited to these loopback surrogates. They do not prove: official SDK behavior, named-host compatibility, a real OAuth library or Cloudflare Gateway, a real event consumer/signature/replay, or production tunneling. `experimental-events` stays a separate opt-in; it is not wired into the production server, host harness, or package.
+
+If the kernel refuses the loopback bind (a restricted sandbox), this lane fails for real instead of silently degrading to another transport; a failure is not a passing receipt.
+
 ## Public credential-free CI
 
 `.github/workflows/verify.yml` defines only read-only public witness lanes: `source-process`, `browser-host`, and `clean-package-runtime`. It reads no secrets, publishes no package/image/release, runs no tunnel/named-host/owner scenario, and uploads no raw Playwright/private evidence. Because receipts are ignored/local-only and are not shared as artifacts across jobs or runs, `clean-package-runtime` must rerun `npm run check` and `npm run test:host` in the same clean checkout/job before package and smoke. Every job summary must name its proof ceiling and the higher `not_verified` boundaries.
@@ -166,3 +178,11 @@ Capability discovery, invocation disposition, and root-cause confidence remain s
 ## External acceptance
 
 Tunnel, named-host, and owner evidence must follow the [tunnel and named-host runbook](runbooks/tunnel-and-named-host.en.md). Until each separately authorized run actually occurs, its status remains `not_verified` even if every local lane is green.
+
+Separate browser check for the entrypoint UI:
+
+```bash
+npm run test:entrypoint-view
+```
+
+Requires already-installed Playwright Chromium; it does not download or install a browser. Checks exact `resources/read` bytes, SDK bridge initialization, no duplicate initial call and the user context action. The sandbox retains `allow-scripts`; a button calls the tool through the bridge rather than relying on blocked native form submission. Real named-host behavior remains unverified.

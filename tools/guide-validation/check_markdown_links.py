@@ -18,6 +18,10 @@ def main() -> int:
     parser.add_argument("root", type=Path)
     args = parser.parse_args()
     root = args.root.resolve()
+    # The maintained Guide is a subtree of MCP Boundary, so its recipes may
+    # link to Lab evidence. Standalone/test roots keep their own boundary.
+    repository = Path(__file__).resolve().parents[2]
+    boundary = repository if root == repository / "guide" else root
     errors: list[str] = []
     checked = 0
 
@@ -39,7 +43,7 @@ def main() -> int:
             checked += 1
             resolved = (source.parent / target).resolve()
             try:
-                resolved.relative_to(root)
+                resolved.relative_to(boundary)
             except ValueError:
                 errors.append(f"{source.relative_to(root)}: link escapes repository: {raw}")
                 continue

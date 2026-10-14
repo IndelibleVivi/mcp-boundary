@@ -207,6 +207,9 @@ class UnifiedWorkspaceTests(unittest.TestCase):
                 "schema-effect-authorization",
                 "source-artifact-runtime-drift",
                 "small-change-stop-rule",
+                "skills-snapshot",
+                "empty-entrypoint",
+                "proxy-retry",
             },
         )
 

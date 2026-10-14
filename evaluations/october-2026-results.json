@@ -1,0 +1,280 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-10-15",
+  "comparison_kind": "same-owner development evidence; explicit source-context loading",
+  "baseline_skill_commit": "v0.2.0",
+  "candidate_version": "0.3.0-dev.1",
+  "requested_model": "commandcode/deepseek-v4.1-flash",
+  "provider_identity_verified": false,
+  "budget": {
+    "task_ms": 900000,
+    "setup_ms": 30000,
+    "turns_per_cell": 1
+  },
+  "coordinator_repair_feedback_to_cells": 0,
+  "skill_context_sha256": {
+    "released_0_2_0": "a67dda4b9b16655de6db3b28afe71b6a99846cb9e5f06eb8469cfd82a487fc88",
+    "initial_candidate": "5684894fe9fabdd3f2e16d704beb9d84455f48a056ca82df4bc107517cef77e8",
+    "final_candidate": "ad63a10babee123a8a3f141fe477ae47a9df872b655019343a1295e95f578468"
+  },
+  "fixture_sha256": {
+    "skills-snapshot": "e58d5ddcad494c7c50f76063e20fcd5d51006e3a9b393704c036ee270d541bcc",
+    "empty-entrypoint": "cdc22005f629448ae59e30061eeead5a273de304627453e30c1696a11bb15ca7",
+    "proxy-retry": "6090503acee75ce2098a2cb3ed5e0ad8f1536c126192f8af269abb263ed28ed6"
+  },
+  "acceptance_corrections": [
+    "Assert the originally requested optional context schema as well as handler behavior.",
+    "Accept structured conflict results and custom conflict exceptions, because the task did not prescribe one representation. All artifacts were graded against the same corrected checker; no repair session received grader feedback."
+  ],
+  "rows": [
+    {
+      "variant": "initial",
+      "case": "skills-snapshot",
+      "arm": "none",
+      "outcome": {
+        "case": "skills-snapshot",
+        "passed": true
+      },
+      "tool_uses": 7,
+      "successful_skill_entry_read_observed": null,
+      "elapsed_seconds": 53.6,
+      "added_lines": 2,
+      "removed_lines": 1,
+      "extra_files": [],
+      "nonblocking_questions": 0,
+      "requested_model": "commandcode/deepseek-v4.1-flash",
+      "provider_identity_verified": false,
+      "context_sha256": null
+    },
+    {
+      "variant": "initial",
+      "case": "skills-snapshot",
+      "arm": "current-0.2.0",
+      "outcome": {
+        "case": "skills-snapshot",
+        "passed": true
+      },
+      "tool_uses": 12,
+      "successful_skill_entry_read_observed": true,
+      "elapsed_seconds": 133.1,
+      "added_lines": 5,
+      "removed_lines": 1,
+      "extra_files": [],
+      "nonblocking_questions": 0,
+      "requested_model": "commandcode/deepseek-v4.1-flash",
+      "provider_identity_verified": false,
+      "context_sha256": "a67dda4b9b16655de6db3b28afe71b6a99846cb9e5f06eb8469cfd82a487fc88"
+    },
+    {
+      "variant": "initial",
+      "case": "skills-snapshot",
+      "arm": "candidate",
+      "outcome": {
+        "case": "skills-snapshot",
+        "passed": true
+      },
+      "tool_uses": 14,
+      "successful_skill_entry_read_observed": true,
+      "elapsed_seconds": 179.8,
+      "added_lines": 4,
+      "removed_lines": 1,
+      "extra_files": [],
+      "nonblocking_questions": 1,
+      "requested_model": "commandcode/deepseek-v4.1-flash",
+      "provider_identity_verified": false,
+      "context_sha256": "5684894fe9fabdd3f2e16d704beb9d84455f48a056ca82df4bc107517cef77e8"
+    },
+    {
+      "variant": "initial",
+      "case": "empty-entrypoint",
+      "arm": "none",
+      "outcome": {
+        "case": "empty-entrypoint",
+        "passed": false,
+        "error": "schema still requires model-filled context"
+      },
+      "tool_uses": 6,
+      "successful_skill_entry_read_observed": null,
+      "elapsed_seconds": 55.4,
+      "added_lines": 21,
+      "removed_lines": 0,
+      "extra_files": [],
+      "nonblocking_questions": 0,
+      "requested_model": "commandcode/deepseek-v4.1-flash",
+      "provider_identity_verified": false,
+      "context_sha256": null
+    },
+    {
+      "variant": "initial",
+      "case": "empty-entrypoint",
+      "arm": "current-0.2.0",
+      "outcome": {
+        "case": "empty-entrypoint",
+        "passed": true
+      },
+      "tool_uses": 11,
+      "successful_skill_entry_read_observed": true,
+      "elapsed_seconds": 53.5,
+      "added_lines": 6,
+      "removed_lines": 3,
+      "extra_files": [],
+      "nonblocking_questions": 0,
+      "requested_model": "commandcode/deepseek-v4.1-flash",
+      "provider_identity_verified": false,
+      "context_sha256": "a67dda4b9b16655de6db3b28afe71b6a99846cb9e5f06eb8469cfd82a487fc88"
+    },
+    {
+      "variant": "initial",
+      "case": "empty-entrypoint",
+      "arm": "candidate",
+      "outcome": {
+        "case": "empty-entrypoint",
+        "passed": true
+      },
+      "tool_uses": 14,
+      "successful_skill_entry_read_observed": true,
+      "elapsed_seconds": 60.8,
+      "added_lines": 18,
+      "removed_lines": 5,
+      "extra_files": [],
+      "nonblocking_questions": 0,
+      "requested_model": "commandcode/deepseek-v4.1-flash",
+      "provider_identity_verified": false,
+      "context_sha256": "5684894fe9fabdd3f2e16d704beb9d84455f48a056ca82df4bc107517cef77e8"
+    },
+    {
+      "variant": "initial",
+      "case": "proxy-retry",
+      "arm": "none",
+      "outcome": {
+        "case": "proxy-retry",
+        "passed": true
+      },
+      "tool_uses": 9,
+      "successful_skill_entry_read_observed": null,
+      "elapsed_seconds": 65.2,
+      "added_lines": 12,
+      "removed_lines": 1,
+      "extra_files": [],
+      "nonblocking_questions": 0,
+      "requested_model": "commandcode/deepseek-v4.1-flash",
+      "provider_identity_verified": false,
+      "context_sha256": null
+    },
+    {
+      "variant": "initial",
+      "case": "proxy-retry",
+      "arm": "current-0.2.0",
+      "outcome": {
+        "case": "proxy-retry",
+        "passed": true
+      },
+      "tool_uses": 11,
+      "successful_skill_entry_read_observed": true,
+      "elapsed_seconds": 62.8,
+      "added_lines": 11,
+      "removed_lines": 4,
+      "extra_files": [],
+      "nonblocking_questions": 1,
+      "requested_model": "commandcode/deepseek-v4.1-flash",
+      "provider_identity_verified": false,
+      "context_sha256": "a67dda4b9b16655de6db3b28afe71b6a99846cb9e5f06eb8469cfd82a487fc88"
+    },
+    {
+      "variant": "initial",
+      "case": "proxy-retry",
+      "arm": "candidate",
+      "outcome": {
+        "case": "proxy-retry",
+        "passed": true
+      },
+      "tool_uses": 14,
+      "successful_skill_entry_read_observed": true,
+      "elapsed_seconds": 66.9,
+      "added_lines": 19,
+      "removed_lines": 4,
+      "extra_files": [],
+      "nonblocking_questions": 0,
+      "requested_model": "commandcode/deepseek-v4.1-flash",
+      "provider_identity_verified": false,
+      "context_sha256": "5684894fe9fabdd3f2e16d704beb9d84455f48a056ca82df4bc107517cef77e8"
+    },
+    {
+      "variant": "refined",
+      "case": "skills-snapshot",
+      "arm": "candidate",
+      "outcome": {
+        "case": "skills-snapshot",
+        "passed": true
+      },
+      "tool_uses": 9,
+      "successful_skill_entry_read_observed": true,
+      "elapsed_seconds": 42.7,
+      "added_lines": 4,
+      "removed_lines": 1,
+      "extra_files": [],
+      "nonblocking_questions": 0,
+      "requested_model": "commandcode/deepseek-v4.1-flash",
+      "provider_identity_verified": false,
+      "context_sha256": "ad63a10babee123a8a3f141fe477ae47a9df872b655019343a1295e95f578468"
+    },
+    {
+      "variant": "refined",
+      "case": "empty-entrypoint",
+      "arm": "candidate",
+      "outcome": {
+        "case": "empty-entrypoint",
+        "passed": true
+      },
+      "tool_uses": 13,
+      "successful_skill_entry_read_observed": true,
+      "elapsed_seconds": 56.3,
+      "added_lines": 8,
+      "removed_lines": 3,
+      "extra_files": [],
+      "nonblocking_questions": 0,
+      "requested_model": "commandcode/deepseek-v4.1-flash",
+      "provider_identity_verified": false,
+      "context_sha256": "ad63a10babee123a8a3f141fe477ae47a9df872b655019343a1295e95f578468"
+    },
+    {
+      "variant": "refined",
+      "case": "proxy-retry",
+      "arm": "candidate",
+      "outcome": {
+        "case": "proxy-retry",
+        "passed": true
+      },
+      "tool_uses": 9,
+      "successful_skill_entry_read_observed": true,
+      "elapsed_seconds": 60.1,
+      "added_lines": 27,
+      "removed_lines": 5,
+      "extra_files": [],
+      "nonblocking_questions": 0,
+      "requested_model": "commandcode/deepseek-v4.1-flash",
+      "provider_identity_verified": false,
+      "context_sha256": "ad63a10babee123a8a3f141fe477ae47a9df872b655019343a1295e95f578468"
+    }
+  ],
+  "proportion_review": {
+    "basis": "Coordinator qualitative application of rubric proportion dimension; not an independent assurance score.",
+    "initial_candidate_skills_snapshot": {
+      "score": 2,
+      "max": 3,
+      "reason": "Completed repair but added a nonblocking question about cross-server loader work outside this bounded catalog responsibility."
+    },
+    "final_candidate_proxy_retry": {
+      "score": 2,
+      "max": 3,
+      "reason": "Completed repair but added a repr fallback for non-JSON payloads with no caller in this JSON-only specimen."
+    }
+  },
+  "not_proven": [
+    "incremental completion advantage over 0.2.0",
+    "statistical generalization",
+    "installed-skill auto-activation",
+    "real OpenAI or Cloudflare host behavior",
+    "the original six registered evaluation cases"
+  ]
+}

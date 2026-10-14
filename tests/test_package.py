@@ -9,6 +9,7 @@ import subprocess
 import sys
 import unittest
 import xml.etree.ElementTree as ET
+from scripts.build_plugin import codex_manifest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -32,7 +33,8 @@ class DistributablePackageTests(unittest.TestCase):
         cls.codex_manifest = json.loads(CODEX_MANIFEST.read_text(encoding="utf-8"))
 
     def test_codex_manifest_identity(self) -> None:
-        self.assertEqual(CODEX_MANIFEST.read_bytes(), SOURCE_MANIFEST.read_bytes())
+        portable = json.loads(SOURCE_MANIFEST.read_text())
+        self.assertEqual(self.codex_manifest, codex_manifest(portable))
         self.assertNotIn("$schema", self.codex_manifest)
         self.assertNotIn("extensions", self.codex_manifest)
         self.assertEqual(self.codex_manifest["name"], "mcp-boundary")
@@ -42,8 +44,13 @@ class DistributablePackageTests(unittest.TestCase):
         )
         self.assertEqual(self.codex_manifest["skills"], "./skills/")
 
-    def test_submission_package_avoids_agent_plugins_conversion(self) -> None:
-        self.assertFalse(ROOT_MANIFEST.exists())
+    def test_portable_manifest_preserves_inline_presentation(self) -> None:
+        self.assertEqual(ROOT_MANIFEST.read_bytes(), SOURCE_MANIFEST.read_bytes())
+        portable = json.loads(ROOT_MANIFEST.read_text())
+        self.assertEqual(portable["$schema"], "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json")
+        self.assertNotIn("skills", portable)
+        self.assertNotIn("interface", portable)
+        self.assertEqual(portable["extensions"]["com.openai"]["interface"], self.codex_manifest["interface"])
 
     def test_codex_interface_assets_resolve(self) -> None:
         for field in ("composerIcon", "logo"):

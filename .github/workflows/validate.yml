@@ -109,7 +109,7 @@ jobs:
         run: |
           version="$(cat VERSION)"
           (cd dist && sha256sum -c "mcp-boundary-${version}.zip.sha256")
-          test "$(unzip -Z1 "dist/mcp-boundary-${version}.zip" | wc -l | tr -d ' ')" = "29"
+          python3 scripts/check_plugin_archive.py "dist/mcp-boundary-${version}.zip"
       - name: Upload submission bundle
         uses: actions/upload-artifact@v4
         with:

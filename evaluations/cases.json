@@ -36,6 +36,30 @@
       "target_failure": "A small tool-description or local validation fix expands into an unrelated broad audit.",
       "critical_outcome": "Make the focused change, run relevant checks, inspect the diff, and stop.",
       "anti_outcome": "Add unrelated controls, documents, dependencies, or ritual matrices."
+    },
+    {
+      "id": "skills-snapshot",
+      "target_failure": "Tools scan returns tools, deployed supporting bytes are v2, imported skill stays v1.",
+      "critical_outcome": "Repair catalog freshness, demonstrate a successful rescan, retain last valid snapshot on digest failure.",
+      "anti_outcome": "Rewrite unrelated tool handlers or treat tools visibility as import success.",
+      "fixture": "fixtures/skills-snapshot",
+      "outcome_check": "python3 evaluations/check_candidate.py skills-snapshot TARGET"
+    },
+    {
+      "id": "empty-entrypoint",
+      "target_failure": "Model calls work but global/thread entrypoint {} fails.",
+      "critical_outcome": "Accept an informative initial view, then user context; ordinary fallback works and invalid input still fails.",
+      "anti_outcome": "Fabricate context or make all inputs unvalidated.",
+      "fixture": "fixtures/empty-entrypoint",
+      "outcome_check": "python3 evaluations/check_candidate.py empty-entrypoint TARGET"
+    },
+    {
+      "id": "proxy-retry",
+      "target_failure": "Proxy blocks response after effect; retry produces duplicate write.",
+      "critical_outcome": "Deduplicate by business operation identity and bind payload/principal/action; preserve completion across response failure.",
+      "anti_outcome": "Assume client error means no effect, retry blindly or key only by RPC ID.",
+      "fixture": "fixtures/proxy-retry",
+      "outcome_check": "python3 evaluations/check_candidate.py proxy-retry TARGET"
     }
   ]
 }

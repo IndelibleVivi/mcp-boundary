@@ -290,6 +290,37 @@ def main() -> int:
                     fail(errors, f"{label}.sources: expected a non-empty array of http(s) URLs")
             validate_profile_binding(errors, root, skill_root, entry, label)
 
+    # Current extension/host recipes deliberately have no frozen-skill mirrors.
+    extensions = data.get("extension_host_profiles", [])
+    if not isinstance(extensions, list):
+        fail(errors, "extension_host_profiles must be an array")
+        extensions = []
+    for index, entry in enumerate(extensions):
+        label = f"extension_host_profiles[{index}]"
+        if not isinstance(entry, dict):
+            fail(errors, f"{label}: expected an object")
+            continue
+        profile_id = entry.get("id")
+        if not isinstance(profile_id, str) or not profile_id or profile_id in seen_ids:
+            fail(errors, f"{label}.id: expected a unique non-empty ID")
+            continue
+        seen_ids.add(profile_id)
+        for field in ("base_revision", "extension", "extension_revision"):
+            if not isinstance(entry.get(field), str) or not entry[field]:
+                fail(errors, f"{label}.{field}: expected a non-empty string")
+        if not valid_date(entry.get("assessed_at")):
+            fail(errors, f"{label}.assessed_at: expected an ISO date")
+        for field in ("hosts", "consumption"):
+            values = entry.get(field)
+            if not isinstance(values, list) or not values or not all(isinstance(v, str) and v for v in values):
+                fail(errors, f"{label}.{field}: expected a non-empty string array")
+        sources = entry.get("sources")
+        if not isinstance(sources, list) or not sources or not all(valid_url(v) for v in sources):
+            fail(errors, f"{label}.sources: expected source URLs")
+        validate_peer_pair(errors, root, entry.get("paths"), f"{label}.paths", profile_id, True)
+        if "skill_paths" in entry:
+            fail(errors, f"{label}: current recipes must not target the frozen historical skill")
+
     studies = data.get("case_studies")
     if not isinstance(studies, list):
         fail(errors, "case_studies must be an array")

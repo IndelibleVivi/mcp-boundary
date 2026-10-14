@@ -4,7 +4,7 @@
 
 [简体中文](./current-state.md)
 
-Updated: 2026-08-29
+Updated: 2026-10-15
 
 ## Classification
 
@@ -40,7 +40,19 @@ The historical Field Guide pin records the release this Lab's selected profiles 
 - credential-free, read-only GitHub Actions workflow source; remote CI execution remains `not_verified` until a real remote run;
 - operator runbooks and a pinned, public-safe Refrain mechanism case study.
 
-## Evidence status
+## October 2026 local protocol fixtures
+
+On 2026-10-15, five independent, runnable local fixtures were added and wired into the new `npm run test:fixtures` (`scripts/run-lab-fixtures.ts`); `npm run check` now runs both these unit tests and the fixture runner:
+
+- `wire-2026-07-28`: a tiny 2026-07-28 wire specimen covering per-request `_meta`, `server/discover`, agreement between `MCP-Protocol-Version` / `Mcp-Method` / `Mcp-Name` and the body, and mismatch and unsupported-version rejection;
+- `skills-over-mcp`: one skill plus one supporting file, `skills/list` / `skills/get` / `resources/read`, exact per-resource `sha256:` digest and byte size, static snapshot versus live read, and a failed digest that keeps the prior snapshot while tools stay visible;
+- `cloudflare-deployment-seam`: read/write business calls both use POST, authorization follows the tool effect/scope/resource rather than the HTTP verb, client and upstream credentials are independent, and a stable operation identity deduplicates a retry after the gateway blocks a result past the effect;
+- `openai-entrypoint`: a global/thread entrypoint opens through an ordinary `tools/call` with `{}` and returns initial data, then context is supplied; a host without entrypoints falls back to an ordinary tool call;
+- `experimental-events`: a separate local opt-in Events fixture; no real consumer, signature, or replay was verified.
+
+On 2026-10-15, `npm run check` passed on a host with real loopback access: 84 tests, build, the SDK resource smoke, and all five fixture summaries. Separately, `npm run test:entrypoint-view` used the installed MCP Apps SDK bridge and bundled Chromium to verify the independent UI resource, empty-argument initial view, and user-selected context call without a duplicate initial call. No real OAuth library, Gateway, OpenAI importer or named host was exercised. Deduplication isolates principal/tool/resource and binds the payload; storage is confined to one proxy process, without a cross-restart or cross-proxy exactly-once guarantee.
+
+## Historical clean-candidate evidence
 
 Fresh local verification completed on 2026-08-29 for the review-hardening source/process, declared local-browser, clean-package, and isolated-runtime boundaries. The current package/runtime proof is pinned to clean implementation commit `5eba892b6be5407b0ac4aa658f398f7b2eec5373`. This file is the subsequent evidence-only documentation update and does not change candidate identity. Earlier `dbab424...` and `ed016da...` candidates remain historical evidence only, not proof for the current revision.
 
@@ -85,6 +97,7 @@ After publication, GitHub Actions [`Verify` run 33260710317](https://github.com/
 | Boundary id                   | Status         | Current claim                                                                            |
 | ----------------------------- | -------------- | ---------------------------------------------------------------------------------------- |
 | `source-checks`               | `verified`     | Clean commit `5eba892...` passed docs/schema/scenario/type/unit/build/MCP checks         |
+| `local-protocol-fixtures`     | `verified` | Local loopback fixtures and the SDK bridge browser interaction passed on 2026-10-15; ceiling=`process` |
 | `resource-roundtrip`          | `verified`     | Fresh clean process returned the exact self-contained resource identity above            |
 | `local-host-matrix`           | `verified`     | Exact five-test Playwright attestation passed; ceiling=`process`                         |
 | `clean-runtime-candidate`     | `verified`     | The `43`-file candidate and release manifest bind clean commit `5eba892...`              |

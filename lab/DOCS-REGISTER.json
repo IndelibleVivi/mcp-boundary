@@ -127,7 +127,7 @@
     }
   ],
   "current_state": {
-    "updated_at": "2026-08-29",
+    "updated_at": "2026-10-15",
     "candidate_source_revision": "5eba892b6be5407b0ac4aa658f398f7b2eec5373",
     "candidate_file_count": 43,
     "resource_bytes": 552146,
@@ -140,6 +140,7 @@
     "remote_ci_execution": "verified",
     "boundary_statuses": [
       { "id": "source-checks", "status": "verified" },
+      { "id": "local-protocol-fixtures", "status": "verified" },
       { "id": "resource-roundtrip", "status": "verified" },
       { "id": "local-host-matrix", "status": "verified" },
       { "id": "clean-runtime-candidate", "status": "verified" },
@@ -151,5 +152,12 @@
       { "id": "owner-acceptance", "status": "not_verified" },
       { "id": "release-publication", "status": "not_verified" }
     ]
+  },
+  "october_execution": {
+    "observed_at": "2026-10-15",
+    "unit_tests": 84,
+    "loopback_fixtures": "verified",
+    "entrypoint_sdk_bridge_browser": "verified",
+    "named_host": "not_verified"
   }
 }

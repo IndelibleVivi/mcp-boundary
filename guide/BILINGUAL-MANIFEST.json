@@ -32,6 +32,10 @@
     {"id": "skill-profile-mcp-2026-07-28", "en": "skill/mcp-server-engineering/references/mcp-2026-07-28.md", "zh-CN": "skill/mcp-server-engineering/references/mcp-2026-07-28.zh-CN.md"},
     {"id": "skill-profile-json-rpc-2.0", "en": "skill/mcp-server-engineering/references/json-rpc-2.0.md", "zh-CN": "skill/mcp-server-engineering/references/json-rpc-2.0.zh-CN.md"},
     {"id": "skill-profile-http-rfc9110-rfc9112", "en": "skill/mcp-server-engineering/references/http-rfc9110-rfc9112.md", "zh-CN": "skill/mcp-server-engineering/references/http-rfc9110-rfc9112.zh-CN.md"},
-    {"id": "skill-profile-integration-guidance-2026-08-15", "en": "skill/mcp-server-engineering/references/integration-guidance-2026-08-15.md", "zh-CN": "skill/mcp-server-engineering/references/integration-guidance-2026-08-15.zh-CN.md"}
+    {"id": "skill-profile-integration-guidance-2026-08-15", "en": "skill/mcp-server-engineering/references/integration-guidance-2026-08-15.md", "zh-CN": "skill/mcp-server-engineering/references/integration-guidance-2026-08-15.zh-CN.md"},
+    {"id": "profile-skills-distribution-2026-10-15", "en": "profiles/skills-distribution-2026-10-15.md", "zh-CN": "profiles/skills-distribution-2026-10-15.zh-CN.md"},
+    {"id": "profile-cloudflare-deployment-2026-10-15", "en": "profiles/cloudflare-deployment-2026-10-15.md", "zh-CN": "profiles/cloudflare-deployment-2026-10-15.zh-CN.md"},
+    {"id": "profile-openai-entrypoints-2026-10-15", "en": "profiles/openai-entrypoints-2026-10-15.md", "zh-CN": "profiles/openai-entrypoints-2026-10-15.zh-CN.md"},
+    {"id": "profile-async-selection-2026-10-15", "en": "profiles/async-selection-2026-10-15.md", "zh-CN": "profiles/async-selection-2026-10-15.zh-CN.md"}
   ]
 }

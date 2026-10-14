@@ -71,6 +71,20 @@ npm run smoke:runtime -- --candidate=runtime-candidates/fieldlab-review
 
 完整前提、检查点与 claim ceiling 见 [package 与 loopback runbook](docs/runbooks/package-and-loopback.md)。Tunnel 与真实 host 不提供可误触发的默认 runner；见 [tunnel 与 named-host runbook](docs/runbooks/tunnel-and-named-host.md)。
 
+## Local protocol fixtures
+
+`npm run test:fixtures` 运行四个独立的 loopback HTTP fixtures 与一个单独的 in-process Events fixture，并输出一页 JSON 摘要。它们是 local surrogate：不是 SDK、不是 production compatibility，也不是 tunnel 或 named-host evidence。
+
+| Fixture | 观察对象 |
+| ------- | -------- |
+| `wire-2026-07-28` | 极小的 2026-07-28 wire specimen：per-request `_meta`、`server/discover`、`MCP-Protocol-Version` / `Mcp-Method` / `Mcp-Name` 与 body 的一致性，以及 mismatch / unsupported-version rejection |
+| `skills-over-mcp` | 一个 skill 加一个 supporting file：`skills/list` / `skills/get` / `resources/read`，精确 per-resource `sha256:` digest 与 byte size，静态 snapshot 与 live read 的差异；digest 失败时保留旧 snapshot 且 tools 仍可见 |
+| `cloudflare-deployment-seam` | read/write 业务调用都走 POST；authorization 依据 tool effect/scope/resource 而不是 HTTP verb；client 与 upstream credential 独立；gateway 在 effect 之后 block result 时，稳定的 operation identity 防止 retry 重复 |
+| `openai-entrypoint` | global/thread entrypoint 通过普通 `tools/call` 加 `{}` 打开并返回初始数据，之后用户提供 context；host 没有 entrypoint 时退回普通 tool call |
+| `experimental-events` | 独立的 local opt-in fixture；没有真实 consumer、signature 或 replay 被验证 |
+
+Unit tests 覆盖同一批 fixture 及其反例，`npm run check` 同时运行两者。fixture 只证明 local process behavior；它不证明 SDK、tunnel 或 named-host 兼容性。
+
 ## Evidence ladder
 
 每份 receipt 只有一个 `method_rung`，并显式记录 `not_proven`。低层证据不会自动升级高层 claim。
@@ -105,6 +119,8 @@ npm run smoke:runtime -- --candidate=runtime-candidates/fieldlab-review
 | [`.github/workflows/verify.yml`](.github/workflows/verify.yml) | 原独立仓库保留下来的历史 witness workflow；GitHub 不会执行嵌套的 workflow 文件，Lab 检查现由根目录 `.github/workflows/validate.yml` 运行 |
 
 Raw receipts、Playwright traces/screenshots、credentials、cookies、private URLs 与 unsanitized named-host evidence 必须留在 ignored/local-only locations。Sanitized receipt 是 derived projection，不是 independent reproduction。
+
+另有 `npm run test:entrypoint-view`：使用已安装的 MCP Apps SDK bridge 和 bundled Playwright Chromium 渲染与 `resources/read` 字节一致的独立视图，验证初始 `{}`、无重复调用和用户补充 context。它是 local-browser 证据，不是 named-host admission。
 
 ## Publication and rights
 

@@ -3,9 +3,9 @@
 ## Truth owners
 
 - `src/skills/mcp-boundary/` is the author source for the active skill, agent metadata, assets, and bundled references. It is the only maintained and distributed skill.
-- `src/plugin/plugin.json` is the author source for the Codex-native manifest. It uses top-level `skills` and `interface` fields.
+- `src/plugin/plugin.json` is the single author source for the portable Agent Plugins 1.0.0 manifest. OpenAI presentation lives under `extensions.com.openai.interface`; portable skill discovery uses the fixed `skills/` directory.
 - `plugins/mcp-boundary/` is generated distributable output. Change `src/`, legal, provenance, or approved public assets first, then run `python3 scripts/build_plugin.py --write`.
-- `plugins/mcp-boundary/.codex-plugin/plugin.json` is the only distributed manifest and is copied byte-for-byte from the author source. Do not hand-edit it.
+- `plugins/mcp-boundary/plugin.json` is copied byte-for-byte from the author source. `plugins/mcp-boundary/.codex-plugin/plugin.json` is its generated legacy Codex compatibility projection. Do not hand-edit either output. The inline OpenAI object replaces the overlay as a whole on portable hosts; keep all presentation fields in the author source.
 - `guide/` and `lab/` are ordinary maintained subtrees of this repository, not mirrors of still-authoritative upstream repositories. `provenance/UPSTREAMS.lock.json` owns the initial-import pins and continuing-authority record; `provenance/SOURCES.json` owns the exact-copy and influence map.
 - `tools/guide-validation/` is the maintained authority for Guide validators used by current tests and CI.
 - `guide/skill/mcp-server-engineering/` is frozen historical release and evaluation material, including its self-contained historical scripts. It is not active, not distributed, not a recommended installation path, and not a maintenance target. Current callers must not execute its scripts.
@@ -19,8 +19,9 @@
 - The distributed plugin is a pure-skill package. Adding an MCP server, app connector, hook, lifecycle service, authentication flow, telemetry, or remote runtime to it is an architecture change that requires owner intent. The executable Lab under `lab/` is repository evidence source, not plugin runtime.
 - Keep one distributed skill. Do not add a second install path, revive the historical Guide skill, or copy its workflow wholesale into the active skill. The active skill must stay self-contained: its references must resolve inside its own package, and installed execution must not depend on reading `guide/`.
 - There is no upstream re-import, updater, or synchronization path. Do not reintroduce a script that replaces `guide/` or `lab/`; later upstream changes arrive as ordinary reviewed pull requests with their own provenance note.
-- Keep root `plugins/mcp-boundary/plugin.json` absent. Its presence selects the submission system's Agent Plugins conversion path and bypasses the native manifest metadata, including composer icon and logo fields.
-- ZIP submission currently admits skills only. Keep `interface.screenshots` and packaged screenshot assets absent; public website previews remain outside the plugin package.
+- The root portable manifest deliberately selects the Agent Plugins path. Keep icon, logo, prompts and other OpenAI metadata in its inline extension; never rely on a separate overlay to fill missing inline fields. Verify archive readback with `python3 scripts/check_plugin_archive.py`. Temporary local installation is checked with `python3 scripts/smoke_plugin_install.py` (requires Codex CLI); directory import and model activation remain separate observations.
+- MCP Boundary continues to use a skills-only submission. Keep `interface.screenshots` and packaged screenshot assets absent; public website previews remain outside the plugin package.
+- `guide/VERSION-REGISTER.json` separates historical mirrored protocol profiles from current `extension_host_profiles`. New recipes record extension/spec revision, host, assessment date and consumption mode, without creating mirrors in the frozen historical skill.
 - Treat bundled protocol profiles as dated evidence. Verify current official sources for “latest” protocol, host, SDK, or plugin-platform claims.
 - Preserve the file-level license and provenance map in `LICENSING.md` and `provenance/SOURCES.json`.
 - Private Faye/Cove continuity, design studies, raw exports, and handoffs never enter this worktree or a remote. Keep them in the configured private-continuity root outside the worktree.
@@ -38,6 +39,7 @@ python3 tests/static_check.py
 skill-validate src/skills/mcp-boundary
 skill-validate plugins/mcp-boundary/skills/mcp-boundary
 python3 scripts/package_plugin.py
+python3 scripts/check_plugin_archive.py
 ```
 
 Remote CI reproduces the current Codex skill-schema checks with pinned PyYAML via `scripts/validate_skill_schema.py` and validates both the author source and generated package. Local `skill-validate` remains the release-candidate command backed by the installed Codex Skill tooling.

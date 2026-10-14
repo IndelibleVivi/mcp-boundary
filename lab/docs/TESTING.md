@@ -134,6 +134,18 @@ Package/runtime checks 必须遵循 [package 与 loopback runbook](runbooks/pack
 
 如果 source/process checks 通过但 package creation 失败，报告 artifact-lane failure。如果 package 有效但 process 无法复现，报告 isolated-runtime failure。不要热改 live service 来掩盖任一问题。
 
+## Local protocol fixtures lane
+
+```bash
+npm run test:fixtures
+```
+
+`npm run test:fixtures` 在 loopback 上运行五个相互独立的本地 fixture（`wire-2026-07-28`、`skills-over-mcp`、`cloudflare-deployment-seam`、`openai-entrypoint`、`experimental-events`），并输出一页 `mcp-app-fieldlab-local-fixtures@1` JSON 摘要。同一批 contract 由 `tests/unit/` 的 unit tests 覆盖，`npm run check` 两者都会运行。
+
+这条 lane 的 claim ceiling 是 `process`，且仅限这些 loopback surrogate。它们不证明：official SDK 行为、named-host 兼容、真实 OAuth library 或 Cloudflare Gateway、真实 event consumer/signature/replay、production tunneling。`experimental-events` 保持独立 opt-in；它不接入 production server、host harness 或 package。
+
+如果 kernel 拒绝 loopback bind（受限制的 sandbox），这条 lane 会真实失败，而不会静默降级为另一种 transport；失败不是 passing receipt。
+
 ## Public credential-free CI
 
 `.github/workflows/verify.yml` 只定义 read-only public witness lanes：`source-process`、`browser-host` 与 `clean-package-runtime`。它不读取 secrets，不 publish package/image/release，不运行 tunnel、named-host 或 owner scenarios，也不上传 raw Playwright/private evidence。因为 receipts 是 ignored/local-only，且不作为 artifacts 在 jobs/runs 间共享，`clean-package-runtime` 必须在同一个 clean checkout/job 内重跑 `npm run check` 与 `npm run test:host`，再 package/smoke。Job summary 必须写出 proof ceiling 与更高层 `not_verified` boundaries。
@@ -166,3 +178,11 @@ Capability discovery、invocation disposition 与 root-cause confidence 是独�
 ## External acceptance
 
 Tunnel、named-host 与 owner evidence 必须遵循 [tunnel 与 named-host runbook](runbooks/tunnel-and-named-host.md)。在各自 separately authorized run 真正发生前，它们保持 `not_verified`，即使每个 local lane 都是绿色。
+
+入口 UI 的单独浏览器检查：
+
+```bash
+npm run test:entrypoint-view
+```
+
+需要已安装的 Playwright Chromium；不自动下载安装浏览器。检查实际 `resources/read` 字节、SDK bridge 初始化、无重复首屏 call 和用户 context 操作。sandbox 保留 `allow-scripts`；按钮通过 bridge 调用工具，不依赖被禁止的 native form submission。真实 named host 仍未验证。

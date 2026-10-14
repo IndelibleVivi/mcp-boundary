@@ -1,0 +1,51 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "mcp-boundary",
+  "version": "0.3.0-dev.1",
+  "description": "Complete MCP engineering work on the active protocol, transport, capability, artifact, runtime, and host path.",
+  "author": {
+    "name": "Faye & Cove",
+    "url": "https://github.com/IndelibleVivi/mcp-boundary"
+  },
+  "homepage": "https://indeliblevivi.github.io/mcp-boundary/",
+  "repository": "https://github.com/IndelibleVivi/mcp-boundary",
+  "license": "SEE LICENSING.md",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "engineering",
+    "migration",
+    "runtime",
+    "verification",
+    "codex"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "MCP Boundary",
+        "shortDescription": "Complete MCP work on the live path",
+        "longDescription": "A pure-skill engineering plugin that traces active callers and entrypoints, implements or migrates the real MCP path, reconciles source with package and activated runtime, and keeps host claims inside qualifying observations.",
+        "developerName": "Faye & Cove",
+        "category": "Developer Tools",
+        "capabilities": [
+          "Build and repair MCP implementations",
+          "Trace active protocol and transport paths",
+          "Migrate SDKs, revisions, and runtimes",
+          "Reconcile source, package, and activation",
+          "Verify named-host and effect claims"
+        ],
+        "websiteURL": "https://indeliblevivi.github.io/mcp-boundary/",
+        "privacyPolicyURL": "https://github.com/IndelibleVivi/mcp-boundary/blob/main/PRIVACY.md",
+        "termsOfServiceURL": "https://github.com/IndelibleVivi/mcp-boundary/blob/main/TERMS.md",
+        "brandColor": "#315BE8",
+        "composerIcon": "./assets/composer-icon.png",
+        "logo": "./assets/logo.png",
+        "defaultPrompt": [
+          "Use $mcp-boundary to trace and repair the active MCP path, then verify the requested behavior.",
+          "Use $mcp-boundary to migrate this MCP implementation and retire superseded active paths.",
+          "Use $mcp-boundary to reconcile source, package, runtime, and named-host behavior without overstating evidence."
+        ]
+      }
+    }
+  }
+}

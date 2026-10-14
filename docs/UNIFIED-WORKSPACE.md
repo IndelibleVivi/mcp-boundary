@@ -62,3 +62,5 @@ The initial unified import copied complete trees from two pinned commits, includ
 7. Archive the former repositories only through a separate deliberate owner action. Completed on 2026-09-25 with final `main` heads Guide `c913c16` and Lab `315eac0`.
 
 The external plugin listing remains on the stable release until step 5.
+
+The October source candidate keeps the same three-surface architecture. Portable root `plugin.json` and a Codex compatibility manifest are generated from one author source; current extension/host recipes are registered separately from frozen historical profile mirrors. Lab fixtures remain repository-only evidence. See [current state](current-state.md) for candidate versus published status.

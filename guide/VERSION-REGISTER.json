@@ -4,7 +4,7 @@
   "stable_core_version": 2,
   "skill_version": "0.1.0",
   "profile_set_version": 1,
-  "recorded_at": "2026-08-16",
+  "recorded_at": "2026-10-15",
   "skill_package": {
     "path": "skill/mcp-server-engineering",
     "entrypoint": "skill/mcp-server-engineering/SKILL.md"
@@ -177,5 +177,105 @@
     "repository_url": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
     "published_at": "2026-08-16",
     "release_tag": "v2.0.1"
-  }
+  },
+  "extension_host_profiles": [
+    {
+      "id": "skills-distribution-2026-10-15",
+      "base_revision": "2026-07-28",
+      "extension": "io.modelcontextprotocol/skills",
+      "extension_revision": "stable observed 2026-10-15; SEP-2640 Final",
+      "hosts": [
+        "extension-aware client",
+        "OpenAI plugin Scan Tools",
+        "Cloudflare API MCP"
+      ],
+      "assessed_at": "2026-10-15",
+      "consumption": [
+        "live-read",
+        "submission-snapshot"
+      ],
+      "paths": {
+        "en": "profiles/skills-distribution-2026-10-15.md",
+        "zh-CN": "profiles/skills-distribution-2026-10-15.zh-CN.md"
+      },
+      "sources": [
+        "https://skills.extensions.modelcontextprotocol.io/specification/stable/skills",
+        "https://modelcontextprotocol.io/seps/2640-skills-extension",
+        "https://developers.openai.com/plugins/build/mcp-server",
+        "https://developers.cloudflare.com/changelog/post/2026-10-10-cloudflare-mcp-skills/"
+      ]
+    },
+    {
+      "id": "cloudflare-deployment-2026-10-15",
+      "base_revision": "2026-07-28",
+      "extension": "vendor integration",
+      "extension_revision": "Workers OAuth Provider v1; Portal docs observed 2026-10-15",
+      "hosts": [
+        "Cloudflare Workers",
+        "Cloudflare MCP Portal/Gateway"
+      ],
+      "assessed_at": "2026-10-15",
+      "consumption": [
+        "live-request"
+      ],
+      "paths": {
+        "en": "profiles/cloudflare-deployment-2026-10-15.md",
+        "zh-CN": "profiles/cloudflare-deployment-2026-10-15.zh-CN.md"
+      },
+      "sources": [
+        "https://developers.cloudflare.com/changelog/post/2026-10-01-workers-oauth-provider-1x/",
+        "https://developers.cloudflare.com/changelog/post/2026-08-25-mcp-portals-mcp-2026-07-28/",
+        "https://developers.cloudflare.com/cloudflare-one/access-controls/ai-controls/mcp-portals/"
+      ]
+    },
+    {
+      "id": "openai-entrypoints-2026-10-15",
+      "base_revision": "2026-07-28",
+      "extension": "OpenAI MCP Extensions",
+      "extension_revision": "moving spec observed 2026-10-15",
+      "hosts": [
+        "OpenAI desktop",
+        "Work browser",
+        "iOS",
+        "Android"
+      ],
+      "assessed_at": "2026-10-15",
+      "consumption": [
+        "direct-open",
+        "ordinary-tool-fallback"
+      ],
+      "paths": {
+        "en": "profiles/openai-entrypoints-2026-10-15.md",
+        "zh-CN": "profiles/openai-entrypoints-2026-10-15.zh-CN.md"
+      },
+      "sources": [
+        "https://github.com/openai/mcp-extensions/blob/main/docs/spec.md",
+        "https://developers.openai.com/plugins/build/plugins"
+      ]
+    },
+    {
+      "id": "async-selection-2026-10-15",
+      "base_revision": "2026-07-28",
+      "extension": "io.modelcontextprotocol/tasks; experimental Events",
+      "extension_revision": "Tasks overview and Events WG observed 2026-10-15",
+      "hosts": [
+        "extension-aware client",
+        "Cloudflare Workers Issues webhook consumer"
+      ],
+      "assessed_at": "2026-10-15",
+      "consumption": [
+        "task-continuation",
+        "experimental-push"
+      ],
+      "paths": {
+        "en": "profiles/async-selection-2026-10-15.md",
+        "zh-CN": "profiles/async-selection-2026-10-15.zh-CN.md"
+      },
+      "sources": [
+        "https://modelcontextprotocol.io/extensions/tasks/overview",
+        "https://developers.cloudflare.com/changelog/post/2026-10-13-cloudflare-mcp-events/",
+        "https://github.com/modelcontextprotocol/experimental-ext-triggers-events"
+      ]
+    }
+  ]
 }

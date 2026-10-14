@@ -14,3 +14,11 @@ Profiles 把 revision-specific requirements 与稳定工程核心分开。选择
 | [Integration guidance assessed 2026-08-15](integration-guidance-2026-08-15.zh-CN.md) | moving | MCP Apps 与 OpenAI host integration guidance；其 URLs 和 requirements 可独立变化 |
 
 每个 profile 都记录 source、assessment date、implementation consequences、migration boundary、test obligations 与 known unknowns。Profile 不能替代 normative source。
+
+- [Skills 分发与导入](skills-distribution-2026-10-15.zh-CN.md) — assessed `2026-10-15`; extension and host behavior.
+
+- [Cloudflare 授权与代理路径](cloudflare-deployment-2026-10-15.zh-CN.md) — assessed `2026-10-15`; extension and host behavior.
+
+- [OpenAI 原生入口](openai-entrypoints-2026-10-15.zh-CN.md) — assessed `2026-10-15`; extension and host behavior.
+
+- [Tasks、Events 与 Code Mode 选型](async-selection-2026-10-15.zh-CN.md) — assessed `2026-10-15`; extension and host behavior.

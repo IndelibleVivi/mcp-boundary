@@ -14,3 +14,11 @@ Profiles isolate revision-specific requirements from the stable engineering core
 | [Integration guidance assessed 2026-08-15](integration-guidance-2026-08-15.md) | moving | MCP Apps and OpenAI-host integration guidance whose URLs and requirements may change independently |
 
 Each profile records its source, assessment date, implementation consequences, migration boundary, test obligations, and known unknowns. A profile is not a substitute for the normative source.
+
+- [Skills distribution and import](skills-distribution-2026-10-15.md) — assessed `2026-10-15`; extension and host behavior.
+
+- [Cloudflare authorization and proxy paths](cloudflare-deployment-2026-10-15.md) — assessed `2026-10-15`; extension and host behavior.
+
+- [OpenAI native entrypoints](openai-entrypoints-2026-10-15.md) — assessed `2026-10-15`; extension and host behavior.
+
+- [Tasks, Events and Code Mode selection](async-selection-2026-10-15.md) — assessed `2026-10-15`; extension and host behavior.

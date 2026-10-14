@@ -71,6 +71,20 @@ npm run smoke:runtime -- --candidate=runtime-candidates/fieldlab-review
 
 See the [package and loopback runbook](docs/runbooks/package-and-loopback.en.md) for prerequisites, checkpoints, and claim ceilings. Tunnel and real-host procedures deliberately have no default runner; see the [tunnel and named-host runbook](docs/runbooks/tunnel-and-named-host.en.md).
 
+## Local protocol fixtures
+
+`npm run test:fixtures` runs four independent loopback HTTP fixtures plus one separate in-process Events fixture and prints a one-page JSON summary. They are local surrogates: not an SDK, not production compatibility, and not tunnel or named-host evidence.
+
+| Fixture | What it observes |
+| ------- | ---------------- |
+| `wire-2026-07-28` | A tiny 2026-07-28 wire specimen: per-request `_meta`, `server/discover`, agreement between `MCP-Protocol-Version` / `Mcp-Method` / `Mcp-Name` and the body, and mismatch / unsupported-version rejection |
+| `skills-over-mcp` | One skill plus one supporting file: `skills/list` / `skills/get` / `resources/read`, exact per-resource `sha256:` digest and byte size, and static snapshot versus live read; a failed digest keeps the prior snapshot while tools stay visible |
+| `cloudflare-deployment-seam` | Read/write business calls both use POST; authorization follows the tool effect/scope/resource, not the HTTP verb; client and upstream credentials are independent; when the gateway blocks a result after the effect, a stable operation identity prevents retry duplication |
+| `openai-entrypoint` | A global/thread entrypoint opens through an ordinary `tools/call` with `{}` and returns initial data, then the user supplies context; a host without entrypoints falls back to an ordinary tool call |
+| `experimental-events` | A separate local opt-in fixture; no real consumer, signature, or replay was verified |
+
+Unit tests cover the same fixtures and their counterexamples, and `npm run check` runs both. The fixtures prove local process behavior only; they do not prove SDK, tunnel, or named-host compatibility.
+
 ## Evidence ladder
 
 Every receipt has one `method_rung` and records `not_proven` explicitly. Lower-level evidence never upgrades a higher-level claim automatically.
@@ -105,6 +119,8 @@ Every receipt has one `method_rung` and records `not_proven` explicitly. Lower-l
 | [`.github/workflows/verify.yml`](.github/workflows/verify.yml) | Retained historical witness workflow from the former standalone repository; GitHub does not execute nested workflow files, and the root `.github/workflows/validate.yml` now runs the Lab checks |
 
 Raw receipts, Playwright traces/screenshots, credentials, cookies, private URLs, and unsanitized named-host evidence must stay in ignored/local-only locations. A sanitized receipt is a derived projection, not independent reproduction.
+
+Separately, `npm run test:entrypoint-view` uses the installed MCP Apps SDK bridge and bundled Playwright Chromium to render the independent view whose bytes match `resources/read`, then verifies initial `{}`, no duplicate call, and user-supplied context. This is local-browser evidence, not named-host admission.
 
 ## Publication and rights
 

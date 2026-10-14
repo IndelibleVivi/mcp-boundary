@@ -79,6 +79,14 @@ MCP Boundary makes the agent:
 
 It also has a stop rule: small, clear MCP changes should remain small.
 
+## October candidate recipes
+
+The source candidate `0.3.0-dev.1` adds [Skills distribution](guide/profiles/skills-distribution-2026-10-15.md), [Cloudflare authorization/proxy paths](guide/profiles/cloudflare-deployment-2026-10-15.md), [OpenAI native entrypoints](guide/profiles/openai-entrypoints-2026-10-15.md), and [Tasks/Events selection](guide/profiles/async-selection-2026-10-15.md). The active skill bundles self-contained recipes. The existing July core profiles remain the protocol baseline; these additions address extension and host behavior.
+
+Candidate packaging uses root portable `plugin.json` with inline OpenAI presentation, plus a generated Codex compatibility manifest. Both come from `src/plugin/plugin.json`. Archive/loader-contract checks are separate from actual host installation and directory publication. The public listing remains `0.2.0`.
+
+See [behavior evaluations](evaluations/README.md) for the comparison protocol and its actual execution status. Local fixtures establish their declared mechanisms; they do not establish named-host support or model improvement.
+
 ## Build and verify
 
 Plugin and workspace checks:
@@ -92,6 +100,7 @@ python3 scripts/validate_skill_schema.py \
   src/skills/mcp-boundary \
   plugins/mcp-boundary/skills/mcp-boundary
 python3 scripts/package_plugin.py
+python3 scripts/check_plugin_archive.py
 ```
 
 Guide checks:

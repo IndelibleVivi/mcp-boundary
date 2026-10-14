@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import re
 import unittest
+from scripts.build_plugin import codex_manifest
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,13 +24,13 @@ CHANGELOG = ROOT / "CHANGELOG.md"
 class ReleaseSubmissionTests(unittest.TestCase):
     def test_release_version_is_consistent(self) -> None:
         version = VERSION.read_text(encoding="utf-8").strip()
-        self.assertEqual(version, "0.2.0")
+        self.assertEqual(version, "0.3.0-dev.1")
         source = json.loads(SOURCE_MANIFEST.read_text(encoding="utf-8"))
         package = json.loads(PACKAGE_MANIFEST.read_text(encoding="utf-8"))
         provenance = json.loads(SOURCE_PROVENANCE.read_text(encoding="utf-8"))
         lock = json.loads(UPSTREAM_LOCK.read_text(encoding="utf-8"))
         self.assertEqual(source["version"], version)
-        self.assertEqual(package, source)
+        self.assertEqual(package, codex_manifest(source))
         self.assertEqual(provenance["project_version"], version)
         self.assertEqual(lock["workspace_version"], version)
         self.assertEqual(PACKAGE_PROVENANCE.read_bytes(), SOURCE_PROVENANCE.read_bytes())
