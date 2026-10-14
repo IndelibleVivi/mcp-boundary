@@ -276,5 +276,6 @@
     "installed-skill auto-activation",
     "real OpenAI or Cloudflare host behavior",
     "the original six registered evaluation cases"
-  ]
+  ],
+  "implementation_commit": "ca0a118f375aa1f9604a60e030fcb530d1838303"
 }

@@ -52,6 +52,8 @@ On 2026-10-15, five independent, runnable local fixtures were added and wired in
 
 On 2026-10-15, `npm run check` passed on a host with real loopback access: 84 tests, build, the SDK resource smoke, and all five fixture summaries. Separately, `npm run test:entrypoint-view` used the installed MCP Apps SDK bridge and bundled Chromium to verify the independent UI resource, empty-argument initial view, and user-selected context call without a duplicate initial call. No real OAuth library, Gateway, OpenAI importer or named host was exercised. Deduplication isolates principal/tool/resource and binds the payload; storage is confined to one proxy process, without a cross-restart or cross-proxy exactly-once guarantee.
 
+Unified repository [validation run 38636644934](https://github.com/IndelibleVivi/mcp-boundary/actions/runs/38636644934) passed for implementation commit `ca0a118`, including the new loopback fixtures. Browser and temporary CLI installation remain separately executed local observations.
+
 ## Historical clean-candidate evidence
 
 Fresh local verification completed on 2026-08-29 for the review-hardening source/process, declared local-browser, clean-package, and isolated-runtime boundaries. The current package/runtime proof is pinned to clean implementation commit `5eba892b6be5407b0ac4aa658f398f7b2eec5373`. This file is the subsequent evidence-only documentation update and does not change candidate identity. Earlier `dbab424...` and `ed016da...` candidates remain historical evidence only, not proof for the current revision.

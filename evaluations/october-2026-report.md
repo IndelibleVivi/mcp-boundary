@@ -2,6 +2,8 @@
 
 Status: **executed** on 2026-10-15. Nine initial repair sessions plus three fresh candidate follow-up sessions completed. The independent outcome checker passed 11 of the 12 artifacts. This does **not** establish an incremental completion advantage of the candidate over released `0.2.0`.
 
+Implementation and acceptance-checker snapshot: [`ca0a118`](https://github.com/IndelibleVivi/mcp-boundary/commit/ca0a118f375aa1f9604a60e030fcb530d1838303).
+
 ## Observed outcomes
 
 | Repair case | No MCP skill | Released `0.2.0` | Initial candidate | Final candidate follow-up |

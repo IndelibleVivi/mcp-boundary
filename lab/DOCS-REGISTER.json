@@ -158,6 +158,11 @@
     "unit_tests": 84,
     "loopback_fixtures": "verified",
     "entrypoint_sdk_bridge_browser": "verified",
-    "named_host": "not_verified"
+    "named_host": "not_verified",
+    "unified_ci": {
+      "status": "verified",
+      "implementation_commit": "ca0a118f375aa1f9604a60e030fcb530d1838303",
+      "run": "https://github.com/IndelibleVivi/mcp-boundary/actions/runs/38636644934"
+    }
   }
 }

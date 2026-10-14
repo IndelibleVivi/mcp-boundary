@@ -52,6 +52,8 @@ Updated: 2026-10-15
 
 2026-10-15 在具备真实 loopback 的本机完成 `npm run check`：84 个 tests 通过，build、SDK resource smoke 与五个 fixture 摘要全部通过。另行执行 `npm run test:entrypoint-view`，用已安装的 MCP Apps SDK bridge 和 bundled Chromium 验证独立 UI resource、空参数初始视图及用户选择 context 后的调用；首屏没有重复调用。没有测试真实 OAuth library、Gateway、OpenAI importer 或 named host。去重身份隔离 principal/tool/resource，并绑定 payload；存储只在单个 proxy process 内有效，不能提供跨重启或跨 proxy 的 exactly-once 保证。
 
+统一仓库的 [validation run 38636644934](https://github.com/IndelibleVivi/mcp-boundary/actions/runs/38636644934) 已在 implementation commit `ca0a118` 上通过；CI 执行了新增的 loopback fixtures，浏览器与临时 CLI 安装仍是分别执行的本地观察。
+
 ## Historical clean-candidate evidence
 
 2026-08-29 已对 review-hardening source/process、declared local-browser、clean-package 与 isolated-runtime boundaries 完成 fresh local verification。当前 package/runtime proof 固定到 clean implementation commit `5eba892b6be5407b0ac4aa658f398f7b2eec5373`。本文件是随后只记录证据的 documentation update，不改变 candidate identity。更早的 `dbab424...` 与 `ed016da...` candidates 只保留为 historical evidence，不是当前 revision 的 proof。

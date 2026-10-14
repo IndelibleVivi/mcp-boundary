@@ -4,11 +4,12 @@ Last reviewed: 2026-10-15
 
 | Surface | State | Evidence / limit |
 | --- | --- | --- |
-| Unified repository | `0.2.0` integration and website merged to `main` at `98afefd` | One continuing authority with one distributed skill, the maintained Guide, and the executable Lab |
+| Unified repository | `0.3.0-dev.1` source candidate pushed to `main` | Implementation commit `ca0a118`; one distributed skill, maintained Guide and executable Lab. Published releases remain separate below |
 | Source release | `v0.2.0` live on GitHub | Annotated tag points to `98afefd`; the non-draft, non-prerelease release carries the 29-file ZIP and checksum sidecar. The remote ZIP digest is `c07e843cb186b3deec96a77ec852a847f0d54c18d41ec0c2e7b7a125134bf0aa` |
 | External plugin directory | `0.2.0` live | Exact public listing `plugins_6aa72e81844081918770991deb1dbfc8` was observed on 2026-09-16 showing MCP Boundary version `0.2.0`, its three starter prompts, Developer Tools category, and public policy links |
 | Local Lab evidence | Verified on 2026-10-15 | 84 tests plus build/SDK resource smoke/four HTTP fixtures and one Events listener; five existing browser host tests; independent entrypoint UI through the installed SDK bridge. Real OAuth/Gateway/Events consumer and named-host behavior remain unverified |
-| October candidate | `0.3.0-dev.1`, local source/package candidate | Four dated extension/host recipes, portable manifest and generated legacy projection; not a GitHub release or directory update |
+| Candidate package | `0.3.0-dev.1`, 34-file source-derived package | Four dated extension/host recipes, portable manifest and generated legacy projection; not a GitHub release or directory update |
+| Candidate CI | `verified` for implementation commit `ca0a118` | [Validation run 38636644934](https://github.com/IndelibleVivi/mcp-boundary/actions/runs/38636644934) succeeded, including both plugin/workspace Python versions, both Guide Python versions, skill schema, Lab and deterministic submission archive checks. Local browser and temporary CLI-install checks remain separate observations |
 | Local installation | Verified in an empty temporary Codex home with `codex-cli 0.159.1` | Both portable and legacy-only installation paths succeeded; installed cache bytes and icon/logo paths matched their package; daily profile, model activation, composer rendering and directory importer not exercised |
 | Active skill | `src/skills/mcp-boundary/` | Live-path execution, control ownership, migration retirement, artifact/runtime reconciliation, named-host claim ceilings, and a small-task stop rule |
 | Distributed package | `plugins/mcp-boundary/` | Contains the one pure skill `mcp-boundary`; no Guide, Lab runtime, server, app connector, auth flow, analytics, telemetry, or runtime dependency |
