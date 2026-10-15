@@ -250,12 +250,24 @@ function appendBounded(chunks, chunk) {
   chunks.push(String(chunk).slice(0, 32_768 - currentBytes));
 }
 
-async function waitForHealth(url, child) {
+function childHasExited(child) {
+  return child.exitCode !== null || child.signalCode !== null;
+}
+
+function childExitDescription(child) {
+  if (child.signalCode !== null) return `signal ${child.signalCode}`;
+  if (child.exitCode !== null) return `code ${child.exitCode}`;
+  return "still running";
+}
+
+export async function waitForHealth(url, child) {
   const deadline = Date.now() + 20_000;
   let lastError;
   while (Date.now() < deadline) {
-    if (child.exitCode !== null) {
-      fail(`Runtime exited before health readback (code ${child.exitCode}).`);
+    if (childHasExited(child)) {
+      fail(
+        `Runtime exited before health readback (${childExitDescription(child)}).`,
+      );
     }
     try {
       const response = await fetch(url);
@@ -273,16 +285,18 @@ async function waitForHealth(url, child) {
   );
 }
 
-async function stopChild(child) {
-  if (!child || child.exitCode !== null) return;
+export async function stopChild(child) {
+  if (!child || childHasExited(child)) return;
   child.kill("SIGTERM");
   const exited = await Promise.race([
     new Promise((resolve) => child.once("exit", () => resolve(true))),
     new Promise((resolve) => setTimeout(() => resolve(false), 5_000)),
   ]);
-  if (!exited && child.exitCode === null) {
+  if (!exited && !childHasExited(child)) {
     child.kill("SIGKILL");
-    await new Promise((resolve) => child.once("exit", resolve));
+    if (!childHasExited(child)) {
+      await new Promise((resolve) => child.once("exit", resolve));
+    }
   }
 }
 
