@@ -21,6 +21,8 @@ All nine registered cases now have deliberately broken local fixtures and indepe
 
 Prepare immutable skill contexts and nine fresh workspaces outside the Git worktree:
 
+The selected baseline Git ref must exist locally. A shallow clone may need an explicit tag fetch before using released `v0.2.0`; preparation itself performs no network fetch. Preparation unit tests use `HEAD` as a synthetic baseline so they do not require release history.
+
 ```bash
 python3 evaluations/prepare_comparison.py \
   --out /path/to/private-evidence/new-comparison --baseline v0.2.0

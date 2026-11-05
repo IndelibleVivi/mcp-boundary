@@ -151,7 +151,10 @@ class CoreEvaluationTests(unittest.TestCase):
         for cases, arms, expected in (([], [], 9), (CORE, ['candidate'], 6)):
             with self.subTest(cases=cases), tempfile.TemporaryDirectory() as directory:
                 out = Path(directory) / 'comparison'
-                command = [sys.executable, '-B', 'evaluations/prepare_comparison.py', '--out', str(out)]
+                # Exercise preparation with a synthetic baseline available even in a
+                # depth-one CI checkout; this is not a released-treatment model run.
+                command = [sys.executable, '-B', 'evaluations/prepare_comparison.py',
+                           '--out', str(out), '--baseline', 'HEAD']
                 if cases:
                     command.extend(['--cases', *cases, '--arms', *arms])
                 run = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, timeout=30)
