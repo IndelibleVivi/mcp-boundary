@@ -38,7 +38,7 @@ The historical Field Guide pin records the release this Lab's selected profiles 
 - clean-package and isolated-runtime commands;
 - layered `SUL-1.0` / `CC-BY-NC-SA-4.0` licensing with private-source/third-party exclusions propagated into runtime candidates;
 - Chinese-default plus English-mirror documentation, `DOCS-REGISTER.json`, and a documentation validator limited to structure/shared facts;
-- credential-free, read-only root CI workflow source with one Lab runtime-lane entry; remote CI execution remains `not_verified` until a real remote run;
+- credential-free, read-only root CI workflow source with one Lab runtime-lane entry; its observed remote result is recorded below;
 - operator runbooks and a pinned, public-safe Refrain mechanism case study.
 
 ## October 2026 local protocol fixtures
@@ -61,15 +61,19 @@ The Lab now resolves two roots explicitly: the enclosing MCP Boundary Git checko
 
 The root `lab` CI job runs `npm ci`, installs bundled Playwright Chromium once, and then runs `npm run validate:runtime-lane`. That provider-neutral entry covers source/process checks, the local host matrix, standalone entrypoint view, clean package, and isolated runtime smoke in sequence.
 
-The last complete local source/process record (2026-10-15) covered `2` generated-schema checks, `7` scenario validations, and `84` unit tests. New regressions passed focused runs; the current full total awaits the new CI observation. The old counts do not prove the new candidate/runtime.
+The last complete local source/process record (2026-10-15) covered `2` generated-schema checks, `7` scenario validations, and `84` unit tests. New regressions passed focused runs; the current CI total is recorded below. The old counts do not prove the new candidate/runtime.
 
-A fresh complete package and isolated runtime result for the current repair is `not_verified`; the full lane requires a clean committed checkout. Remote CI execution of the new entry is also `not_verified`. The historical candidate and receipt identities below remain evidence for their recorded revision only.
+On 2026-11-06, root CI [run 42099039334](https://github.com/IndelibleVivi/mcp-boundary/actions/runs/42099039334) passed the complete lane on clean source commit `a8a4dabe3266c6b18fb1db4d8ee51e0fe8dbb827`: `95` unit tests, `5` Chromium host tests, four HTTP fixtures plus the separate Events fixture, the SDK resource roundtrip, standalone entrypoint view, clean package and isolated runtime smoke. The UI check observed one initial call, one context call and exact resource bytes.
 
-Current unobserved candidate identities:
+The current candidate identities below belong to one disposable GitHub Actions Linux runner candidate, not this machine's checkout or an operator production service. Raw receipts and the candidate existed only in that runner's temporary filesystem and were not uploaded as shared artifacts.
 
-- current candidate source revision: `not observed`
-- current candidate file count: `not observed`
-- current bundle digest: `not observed`
+- current candidate source revision: `a8a4dabe3266c6b18fb1db4d8ee51e0fe8dbb827`
+- current candidate file count: `43`
+- current bundle digest: `sha256:284cdf4a78503c5b52aff3de90d4838c44445cdcf0b052be427d7771f78d2ad6`
+- runner-local runtime receipt: `tmp/receipts/runtime.isolated-readback@1.json`
+- proof ceiling: `activated-runtime`, limited to that disposable CI process
+
+Local focused package/metadata tests passed. The full local loopback/browser lane remains unverified because the worker sandbox denied IPC/listen and escalation was rejected. The CI observation does not establish an operator production runtime, tunnel, named host or owner acceptance.
 
 ## Historical clean-candidate evidence
 
@@ -123,13 +127,13 @@ Before the standalone repository was consolidated, GitHub Actions [`Verify` run 
 
 | Boundary id                   | Status         | Current claim                                                                      |
 | ----------------------------- | -------------- | ---------------------------------------------------------------------------------- |
-| `source-checks`               | `verified`     | 2026-08-29 clean commit 5eba892 and 2026-10-15 local run; ceiling=`process`        |
-| `local-protocol-fixtures`     | `verified`     | 2026-10-15 local loopback and SDK bridge run; ceiling=`process`                    |
-| `resource-roundtrip`          | `verified`     | 2026-08-29 clean commit 5eba892; exact resource identity above                     |
-| `local-host-matrix`           | `verified`     | 2026-08-29 local Chromium host run; exact five-test attestation, ceiling=`process` |
-| `clean-runtime-candidate`     | `not_verified` | The current monorepo packaging repair has no clean committed candidate yet         |
-| `isolated-runtime-readback`   | `not_verified` | The current monorepo candidate has not run in an isolated process                  |
-| `remote-ci-execution`         | `not_verified` | The new root runtime-lane witness has not completed in GitHub Actions              |
+| `source-checks` | `verified` | 2026-11-06 CI run 42099039334; 95 tests and type/build/schema checks; ceiling=`process` |
+| `local-protocol-fixtures` | `verified` | 2026-11-06 CI run 42099039334; Four HTTP fixtures and the separate Events fixture; ceiling=`process` |
+| `resource-roundtrip` | `verified` | 2026-11-06 CI run 42099039334; Exact SDK resource identity returned in the CI runner; ceiling=`process` |
+| `local-host-matrix` | `verified` | 2026-11-06 CI run 42099039334; Five CI Chromium host checks; ceiling=`process` |
+| `clean-runtime-candidate` | `verified` | 2026-11-06 CI run 42099039334; Exact 43-file clean CI candidate; ceiling=`artifact` |
+| `isolated-runtime-readback` | `verified` | 2026-11-06 CI run 42099039334; That exact disposable CI runtime only; ceiling=`activated-runtime` |
+| `remote-ci-execution` | `verified` | 2026-11-06 CI run 42099039334; Root workflow completed successfully; source=`a8a4dab` |
 | `operator-production-runtime` | `not_verified` | No operator service installation or production selection was attempted             |
 | `tunnel`                      | `not_verified` | External gate; no credential/profile access or preflight/activation was attempted  |
 | `named-host`                  | `not_verified` | External/account gate; no authenticated named-host exercise was attempted          |
@@ -138,4 +142,4 @@ Before the standalone repository was consolidated, GitHub Actions [`Verify` run 
 
 ## Remaining gates
 
-The current Lab changes are uncommitted, so the clean package and isolated runtime lane remains unverified. After an authorized commit, run `npm run validate:runtime-lane` from `lab/` on that clean commit. Operator production selection, container activation/publication, tunnel, named host, owner acceptance, and GitHub/npm publication remain separate gates and were not exercised in this pass.
+The complete monorepo package/runtime lane is verified for the CI revision above. It can be reproduced locally with `npm run validate:runtime-lane` on a clean committed checkout; doing so does not activate an operator service. Operator production selection, container activation/publication, tunnel, named host, owner acceptance and GitHub/npm publication remain separate boundaries and were not exercised here.

@@ -61,15 +61,19 @@ Lab 现在显式区分两个 root：enclosing MCP Boundary Git checkout 用于 c
 
 根目录 `lab` CI job 运行 `npm ci`、安装一次 bundled Playwright Chromium，再运行 `npm run validate:runtime-lane`。这个 provider-neutral entry 顺序覆盖 source/process checks、local host matrix、standalone entrypoint view、clean package 与 isolated runtime smoke。
 
-最近一次完整本地 source/process 记录（2026-10-15）包含 `2` 个 generated-schema checks、`7` 个 scenario validations 与 `84` 个 unit tests。新增回归检查已通过 focused runs，当前完整测试总数仍待新 CI 观察；旧计数不证明新的 candidate/runtime。
+最近一次完整本地 source/process 记录（2026-10-15）包含 `2` 个 generated-schema checks、`7` 个 scenario validations 与 `84` 个 unit tests。新增回归检查已通过 focused runs，新 CI 的当前计数记录在下面；旧计数不证明新的 candidate/runtime。
 
-当前修复的完整 package 与 isolated runtime result 仍为 `not_verified`；完整 lane 需要 clean committed checkout。新 entry 的 remote CI execution 同样为 `not_verified`。下面的 historical candidate 与 receipt identities 仅证明其记录的 revision。
+2026-11-06，根 CI [run 42099039334](https://github.com/IndelibleVivi/mcp-boundary/actions/runs/42099039334) 已在 clean source commit `a8a4dabe3266c6b18fb1db4d8ee51e0fe8dbb827` 上完整通过：`95` 个 unit tests、`5` 个 Chromium host tests、四个 HTTP fixtures 与独立 Events fixture、SDK resource roundtrip、独立 entrypoint view、clean package 与 isolated runtime smoke。UI 检查观察到 initial/context 各调用一次，并确认 exact resource bytes。
 
-当前尚未观察到的 candidate identities：
+以下当前 candidate identities 来自 GitHub Actions Linux runner 的一次性 candidate，不是本机 checkout 或 operator production service。Raw receipts 与 candidate 只保留在该 runner 的临时文件系统，不上传成共享产物。
 
-- current candidate source revision: `not observed`
-- current candidate file count: `not observed`
-- current bundle digest: `not observed`
+- current candidate source revision: `a8a4dabe3266c6b18fb1db4d8ee51e0fe8dbb827`
+- current candidate file count: `43`
+- current bundle digest: `sha256:284cdf4a78503c5b52aff3de90d4838c44445cdcf0b052be427d7771f78d2ad6`
+- runner-local runtime receipt: `tmp/receipts/runtime.isolated-readback@1.json`
+- proof ceiling: `activated-runtime`，仅限该 CI disposable process
+
+本机 focused package/metadata tests 已通过；完整本机 loopback/browser lane 因 worker sandbox 的 IPC/listen 限制及审批拒绝而未验证。CI 观察不能扩大成 operator production runtime、tunnel、named-host 或 owner acceptance 的主张。
 
 ## Historical clean-candidate evidence
 
@@ -123,13 +127,13 @@ Fresh run 已验证 candidate file/digest closure、candidate-owned full scenari
 
 | Boundary id                   | Status         | Current claim                                                                      |
 | ----------------------------- | -------------- | ---------------------------------------------------------------------------------- |
-| `source-checks`               | `verified`     | 2026-08-29 clean commit 5eba892 and 2026-10-15 local run; ceiling=`process`        |
-| `local-protocol-fixtures`     | `verified`     | 2026-10-15 local loopback and SDK bridge run; ceiling=`process`                    |
-| `resource-roundtrip`          | `verified`     | 2026-08-29 clean commit 5eba892；exact resource identity 见上                      |
-| `local-host-matrix`           | `verified`     | 2026-08-29 local Chromium host run；exact five-test attestation，ceiling=`process` |
-| `clean-runtime-candidate`     | `not_verified` | 当前 monorepo packaging repair 尚无 clean committed candidate                      |
-| `isolated-runtime-readback`   | `not_verified` | 当前 monorepo candidate 尚未在 isolated process 中运行                             |
-| `remote-ci-execution`         | `not_verified` | 新的根目录 runtime-lane witness 尚未在 GitHub Actions 完成                         |
+| `source-checks` | `verified` | 2026-11-06 CI run 42099039334; 95 tests、type/build/schema checks；ceiling=`process` |
+| `local-protocol-fixtures` | `verified` | 2026-11-06 CI run 42099039334; 四个 HTTP fixtures 与独立 Events fixture；ceiling=`process` |
+| `resource-roundtrip` | `verified` | 2026-11-06 CI run 42099039334; CI runner 返回 exact SDK resource identity；ceiling=`process` |
+| `local-host-matrix` | `verified` | 2026-11-06 CI run 42099039334; CI Chromium 五项 host checks；ceiling=`process` |
+| `clean-runtime-candidate` | `verified` | 2026-11-06 CI run 42099039334; exact 43-file clean CI candidate；ceiling=`artifact` |
+| `isolated-runtime-readback` | `verified` | 2026-11-06 CI run 42099039334; 仅该 CI disposable runtime；ceiling=`activated-runtime` |
+| `remote-ci-execution` | `verified` | 2026-11-06 CI run 42099039334; 根 workflow 全部成功；source=`a8a4dab` |
 | `operator-production-runtime` | `not_verified` | 未尝试 operator service installation 或 production selection                       |
 | `tunnel`                      | `not_verified` | External gate；未访问 credential/profile，未运行 preflight/activation              |
 | `named-host`                  | `not_verified` | External/account gate；未执行 authenticated named-host exercise                    |
@@ -138,4 +142,4 @@ Fresh run 已验证 candidate file/digest closure、candidate-owned full scenari
 
 ## Remaining gates
 
-当前 Lab changes 尚未 commit，因此 clean package 与 isolated runtime lane 仍未验证。获得授权的 commit 后，应在那个 clean commit 上从 `lab/` 运行 `npm run validate:runtime-lane`。Operator production selection、container activation/publication、tunnel、named host、owner acceptance 与 GitHub/npm publication 继续是独立 gates；本轮均未执行。
+当前 monorepo 的完整 package/runtime lane 已在上述 CI revision 验证。本机仍可在 clean committed checkout 中用 `npm run validate:runtime-lane` 重现；这不会激活 operator service。Operator production selection、container activation/publication、tunnel、named host、owner acceptance 与 GitHub/npm publication 仍是独立边界，本轮未执行。

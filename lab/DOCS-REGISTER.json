@@ -134,48 +134,51 @@
   ],
   "current_state": {
     "updated_at": "2026-11-06",
-    "candidate_source_revision": null,
-    "candidate_file_count": null,
+    "candidate_source_revision": "a8a4dabe3266c6b18fb1db4d8ee51e0fe8dbb827",
+    "candidate_file_count": 43,
     "resource_bytes": 552146,
     "resource_sha256": "13e0d52a1cf4b4239459065d508ab934a939ab199d44d943c4e5e543ec13ffb8",
-    "bundle_digest": null,
+    "bundle_digest": "sha256:284cdf4a78503c5b52aff3de90d4838c44445cdcf0b052be427d7771f78d2ad6",
     "receipt_path": "tmp/receipts/runtime.isolated-readback@1.json",
     "check_schema_count": 2,
     "check_scenario_count": 7,
-    "check_unit_tests": 84,
-    "remote_ci_execution": "not_verified",
+    "check_unit_tests": 95,
+    "remote_ci_execution": "verified",
     "boundary_statuses": [
       {
         "id": "source-checks",
         "status": "verified",
-        "evidence": "2026-08-29 clean commit 5eba892 and 2026-10-15 local run"
+        "evidence": "2026-11-06 CI run 42099039334"
       },
       {
         "id": "local-protocol-fixtures",
         "status": "verified",
-        "evidence": "2026-10-15 local loopback and SDK bridge run"
+        "evidence": "2026-11-06 CI run 42099039334"
       },
       {
         "id": "resource-roundtrip",
         "status": "verified",
-        "evidence": "2026-08-29 clean commit 5eba892"
+        "evidence": "2026-11-06 CI run 42099039334"
       },
       {
         "id": "local-host-matrix",
         "status": "verified",
-        "evidence": "2026-08-29 local Chromium host run"
+        "evidence": "2026-11-06 CI run 42099039334"
       },
       {
         "id": "clean-runtime-candidate",
-        "status": "not_verified"
+        "status": "verified",
+        "evidence": "2026-11-06 CI run 42099039334"
       },
       {
         "id": "isolated-runtime-readback",
-        "status": "not_verified"
+        "status": "verified",
+        "evidence": "2026-11-06 CI run 42099039334"
       },
       {
         "id": "remote-ci-execution",
-        "status": "not_verified"
+        "status": "verified",
+        "evidence": "2026-11-06 CI run 42099039334"
       },
       {
         "id": "operator-production-runtime",
@@ -197,7 +200,9 @@
         "id": "release-publication",
         "status": "not_verified"
       }
-    ]
+    ],
+    "verification_run": "https://github.com/IndelibleVivi/mcp-boundary/actions/runs/42099039334",
+    "evidence_origin": "GitHub Actions Linux runner; exact disposable CI candidate only"
   },
   "historical_candidate": {
     "observed_at": "2026-08-29",
@@ -223,9 +228,11 @@
   },
   "current_lab_packaging": {
     "updated_at": "2026-11-06",
-    "status": "not_verified",
-    "reason": "the current repair has no fresh complete package/runtime observation; the full lane requires a clean committed checkout",
+    "status": "verified",
+    "reason": "the full provider-neutral lane passed on a clean GitHub Actions Linux checkout; exact disposable CI candidate only",
     "registered_entry": "npm run validate:runtime-lane",
-    "remote_ci_execution": "not_verified"
+    "remote_ci_execution": "verified",
+    "source_revision": "a8a4dabe3266c6b18fb1db4d8ee51e0fe8dbb827",
+    "verification_run": "https://github.com/IndelibleVivi/mcp-boundary/actions/runs/42099039334"
   }
 }
