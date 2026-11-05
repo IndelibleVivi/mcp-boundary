@@ -1,6 +1,6 @@
 ---
 profile_id: skills-distribution-2026-10-15
-profile_version: 2
+profile_version: 3
 assessed_at: 2026-11-06
 language: en
 language_peer: skills-distribution-2026-10-15.zh-CN.md
@@ -8,9 +8,9 @@ language_peer: skills-distribution-2026-10-15.zh-CN.md
 
 # Skills distribution and import
 
-Base: `2026-07-28` / explicit host compatibility. Extension/spec: `Beta; SEP-3392 transition observed 2026-11-06; SEP-2640 Final`. First assessed: `2026-10-15`. Reassessed: `2026-11-06`.
+Base: `2026-07-28` / explicit host compatibility. Extension/spec: `Beta; SEP-3392 transition observed 2026-11-06; SEP-2640 Final`. First assessed: `2026-10-15`. Reassessed: `2026-11-06`. OpenAI package-review path observed: `2026-11-06`.
 
-Choose this path to ship multi-tool workflows with the server. The full extension targets `2026-07-28` and declares Resources and Skills through `server/discover`. OpenAI's importer still documents initialization capabilities and a bounded static subset. Record both paths rather than interpreting “Skills supported” as one loading behavior.
+Choose this path to ship multi-tool workflows with the server. The full extension targets `2026-07-28` and declares Resources and Skills through `server/discover`. OpenAI's importer page observed on **2026-10-15** documented initialization capabilities and a bounded static subset. That is historical host evidence and the basis for the local scanner surrogate, not a current OpenAI requirement; the current `<https://developers.openai.com/plugins/build/mcp-server>` page covers building an MCP server. Record the extension contract, dated host path and current package-review path separately rather than interpreting “Skills supported” as one loading behavior.
 
 ## Integration
 
@@ -24,7 +24,9 @@ SEP-3392 classifies Skills as Beta; the old `stable/` path described a released 
 
 The Lab serves one skill and a supporting file. Import once, change the content, compare live reads/catalog digests and sizes with the old snapshot, then rescan successfully. Deliberately mismatch a digest: tools remain visible while the last valid imported skills stay intact.
 
-Repair the manifest/bytes boundary before touching tool handlers. Rescan and inspect imported content; OpenAI then requires review and plugin-version submission. Deployment alone proves none of those steps. Frontmatter, path and size checks also apply; consult the current importer for precise limits.
+Repair the manifest/bytes boundary before touching tool handlers. For the historical host path, rescan and inspect imported content; OpenAI then required review and plugin-version submission. Deployment alone proves none of those steps. Frontmatter, path and size checks also apply.
+
+For a current skills-only plugin update, upload a new complete ZIP, inspect its metadata and bundled-skill findings, then submit that package version for review. Current OpenAI documentation says bundled skills and metadata require a new ZIP; the automatic continuous-update path is for hosted MCP tools. Review is not approval or publication.
 
 Run the local positive/counterexample lane from the repository root; inspect its [fixture source](../../lab/tests/support/skills-over-mcp.ts) and [runner](../../lab/scripts/run-lab-fixtures.ts).
 
@@ -42,5 +44,6 @@ Sources:
 - <https://skills.extensions.modelcontextprotocol.io/specification/beta/skills>
 - <https://modelcontextprotocol.io/seps/3392-extension-lifecycle>
 - <https://modelcontextprotocol.io/seps/2640-skills-extension>
+- <https://developers.openai.com/plugins/deploy/submission>
 - <https://developers.openai.com/plugins/build/mcp-server>
 - <https://developers.cloudflare.com/changelog/post/2026-10-10-cloudflare-mcp-skills/>

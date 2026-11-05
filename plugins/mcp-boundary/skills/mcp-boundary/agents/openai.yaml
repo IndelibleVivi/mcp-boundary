@@ -1,6 +1,6 @@
 interface:
   display_name: "MCP Boundary"
-  short_description: "Complete MCP work on the live path"
+  short_description: "MCP work on the live path"
   icon_small: "./assets/icon-400.png"
   icon_large: "./assets/mark.svg"
   brand_color: "#315BE8"

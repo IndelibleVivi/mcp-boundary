@@ -186,13 +186,15 @@
       "extension_revision": "Beta; SEP-3392 transition observed 2026-11-06; SEP-2640 Final",
       "hosts": [
         "extension-aware client",
-        "OpenAI plugin Scan Tools",
+        "OpenAI plugin Scan Tools (historical 2026-10-15 observation)",
+        "OpenAI plugin package review",
         "Cloudflare API MCP"
       ],
       "assessed_at": "2026-11-06",
       "consumption": [
         "live-read",
-        "submission-snapshot"
+        "historical-submission-snapshot",
+        "package-zip-review"
       ],
       "paths": {
         "en": "profiles/skills-distribution-2026-10-15.md",
@@ -201,6 +203,7 @@
       "sources": [
         "https://skills.extensions.modelcontextprotocol.io/specification/beta/skills",
         "https://modelcontextprotocol.io/seps/2640-skills-extension",
+        "https://developers.openai.com/plugins/deploy/submission",
         "https://developers.openai.com/plugins/build/mcp-server",
         "https://developers.cloudflare.com/changelog/post/2026-10-10-cloudflare-mcp-skills/",
         "https://modelcontextprotocol.io/seps/3392-extension-lifecycle"

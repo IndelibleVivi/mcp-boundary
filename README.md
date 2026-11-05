@@ -14,20 +14,20 @@ The repository is intentionally a monorepo. A user installs one plugin. A mainta
 
 The plugin stays small. It starts no server, registers no app connector, requests no authentication, sends no analytics or telemetry, and adds no runtime dependency. The Guide and the Lab are repository source: the executable Lab specimen is engineering evidence, not distributed plugin runtime.
 
-> `0.2.0` is live in the public plugin directory. Repository source and the directory artifact remain separate release surfaces; see the current-state record for the exact observed status.
+> Repository source is `0.3.0` and is prepared for release. The observed public directory version remains `0.2.0` until a later listing update is reviewed and published; repository source and the directory artifact remain separate release surfaces.
 
-[Website](https://indeliblevivi.github.io/mcp-boundary/) · [中文说明](README.zh-CN.md) · [Workspace design](docs/UNIFIED-WORKSPACE.md) · [Current state](docs/current-state.md) · [0.2.0 publication record](docs/submission/0.2.0.md) · [Licensing](LICENSING.md)
+[Website](https://indeliblevivi.github.io/mcp-boundary/) · [中文说明](README.zh-CN.md) · [Workspace design](docs/UNIFIED-WORKSPACE.md) · [Current state](docs/current-state.md) · [0.3.0 release notes](docs/releases/0.3.0.md) · [0.2.0 publication record](docs/submission/0.2.0.md) · [Licensing](LICENSING.md)
 
 ## Use the plugin
 
 With a current Codex CLI that supports Agent Plugin marketplaces:
 
 ```bash
-codex plugin marketplace add IndelibleVivi/mcp-boundary --ref main
+codex plugin marketplace add IndelibleVivi/mcp-boundary --ref v0.3.0
 codex plugin add mcp-boundary@mcp-boundary
 ```
 
-This repository command installs the source at the selected Git ref; it is distinct from the externally published directory artifact. To inspect a candidate before it reaches `main`, replace `main` with that branch name. Restart Codex after installation.
+The pinned install requires the `v0.3.0` release tag and remains distinct from the externally published directory artifact. Use `--ref main` only to follow development after release; source on `main` may move independently of a published package. Restart Codex after installation.
 
 Example tasks:
 
@@ -79,15 +79,17 @@ MCP Boundary makes the agent:
 
 It also has a stop rule: small, clear MCP changes should remain small.
 
-## Candidate updates
+## 0.3.0 changes
 
-The source candidate `0.3.0-dev.2` adds [Skills distribution](guide/profiles/skills-distribution-2026-10-15.md), [Cloudflare authorization/proxy paths](guide/profiles/cloudflare-deployment-2026-10-15.md), [OpenAI native entrypoints](guide/profiles/openai-entrypoints-2026-10-15.md), and [Tasks/Events selection](guide/profiles/async-selection-2026-10-15.md). The active skill bundles self-contained recipes. The existing July core profiles remain the protocol baseline; these additions address extension and host behavior.
+`0.3.0` adds [Skills distribution](guide/profiles/skills-distribution-2026-10-15.md), [Cloudflare authorization/proxy paths](guide/profiles/cloudflare-deployment-2026-10-15.md), [OpenAI native entrypoints](guide/profiles/openai-entrypoints-2026-10-15.md), and [Tasks/Events selection](guide/profiles/async-selection-2026-10-15.md). The active skill bundles self-contained recipes. The existing July core profiles remain the protocol baseline; these additions address extension and host behavior.
 
-Candidate packaging uses root portable `plugin.json` with inline OpenAI presentation, plus a generated Codex compatibility manifest. Both come from `src/plugin/plugin.json`. Archive/loader-contract checks are separate from actual host installation and directory publication. The public listing remains `0.2.0`.
+Packaging uses root portable `plugin.json` with inline OpenAI presentation, plus a generated Codex compatibility manifest. Both come from `src/plugin/plugin.json`. Archive/loader-contract checks are separate from actual host installation and directory publication. The observed public listing remains `0.2.0`.
 
 The November refresh separates extension maturity from SEP status: Skills and Tasks are Beta, while Events remains Experimental. Skills references use the current Beta specification; the OpenAI recipe follows the October 21 host guidance. See [Lab testing](lab/docs/TESTING.en.md) for the consolidated package path and root CI.
 
-[Behavior evaluations](evaluations/README.md) now supply fixtures and independent checkers for all nine cases, including the six original core scenarios. Fixture/checker validation does not execute the model comparison or establish named-host support. See the [0.3 candidate notes](docs/candidates/0.3.0-dev.2.md) for scope and publication boundaries.
+Current OpenAI plugin updates that change metadata or bundled skills use a new complete ZIP with package checks and review. The `plugins/deploy/submission` page observed on 2026-11-06 describes that path; it is distinct from the continuous tool-review flow for hosted MCP servers. The `plugins/build/mcp-server` Skills-importer behavior recorded on 2026-10-15 remains historical host evidence for the local scanner surrogate, not a current OpenAI requirement.
+
+[Behavior evaluations](evaluations/README.md) supply fixtures and independent checkers for all nine cases, including the six original core scenarios. The October model comparison remains limited to its three cases; those six core cases have no model result. Fixture/checker validation does not establish model behavior or named-host support. See the [0.3.0 release notes](docs/releases/0.3.0.md) for the evidence boundary.
 
 ## Build and verify
 

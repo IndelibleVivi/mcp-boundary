@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "recorded_at": "2026-11-06",
-  "project_version": "0.3.0-dev.2",
+  "project_version": "0.3.0",
   "exact_copies": [
     {
       "source_project": "MCP Server Engineering Field Guide",
@@ -191,7 +191,12 @@
     {
       "url": "https://developers.openai.com/plugins/build/mcp-server",
       "assessed_at": "2026-10-15",
-      "purpose": "Static bounded Skills snapshot importer and scan failure preserving prior skills."
+      "purpose": "Historical observation only: the 2026-10-15 page described a bounded Skills snapshot importer at submission-time Scan Tools. The current page covers building MCP servers and is not a current Skills importer contract."
+    },
+    {
+      "url": "https://developers.openai.com/plugins/deploy/submission",
+      "assessed_at": "2026-11-06",
+      "purpose": "Current package-review path: metadata, assets, and bundled-skill updates require a new ZIP with its own checks and review outcome; hosted MCP tool scans are a separate continuous-update path."
     },
     {
       "url": "https://skills.extensions.modelcontextprotocol.io/specification/stable/skills",

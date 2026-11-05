@@ -14,20 +14,20 @@ MCP Boundary 是一项由三个相连表面组成的 MCP 工程项目：
 
 插件本身保持轻量：它不启动 server、不注册 app connector、不要求认证、不发送 analytics 或 telemetry，也不引入 runtime dependency。Guide 与 Lab 都是仓库源码：可执行的 Lab 标本是工程证据，不是分发的插件运行时。
 
-> `0.2.0` 已在公开插件目录上线。仓库源码与目录产物仍是两个独立的 release surface；确切的观察状态见当前状态记录。
+> 仓库源码现为 `0.3.0`，已完成发布准备。公开插件目录中实际观察到的版本仍是 `0.2.0`，直到后续 listing 更新通过审阅并发布；仓库源码与目录产物仍是两个独立的 release surface。
 
-[官网](https://indeliblevivi.github.io/mcp-boundary/) · [English](README.md) · [统一工作区设计](docs/UNIFIED-WORKSPACE.md) · [当前状态](docs/current-state.md) · [0.2.0 发布记录](docs/submission/0.2.0.md) · [许可](LICENSING.md)
+[官网](https://indeliblevivi.github.io/mcp-boundary/) · [English](README.md) · [统一工作区设计](docs/UNIFIED-WORKSPACE.md) · [当前状态](docs/current-state.md) · [0.3.0 发布说明](docs/releases/0.3.0.md) · [0.2.0 发布记录](docs/submission/0.2.0.md) · [许可](LICENSING.md)
 
 ## 使用插件
 
 在支持 Agent Plugin marketplace 的当前 Codex CLI 中：
 
 ```bash
-codex plugin marketplace add IndelibleVivi/mcp-boundary --ref main
+codex plugin marketplace add IndelibleVivi/mcp-boundary --ref v0.3.0
 codex plugin add mcp-boundary@mcp-boundary
 ```
 
-这条仓库安装命令取得的是所选 Git ref 上的源码版本，与外部目录中已发布的产物不同。若要在候选版进入 `main` 前检查它，将 `main` 替换成对应分支名。安装后重启 Codex。
+固定安装需要 `v0.3.0` release tag，且仍不同于外部目录中已发布的产物。仅在发布后希望持续跟踪开发时才使用 `--ref main`；`main` 上的源码可能与已发布 package 独立变化。安装后重启 Codex。
 
 示例：
 
@@ -79,15 +79,17 @@ MCP Boundary 会要求 agent：
 
 它也有明确停止条件：清楚的小改动保持小，不扩张成仪式化全面审计。
 
-## 候选版更新
+## 0.3.0 更新
 
-源码候选版 `0.3.0-dev.2` 新增 [Skills 分发](guide/profiles/skills-distribution-2026-10-15.zh-CN.md)、[Cloudflare 授权／代理](guide/profiles/cloudflare-deployment-2026-10-15.zh-CN.md)、[OpenAI 原生入口](guide/profiles/openai-entrypoints-2026-10-15.zh-CN.md)和 [Tasks/Events 选型](guide/profiles/async-selection-2026-10-15.zh-CN.md)。active skill 自带可独立使用的 recipes。现有七月核心 profile 保留；本轮补扩展与宿主行为。
+`0.3.0` 新增 [Skills 分发](guide/profiles/skills-distribution-2026-10-15.zh-CN.md)、[Cloudflare 授权／代理](guide/profiles/cloudflare-deployment-2026-10-15.zh-CN.md)、[OpenAI 原生入口](guide/profiles/openai-entrypoints-2026-10-15.zh-CN.md)和 [Tasks/Events 选型](guide/profiles/async-selection-2026-10-15.zh-CN.md)。active skill 自带可独立使用的 recipes。现有七月核心 profile 保留；本轮补扩展与宿主行为。
 
-候选包采用根目录 portable `plugin.json`，内含 OpenAI 展示信息，同时生成 Codex 兼容清单；两者只维护 `src/plugin/plugin.json` 这一份作者源。拆包及 loader-contract 检查与真实安装、目录发布分别记录。公开目录版本仍为 `0.2.0`。
+插件包采用根目录 portable `plugin.json`，内含 OpenAI 展示信息，同时生成 Codex 兼容清单；两者只维护 `src/plugin/plugin.json` 这一份作者源。拆包及 loader-contract 检查与真实安装、目录发布分别记录。公开目录中观察到的版本仍为 `0.2.0`。
 
 十一月更新区分 extension 成熟度与 SEP 状态：Skills 和 Tasks 为 Beta，Events 为 Experimental；Skills 规范使用当前 Beta 入口，OpenAI recipe 同步 10 月 21 日的 host guidance。Lab 的合仓打包路径与根 CI 见 [Lab 测试说明](lab/docs/TESTING.md)。
 
-[行为评估](evaluations/README.md)现为全部九个案例提供 fixture / 独立 checker，包括六个原始核心场景。fixture 与 checker 验证不等于模型比较已经执行；本地机制也不证明真实宿主支持。候选范围和发布边界见 [0.3 候选说明](docs/candidates/0.3.0-dev.2.md)。
+当前 OpenAI 插件在更新 metadata 或 bundled skills 时，要求上传完整的新 ZIP，并接受 package checks 与审阅。2026-11-06 观察到的 `plugins/deploy/submission` 页面描述的是这条路径，不同于 hosted MCP server 的continuous tool review。2026-10-15 记录的 `plugins/build/mcp-server` Skills-importer 行为属于本地 scanner surrogate 的历史 host 证据，不是当前 OpenAI 要求。
+
+[行为评估](evaluations/README.md)为全部九个案例提供 fixture / 独立 checker，包括六个原始核心场景。十月模型比较仍只覆盖其中三个案例；这六个核心场景尚无模型结果。fixture 与 checker 验证不等于模型比较已经执行；本地机制也不证明真实宿主支持。证据边界见 [0.3.0 发布说明](docs/releases/0.3.0.md)。
 
 ## 构建与验证
 

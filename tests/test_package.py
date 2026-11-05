@@ -70,7 +70,14 @@ class DistributablePackageTests(unittest.TestCase):
     def test_openai_interface_contract(self) -> None:
         interface = self.codex_manifest["interface"]
         self.assertEqual(interface["displayName"], "MCP Boundary")
-        self.assertTrue(20 <= len(interface["shortDescription"]) <= 64)
+        self.assertTrue(1 <= len(interface["shortDescription"]) <= 30)
+        self.assertEqual(interface["supportURL"], "https://github.com/IndelibleVivi/mcp-boundary")
+        self.assertEqual(
+            interface["websiteURL"],
+            "https://indeliblevivi.github.io/mcp-boundary/",
+        )
+        self.assertTrue(interface["privacyPolicyURL"].startswith("https://"))
+        self.assertTrue(interface["termsOfServiceURL"].startswith("https://"))
         prompts = interface["defaultPrompt"]
         self.assertLessEqual(len(prompts), 3)
         for prompt in prompts:

@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.0
+
+- Add self-contained Skills distribution, Cloudflare authorization/proxy, OpenAI entrypoint, and Tasks/Events recipes while keeping one pure distributed skill.
+- Refresh extension maturity and host observations, separating the Beta Skills specification from SEP lifecycle status and dated host behavior.
+- Add local fixtures and independent checks for the six original core evaluation cases; no model results exist for those six.
+- Preserve the October comparison as a dated three-case observation: no skill `2/3`, released `0.2.0` `3/3`, and the initial and final candidate `3/3`, without claiming incremental advantage.
+- Restore the Lab source, package, browser, clean-package, and isolated-runtime validation lane as repository evidence without adding Lab runtime to the plugin.
+- Adopt the portable root manifest with inline OpenAI presentation and a generated legacy compatibility projection from one author source.
+- Update the OpenAI listing description to the 30-character limit, add the public support URL, and prepare the existing listing's `0.3.0` ZIP for metadata and package review.
+- Preserve the plugin boundary: no MCP server, app connector, authentication flow, analytics, telemetry, or distributed runtime dependency.
+
 ## 0.2.0
 
 - Establish MCP Boundary as one continuing project with a single distributed `$mcp-boundary` skill, the maintained Field Guide under `guide/`, and the executable Field Lab under `lab/`.
