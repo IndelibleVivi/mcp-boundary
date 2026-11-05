@@ -89,12 +89,10 @@ class ReleaseSubmissionTests(unittest.TestCase):
     def test_public_site_describes_current_source_without_directory_overclaim(self) -> None:
         text = SITE.read_text(encoding="utf-8")
         library = LIBRARY.read_text(encoding="utf-8")
-        # Website deployment is a separate release surface.
-        self.assertRegex(text, r">v0\.(?:2\.0|3\.0)</a>")
-        self.assertRegex(text, r"(?:The public directory listing is version|Observed directory version:) 0\.2\.0")
-        if ">v0.3.0</a>" in text:
-            self.assertIn("--ref v0.3.0", text)
-            self.assertIn("releases/tag/v0.3.0", text)
+        self.assertIn(">v0.3.0</a>", text)
+        self.assertIn("Observed directory version: 0.2.0 (2026-11-06)", text)
+        self.assertIn("--ref v0.3.0", text)
+        self.assertIn("releases/tag/v0.3.0", text)
         self.assertIn("./library.html#guide", text)
         self.assertIn("./library.html#lab", text)
         self.assertIn("/mcp-boundary/blob/main/guide/", library)

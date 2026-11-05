@@ -14,7 +14,7 @@ MCP Boundary 是一项由三个相连表面组成的 MCP 工程项目：
 
 插件本身保持轻量：它不启动 server、不注册 app connector、不要求认证、不发送 analytics 或 telemetry，也不引入 runtime dependency。Guide 与 Lab 都是仓库源码：可执行的 Lab 标本是工程证据，不是分发的插件运行时。
 
-> 仓库源码现为 `0.3.0`，已完成发布准备。公开插件目录中实际观察到的版本仍是 `0.2.0`，直到后续 listing 更新通过审阅并发布；仓库源码与目录产物仍是两个独立的 release surface。
+> [`v0.3.0` 已在 GitHub 正式发布](https://github.com/IndelibleVivi/mcp-boundary/releases/tag/v0.3.0)。公开插件目录中实际观察到的版本仍是 `0.2.0`，直到后续 listing 更新通过审阅并发布；仓库源码与目录产物仍是两个独立的 release surface。
 
 [官网](https://indeliblevivi.github.io/mcp-boundary/) · [English](README.md) · [统一工作区设计](docs/UNIFIED-WORKSPACE.md) · [当前状态](docs/current-state.md) · [0.3.0 发布说明](docs/releases/0.3.0.md) · [0.2.0 发布记录](docs/submission/0.2.0.md) · [许可](LICENSING.md)
 

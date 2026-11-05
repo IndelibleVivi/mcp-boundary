@@ -14,7 +14,7 @@ The repository is intentionally a monorepo. A user installs one plugin. A mainta
 
 The plugin stays small. It starts no server, registers no app connector, requests no authentication, sends no analytics or telemetry, and adds no runtime dependency. The Guide and the Lab are repository source: the executable Lab specimen is engineering evidence, not distributed plugin runtime.
 
-> Repository source is `0.3.0` and is prepared for release. The observed public directory version remains `0.2.0` until a later listing update is reviewed and published; repository source and the directory artifact remain separate release surfaces.
+> [`v0.3.0` is released on GitHub](https://github.com/IndelibleVivi/mcp-boundary/releases/tag/v0.3.0). The observed public directory version remains `0.2.0` until a later listing update is reviewed and published; repository source and the directory artifact remain separate release surfaces.
 
 [Website](https://indeliblevivi.github.io/mcp-boundary/) · [中文说明](README.zh-CN.md) · [Workspace design](docs/UNIFIED-WORKSPACE.md) · [Current state](docs/current-state.md) · [0.3.0 release notes](docs/releases/0.3.0.md) · [0.2.0 publication record](docs/submission/0.2.0.md) · [Licensing](LICENSING.md)
 
