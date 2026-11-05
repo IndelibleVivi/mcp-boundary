@@ -10,7 +10,7 @@ Field Lab testing does not pursue one undifferentiated green badge. It localizes
 
 - Node.js `>=22.23.1`
 - the exact `package-lock.json`
-- Playwright Chromium (required only for `test:host`)
+- Playwright Chromium (required for `test:host` and `test:entrypoint-view`)
 - a clean committed Git revision and a new ignored output path for the package lane
 
 ```bash
@@ -37,8 +37,10 @@ Local test execution requires no private credential, public origin, tunnel, or n
 | `npm run test:mcp`                                    | Fresh MCP process, exact `resources/read`, and resource receipt                                           | process                                                        | Browser sandbox, clean package, tunnel, or named host         |
 | `npm run check`                                       | Source/process rows above; writes `mcp-resource-roundtrip.json`                                           | process                                                        | `test:host` and every later rung                              |
 | `npm run test:host`                                   | Exact five-test Playwright JSON closure; writes host-profile receipt                                      | process                                                        | ChatGPT/named-host behavior, tunnel, or owner acceptance      |
+| `npm run test:entrypoint-view`                        | Standalone entrypoint UI through the installed SDK bridge and bundled Chromium                            | local browser process                                          | named-host admission or OpenAI platform rendering             |
 | `npm run package:runtime -- --out=<new-ignored-path>` | Requires clean resource/host receipts; validates candidate-owned prerequisite set; writes package receipt | artifact                                                       | Candidate execution or production selection                   |
 | `npm run smoke:runtime -- --candidate=<path>`         | Isolated health/MCP/resource readback and four-receipt chain                                              | activated-runtime for that exact isolated process              | Operator service selection, tunnel, named host, or owner      |
+| `npm run validate:runtime-lane`                       | Runs `check`, host, entrypoint, then gates packaging on a clean tree and runs package plus isolated smoke | activated-runtime for the exact CI/local candidate             | Operator selection, tunnel, named host, or owner acceptance   |
 
 Runbooks, scenario JSON, workflow source, and generated schemas are contracts, not receipts proving that a run occurred.
 
@@ -148,7 +150,9 @@ If the kernel refuses the loopback bind (a restricted sandbox), this lane fails 
 
 ## Public credential-free CI
 
-`.github/workflows/verify.yml` defines only read-only public witness lanes: `source-process`, `browser-host`, and `clean-package-runtime`. It reads no secrets, publishes no package/image/release, runs no tunnel/named-host/owner scenario, and uploads no raw Playwright/private evidence. Because receipts are ignored/local-only and are not shared as artifacts across jobs or runs, `clean-package-runtime` must rerun `npm run check` and `npm run test:host` in the same clean checkout/job before package and smoke. Every job summary must name its proof ceiling and the higher `not_verified` boundaries.
+The root `.github/workflows/validate.yml` `lab` job runs from `lab/`: `npm ci`, one bundled Playwright Chromium installation, and `npm run validate:runtime-lane`. That entry runs `npm run check`, `test:host`, and `test:entrypoint-view`, verifies the tree is clean, then runs the package and isolated smoke sequentially in the same checkout. Equivalent checks are not repeated in another job.
+
+The job reads no secrets, publishes no package/image/release, runs no tunnel/named-host/owner scenario, and uploads no raw receipts, traces, or screenshots. Receipts are ignored/local-only and are not shared across jobs or runs. The source/process ceiling is `process`; the package lane is `artifact`; the isolated smoke is `activated-runtime` for that exact CI candidate. Operator-selected production runtime, container activation, tunnel, named-host admission, owner acceptance, and release publication remain `not_verified`.
 
 Workflow source existing locally does not mean GitHub Actions ran it. Remote CI execution remains `not_verified` until a remote run actually completes and is inspected; there is no preemptive green-badge claim.
 

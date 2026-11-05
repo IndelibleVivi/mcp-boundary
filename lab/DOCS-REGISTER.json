@@ -2,7 +2,8 @@
   "schema_version": 1,
   "validator_scope": "structural-and-registered-shared-facts-only",
   "canonical_locale": "zh-CN",
-  "repository": "https://github.com/IndelibleVivi/mcp-app-production-fieldlab",
+  "repository": "https://github.com/IndelibleVivi/mcp-boundary/tree/main/lab",
+  "historical_source_repository": "https://github.com/IndelibleVivi/mcp-app-production-fieldlab",
   "signature": "Created by Faye & Cove.",
   "method_authority": {
     "guide_release": "2.0.1",
@@ -74,7 +75,12 @@
   ],
   "shared_facts": [
     {
-      "id": "repository",
+      "id": "current-repository",
+      "value": "https://github.com/IndelibleVivi/mcp-boundary/tree/main/lab",
+      "pair_ids": ["readme", "current-state"]
+    },
+    {
+      "id": "historical-source-repository",
       "value": "https://github.com/IndelibleVivi/mcp-app-production-fieldlab",
       "pair_ids": ["readme", "spec", "current-state", "licensing-map"]
     },
@@ -127,31 +133,81 @@
     }
   ],
   "current_state": {
-    "updated_at": "2026-10-15",
+    "updated_at": "2026-11-06",
+    "candidate_source_revision": null,
+    "candidate_file_count": null,
+    "resource_bytes": 552146,
+    "resource_sha256": "13e0d52a1cf4b4239459065d508ab934a939ab199d44d943c4e5e543ec13ffb8",
+    "bundle_digest": null,
+    "receipt_path": "tmp/receipts/runtime.isolated-readback@1.json",
+    "check_schema_count": 2,
+    "check_scenario_count": 7,
+    "check_unit_tests": 84,
+    "remote_ci_execution": "not_verified",
+    "boundary_statuses": [
+      {
+        "id": "source-checks",
+        "status": "verified",
+        "evidence": "2026-08-29 clean commit 5eba892 and 2026-10-15 local run"
+      },
+      {
+        "id": "local-protocol-fixtures",
+        "status": "verified",
+        "evidence": "2026-10-15 local loopback and SDK bridge run"
+      },
+      {
+        "id": "resource-roundtrip",
+        "status": "verified",
+        "evidence": "2026-08-29 clean commit 5eba892"
+      },
+      {
+        "id": "local-host-matrix",
+        "status": "verified",
+        "evidence": "2026-08-29 local Chromium host run"
+      },
+      {
+        "id": "clean-runtime-candidate",
+        "status": "not_verified"
+      },
+      {
+        "id": "isolated-runtime-readback",
+        "status": "not_verified"
+      },
+      {
+        "id": "remote-ci-execution",
+        "status": "not_verified"
+      },
+      {
+        "id": "operator-production-runtime",
+        "status": "not_verified"
+      },
+      {
+        "id": "tunnel",
+        "status": "not_verified"
+      },
+      {
+        "id": "named-host",
+        "status": "not_verified"
+      },
+      {
+        "id": "owner-acceptance",
+        "status": "not_verified"
+      },
+      {
+        "id": "release-publication",
+        "status": "not_verified"
+      }
+    ]
+  },
+  "historical_candidate": {
+    "observed_at": "2026-08-29",
+    "status": "verified",
     "candidate_source_revision": "5eba892b6be5407b0ac4aa658f398f7b2eec5373",
     "candidate_file_count": 43,
     "resource_bytes": 552146,
     "resource_sha256": "13e0d52a1cf4b4239459065d508ab934a939ab199d44d943c4e5e543ec13ffb8",
     "bundle_digest": "sha256:2e7dba961f82f120fdbdf68e440f5d64f7d0db89f566bf8ea0ff987026e2b014",
-    "receipt_path": "tmp/receipts/runtime.isolated-readback@1.json",
-    "check_schema_count": 2,
-    "check_scenario_count": 7,
-    "check_unit_tests": 40,
-    "remote_ci_execution": "verified",
-    "boundary_statuses": [
-      { "id": "source-checks", "status": "verified" },
-      { "id": "local-protocol-fixtures", "status": "verified" },
-      { "id": "resource-roundtrip", "status": "verified" },
-      { "id": "local-host-matrix", "status": "verified" },
-      { "id": "clean-runtime-candidate", "status": "verified" },
-      { "id": "isolated-runtime-readback", "status": "verified" },
-      { "id": "remote-ci-execution", "status": "verified" },
-      { "id": "operator-production-runtime", "status": "not_verified" },
-      { "id": "tunnel", "status": "not_verified" },
-      { "id": "named-host", "status": "not_verified" },
-      { "id": "owner-acceptance", "status": "not_verified" },
-      { "id": "release-publication", "status": "not_verified" }
-    ]
+    "receipt_path": "tmp/receipts/runtime.isolated-readback@1.json"
   },
   "october_execution": {
     "observed_at": "2026-10-15",
@@ -164,5 +220,12 @@
       "implementation_commit": "ca0a118f375aa1f9604a60e030fcb530d1838303",
       "run": "https://github.com/IndelibleVivi/mcp-boundary/actions/runs/38636644934"
     }
+  },
+  "current_lab_packaging": {
+    "updated_at": "2026-11-06",
+    "status": "not_verified",
+    "reason": "the current repair has no fresh complete package/runtime observation; the full lane requires a clean committed checkout",
+    "registered_entry": "npm run validate:runtime-lane",
+    "remote_ci_execution": "not_verified"
   }
 }

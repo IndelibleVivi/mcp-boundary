@@ -4,7 +4,7 @@
 
 [English](./current-state.en.md)
 
-Updated: 2026-10-15
+Updated: 2026-11-06
 
 ## Classification
 
@@ -12,6 +12,7 @@ Updated: 2026-10-15
 
 - Status: `public-source`
 - Version: `0.1.0-private.0`
+- Current source: `https://github.com/IndelibleVivi/mcp-boundary/tree/main/lab`
 - Historical source repository: `https://github.com/IndelibleVivi/mcp-app-production-fieldlab`
 - Visibility: public
 - Package publication: disabled by `package.json` `private: true`
@@ -37,7 +38,7 @@ Updated: 2026-10-15
 - clean-package 与 isolated-runtime commands；
 - layered `SUL-1.0` / `CC-BY-NC-SA-4.0` licensing，含 private-source/third-party exclusions，并传播到 runtime candidates；
 - 中文默认 + English mirror documentation、`DOCS-REGISTER.json` 与只验证 structure/shared facts 的 docs validator；
-- credential-free、read-only GitHub Actions workflow source；remote CI execution 在真实 remote run 前保持 `not_verified`；
+- credential-free、read-only 根目录 CI workflow source，包含单一 Lab runtime-lane entry；remote CI execution 在真实 remote run 前保持 `not_verified`；
 - operator runbooks 与 pinned、public-safe 的 Refrain mechanism case study。
 
 ## 2026-10 local protocol fixtures
@@ -52,13 +53,35 @@ Updated: 2026-10-15
 
 2026-10-15 在具备真实 loopback 的本机完成 `npm run check`：84 个 tests 通过，build、SDK resource smoke 与五个 fixture 摘要全部通过。另行执行 `npm run test:entrypoint-view`，用已安装的 MCP Apps SDK bridge 和 bundled Chromium 验证独立 UI resource、空参数初始视图及用户选择 context 后的调用；首屏没有重复调用。没有测试真实 OAuth library、Gateway、OpenAI importer 或 named host。去重身份隔离 principal/tool/resource，并绑定 payload；存储只在单个 proxy process 内有效，不能提供跨重启或跨 proxy 的 exactly-once 保证。
 
-统一仓库的 [validation run 38636644934](https://github.com/IndelibleVivi/mcp-boundary/actions/runs/38636644934) 已在 implementation commit `ca0a118` 上通过；CI 执行了新增的 loopback fixtures，浏览器与临时 CLI 安装仍是分别执行的本地观察。
+统一仓库的 [validation run 38636644934](https://github.com/IndelibleVivi/mcp-boundary/actions/runs/38636644934) 已在 implementation commit `ca0a118` 上通过；CI 执行了新增的 loopback fixtures。该历史 run 早于当前 monorepo package/runtime repair，不验证本次修复。
+
+## 当前 packaging repair
+
+Lab 现在显式区分两个 root：enclosing MCP Boundary Git checkout 用于 committed revision、cleanliness 与 detached worktree；`lab/` 用于 npm install、build output、runtime roots、candidate 与 ignored receipts。Disposable Git monorepo regression 会从 nested `lab/` 执行真实 packager，并验证 clean-worktree build 与 receipt placement。
+
+根目录 `lab` CI job 运行 `npm ci`、安装一次 bundled Playwright Chromium，再运行 `npm run validate:runtime-lane`。这个 provider-neutral entry 顺序覆盖 source/process checks、local host matrix、standalone entrypoint view、clean package 与 isolated runtime smoke。
+
+最近一次完整本地 source/process 记录（2026-10-15）包含 `2` 个 generated-schema checks、`7` 个 scenario validations 与 `84` 个 unit tests。新增回归检查已通过 focused runs，当前完整测试总数仍待新 CI 观察；旧计数不证明新的 candidate/runtime。
+
+当前修复的完整 package 与 isolated runtime result 仍为 `not_verified`；完整 lane 需要 clean committed checkout。新 entry 的 remote CI execution 同样为 `not_verified`。下面的 historical candidate 与 receipt identities 仅证明其记录的 revision。
+
+当前尚未观察到的 candidate identities：
+
+- current candidate source revision: `not observed`
+- current candidate file count: `not observed`
+- current bundle digest: `not observed`
 
 ## Historical clean-candidate evidence
 
-2026-08-29 已对 review-hardening source/process、declared local-browser、clean-package 与 isolated-runtime boundaries 完成 fresh local verification。当前 package/runtime proof 固定到 clean implementation commit `5eba892b6be5407b0ac4aa658f398f7b2eec5373`。本文件是随后只记录证据的 documentation update，不改变 candidate identity。更早的 `dbab424...` 与 `ed016da...` candidates 只保留为 historical evidence，不是当前 revision 的 proof。
+Historical clean candidate source revision: `5eba892b6be5407b0ac4aa658f398f7b2eec5373`
 
-Clean commit 上的 `npm run check` 包含：
+Historical clean candidate file count: `43`
+
+Historical clean candidate bundle digest: `sha256:2e7dba961f82f120fdbdf68e440f5d64f7d0db89f566bf8ea0ff987026e2b014`
+
+2026-08-29 已对 review-hardening source/process、declared local-browser、clean-package 与 isolated-runtime boundaries 完成 fresh local verification。该 historical package/runtime proof 固定到 clean implementation commit `5eba892b6be5407b0ac4aa658f398f7b2eec5373`。本文件是随后只记录证据的 documentation update，不改变 candidate identity。更早的 `dbab424...` 与 `ed016da...` candidates 只保留为 historical evidence，不是当前 revision 的 proof。
+
+该 historical clean commit 上的 `npm run check` 包含：
 
 - register、layered-license 与 bilingual-doc validation；
 - `2` 个 generated-schema checks；
@@ -67,6 +90,8 @@ Clean commit 上的 `npm run check` 包含：
 - `40` 个 unit tests（`7/7` test files）；
 - production build；
 - real MCP client discovery、tool call 与 exact resource roundtrip。
+
+上文当前的 `84`-test contract count 描述后来维护中的 test coverage，不属于这份 2026-08-29 historical candidate record。
 
 Fresh MCP process receipt 位于 local-only 的 `tmp/receipts/mcp-resource-roundtrip.json`，绑定：
 
@@ -94,23 +119,23 @@ Browser-host lane 通过 exact Playwright JSON attestation 的 `5/5` Chromium te
 
 Fresh run 已验证 candidate file/digest closure、candidate-owned full scenario set、四份 receipt 的 transitive prerequisite joins、production dependency install、same-origin `/healthz` release identity、package-authoritative MCP version、MCP discovery/tool call/resource readback、component-only projection，以及在 runtime receipt 落盘前完成 child stop 与 temporary projection cleanup。
 
-公开发布后，GitHub Actions [`Verify` run 33260710317](https://github.com/IndelibleVivi/mcp-app-production-fieldlab/actions/runs/33260710317) 已在 commit `7305e1ddf4491dfa56fe8d653252a81bda0f6da5` 上完成并得到 `success`。`Source and process`、`Local browser host`、`Clean package and isolated runtime` 三个 jobs 全部通过，check-run annotation count 均为 `0`。该 run 验证的是 exact remote CI process 与它生成的 isolated candidate；它不证明 operator-selected production runtime、tunnel、named host 或 owner acceptance。
+独立仓库合并前，GitHub Actions [`Verify` run 33260710317](https://github.com/IndelibleVivi/mcp-app-production-fieldlab/actions/runs/33260710317) 已在 commit `7305e1ddf4491dfa56fe8d653252a81bda0f6da5` 上完成并得到 `success`。`Source and process`、`Local browser host`、`Clean package and isolated runtime` 三个历史 jobs 全部通过，check-run annotation count 均为 `0`。它仍是那个 exact historical remote run 的证据，不证明当前根目录 workflow source。
 
-| Boundary id                   | Status         | Current claim                                                                  |
-| ----------------------------- | -------------- | ------------------------------------------------------------------------------ |
-| `source-checks`               | `verified`     | Clean commit `5eba892...` 通过 docs/schema/scenario/type/unit/build/MCP checks |
-| `local-protocol-fixtures`     | `verified` | 2026-10-15 本机 loopback fixtures 与本地 SDK bridge 浏览器交互通过；ceiling=`process` |
-| `resource-roundtrip`          | `verified`     | Fresh clean process 返回上列 exact self-contained resource identity            |
-| `local-host-matrix`           | `verified`     | Exact five-test Playwright attestation 通过；ceiling=`process`                 |
-| `clean-runtime-candidate`     | `verified`     | `43`-file candidate 与 release manifest 绑定 clean commit `5eba892...`         |
-| `isolated-runtime-readback`   | `verified`     | 同一 candidate 在 disposable local process 中复现；ceiling=`activated-runtime` |
-| `remote-ci-execution`         | `verified`     | Run `33260710317` 在 commit `7305e1d...` 上三 job 全绿且零 annotations         |
-| `operator-production-runtime` | `not_verified` | 未尝试 operator service installation 或 production selection                   |
-| `tunnel`                      | `not_verified` | External gate；未访问 credential/profile，未运行 preflight/activation          |
-| `named-host`                  | `not_verified` | External/account gate；未执行 authenticated named-host exercise                |
-| `owner-acceptance`            | `not_verified` | Owner-only gate；未请求或记录 owner observation                                |
-| `release-publication`         | `not_verified` | 未创建 GitHub Release，也未进行 registry/container publication                 |
+| Boundary id                   | Status         | Current claim                                                                      |
+| ----------------------------- | -------------- | ---------------------------------------------------------------------------------- |
+| `source-checks`               | `verified`     | 2026-08-29 clean commit 5eba892 and 2026-10-15 local run; ceiling=`process`        |
+| `local-protocol-fixtures`     | `verified`     | 2026-10-15 local loopback and SDK bridge run; ceiling=`process`                    |
+| `resource-roundtrip`          | `verified`     | 2026-08-29 clean commit 5eba892；exact resource identity 见上                      |
+| `local-host-matrix`           | `verified`     | 2026-08-29 local Chromium host run；exact five-test attestation，ceiling=`process` |
+| `clean-runtime-candidate`     | `not_verified` | 当前 monorepo packaging repair 尚无 clean committed candidate                      |
+| `isolated-runtime-readback`   | `not_verified` | 当前 monorepo candidate 尚未在 isolated process 中运行                             |
+| `remote-ci-execution`         | `not_verified` | 新的根目录 runtime-lane witness 尚未在 GitHub Actions 完成                         |
+| `operator-production-runtime` | `not_verified` | 未尝试 operator service installation 或 production selection                       |
+| `tunnel`                      | `not_verified` | External gate；未访问 credential/profile，未运行 preflight/activation              |
+| `named-host`                  | `not_verified` | External/account gate；未执行 authenticated named-host exercise                    |
+| `owner-acceptance`            | `not_verified` | Owner-only gate；未请求或记录 owner observation                                    |
+| `release-publication`         | `not_verified` | 未创建 GitHub Release，也未进行 registry/container publication                     |
 
 ## Remaining gates
 
-Public `main` 已 push，remote CI 已按上列 run 验证。Operator production selection、container activation/publication、tunnel、named host、owner acceptance 与 GitHub/npm publication 继续是独立 gates；本轮均未执行。未经各自授权与实际 execution，不提升 status。
+当前 Lab changes 尚未 commit，因此 clean package 与 isolated runtime lane 仍未验证。获得授权的 commit 后，应在那个 clean commit 上从 `lab/` 运行 `npm run validate:runtime-lane`。Operator production selection、container activation/publication、tunnel、named host、owner acceptance 与 GitHub/npm publication 继续是独立 gates；本轮均未执行。

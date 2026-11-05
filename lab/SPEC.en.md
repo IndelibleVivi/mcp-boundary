@@ -51,7 +51,7 @@ The LLM/host supplies intent routing, tool invocation, and conversation context.
 - **Reachability:** the specimen defaults to stdio/loopback. It includes no public origin, account, OAuth, or Refrain-operated backend.
 - **Dependencies:** only pinned production/dev dependencies needed for the neutral MCP App and real Chromium harness. Refrain's renderer, audio engine, and sound assets are absent.
 - **Privacy:** credentials, cookies, private host URLs, raw named-host logs, and unsanitized screenshots do not enter Git. A public-safe receipt is a derived projection, not independent reproduction.
-- **Publication:** repository `https://github.com/IndelibleVivi/mcp-app-production-fieldlab` is `public-source`, with no GitHub Release or package publication. Project-original functional material uses `SUL-1.0`; original documentation, diagrams, and case-study expression use `CC-BY-NC-SA-4.0`; `LICENSING.md` is the exact path authority. Later release, registry publication, license changes, or separate commercial permission remain independent owner gates.
+- **Publication:** the current Lab source is `https://github.com/IndelibleVivi/mcp-boundary/tree/main/lab` and is `public-source`, with no GitHub Release or package publication. Its standalone source origin was `https://github.com/IndelibleVivi/mcp-app-production-fieldlab`; that repository is provenance, not the current package location. Project-original functional material uses `SUL-1.0`; original documentation, diagrams, and case-study expression use `CC-BY-NC-SA-4.0`; `LICENSING.md` is the exact path authority. Later release, registry publication, license changes, or separate commercial permission remain independent owner gates.
 
 ## Authority split
 

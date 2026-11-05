@@ -11,6 +11,7 @@
 - Node.js 满足 `package.json` engines。
 - Dependencies 已通过 exact lockfile 执行 `npm ci`。
 - Intended files 已 commit，`git status --short` 为空；后续 resource/host receipts 必须在这个 exact clean revision 上 fresh 生成。
+- `npm` 与 package 命令从 `lab/` 子树运行；revision 与 clean-tree checks 针对 enclosing MCP Boundary Git checkout。
 - Output path 被 ignored、只用于这一次 run，且当前不存在。
 - 仅在 browser lane 在 scope 时安装 Playwright Chromium。
 
@@ -22,14 +23,15 @@
 git status --short --branch
 npm run check
 npm run test:host
+npm run test:entrypoint-view
 ```
 
-这两个命令都是 package prerequisites，而不是可选的相邻检查：
+`npm run check` 与 `npm run test:host` 是 package prerequisites，而不是可选的相邻检查：
 
 - `npm run check` 的 `test:mcp` 末段写 `tmp/receipts/mcp-resource-roundtrip.json`；
 - `npm run test:host` 通过 `scripts/run-host-evidence.ts` 消费 Playwright JSON report closure；只有 exact five canonical tests 全部各通过一次、zero skipped/unexpected/flaky/report errors，且 resource prerequisite receipt 一起通过 receipt-set validation 后，才写 `tmp/receipts/mcp-host-profile-matrix.json`。没有 standalone successful writer path。
 
-两份 receipts 必须为 `verified`，其 `method_rung` 必须精确达到各自 scenario claim rung `process`，并拥有相同 `subject.source_revision`、`subject.source_dirty: false` 与 exact resource identity，分别带 `resource:sha256:<subject.resource.sha256>` evidence ref。它们都保持 ignored/local-only。Selected source revision dirty、receipt stale/missing 或 required checks failing 时不得继续 package。
+Resource 与 host 两份 receipts 必须为 `verified`，其 `method_rung` 必须精确达到各自 scenario claim rung `process`，并拥有相同 `subject.source_revision`、`subject.source_dirty: false` 与 exact resource identity，分别带 `resource:sha256:<subject.resource.sha256>` evidence ref。它们都保持 ignored/local-only。Entrypoint check 单独检查 standalone UI，不写四份 package prerequisites 中的任何一份。Selected source revision dirty、receipt stale/missing 或 required checks failing 时不得继续 package。
 
 ## 2. 创建 clean candidate
 
@@ -44,7 +46,7 @@ Packager 必须：
 1. 拒绝 dirty source；
 2. 拒绝 existing output path；
 3. 解析 current committed revision；
-4. 用 pinned lockfile 在 detached clean worktree 内 build；
+4. 从统一 Git root 创建 detached clean worktree，再在该 worktree 的 `lab/` 子树中用 pinned lockfile install 并 build；
 5. 只复制 package contract 声明的 runtime roots；
 6. 包含 `scenarios/` 下 candidate 自己的 exact scenario JSON authority；
 7. 包含 source revision 携带的 canonical SUL terms、documentation notice 与 path map；
@@ -52,6 +54,8 @@ Packager 必须：
 9. 使用 staged candidate 自己的完整 scenario set 与 compiled validators 验证 scenario graph、两份 prerequisite receipts 和新 `package.clean-revision@1` receipt；
 10. 计算 sorted per-file byte counts/SHA-256 与一个 bundle digest，并写入 `sourceDirty: false` 的 `release.json`；
 11. 原子采用 completed candidate path 后，将 package receipt 原子写入 `tmp/receipts/package.clean-revision@1.json`。
+
+入口和输出保护按实际路径解析 directory alias（包括 macOS 的 `/var` 与 `/private/var`）；通过 alias 也不能把 output 放到 repository/Lab root 或 `.git` 内。
 
 任何条件失败都应保留 error，并在 artifact boundary 分类。不要从 developer checkout 复制 compiled output，也不要原地修改 candidate。
 
@@ -118,7 +122,7 @@ Raw receipts、temporary installs、runtime candidates、Playwright output 与 s
 
 Every attempted receipt carrying `subject.resource` 必须同时有 exact `resource:sha256:<subject.resource.sha256>` evidence ref。对每份 attempted dependent，validator 收集完整 transitive prerequisite closure，要求所有 ancestors 为 `verified`，并对每个 ancestor/dependent pair 比较双方都携带的 `source_revision`、exact `resource`、`bundle_digest`、`runtime_identity`。因此 package 与 resource/host ancestors 比较 clean source revision；runtime 与 package 比较 source revision + bundle digest，同时与 transitive resource/host ancestors 比较 source revision + complete resource identity。
 
-Public CI 不上传或跨 jobs 共享这些 raw receipts。因此 `clean-package-runtime` job 必须在同一个 clean checkout/job 内顺序重跑 `npm run check`、`npm run test:host`、package 与 smoke。Workflow source 存在不证明 remote run 已发生；remote CI execution 继续是 `not_verified`。
+Public CI 不上传或跨 jobs 共享这些 raw receipts。根目录 `.github/workflows/validate.yml` 的 `lab` job 运行 `npm ci`、安装一次 bundled Chromium，再运行 `npm run validate:runtime-lane`。该 entry 运行 `check`、`test:host` 与 `test:entrypoint-view`，确认 tree clean 后在同一个 checkout 内顺序运行 package 与 isolated smoke。同一个 entry 也可以在 clean committed tree 上本地运行。Workflow source 存在不证明 remote run 已发生；实际执行状态见[当前状态](../current-state.md)。
 
 若以后准备 shareable sanitized receipt，必须移除 credentials、private URLs、account identifiers 与 raw host/owner material。Sanitization 不会把 derived evidence 变成 independent reproduction。
 

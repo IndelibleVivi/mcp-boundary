@@ -8,7 +8,7 @@ MCP App Production Field Lab is the maintained executable, reproducible, claim-b
 
 > **Unified repository note.** This subtree is `lab/` inside the MCP Boundary repository. The publication, repository, and version-pin statements below are historical facts about the former standalone source repository, kept because they record how this evidence was produced. Continuing authority for this subtree is the root [`AGENTS.md`](../AGENTS.md); the method and protocol profiles are read from the local [`guide/`](../guide/) subtree; and the one active distributed skill is `src/skills/mcp-boundary/`. This subtree is not a separate repository, is not an installation path, and is not part of the distributed plugin package.
 
-The former standalone repository's publication state was **`public-source` / source-available / unreleased package**. Its source remains available at [`IndelibleVivi/mcp-app-production-fieldlab`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab), but it has no GitHub Release or registry publication. Project-original functional materials use `SUL-1.0`; original documentation, diagrams, and case-study expression use `CC-BY-NC-SA-4.0`. This is not OSI open source. `package.json` remains `private: true` to prevent accidental npm publication. The tunnel, named-host, and owner scenarios are operator runbooks and evidence contracts, not claims that those external steps have run.
+The current Lab source is [`mcp-boundary/lab`](https://github.com/IndelibleVivi/mcp-boundary/tree/main/lab), with publication state **`public-source` / source-available / unreleased package**. The former standalone repository was [`IndelibleVivi/mcp-app-production-fieldlab`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab); it remains the recorded source origin, not the current package location. There is no GitHub Release or registry publication. Project-original functional materials use `SUL-1.0`; original documentation, diagrams, and case-study expression use `CC-BY-NC-SA-4.0`. This is not OSI open source. `package.json` remains `private: true` to prevent accidental npm publication. The tunnel, named-host, and owner scenarios are operator runbooks and evidence contracts, not claims that those external steps have run.
 
 ![Field Lab: one neutral specimen, three projection boundaries, and four local receipts](docs/architecture/field-lab-evidence-chain.en.svg)
 
@@ -20,7 +20,7 @@ When this Lab was a standalone repository, the Field Guide and the Lab answered 
 | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | [MCP Server Engineering Field Guide](https://github.com/IndelibleVivi/mcp-server-engineering-field-guide) `2.0.1` | Stable methods, dated protocol/integration profiles, evidence grammar, and the general MCP engineering skill                    |
 | This Field Lab                                                                                                    | Neutral executable specimen, declared local-host profiles, scenario definitions, package/runtime observations, bounded receipts |
-| [MCP Boundary](https://github.com/IndelibleVivi/mcp-boundary) (continuing authority)                              | Repository contract, the active `mcp-boundary` skill, plugin packaging, and publication gates                                   |
+| [MCP Boundary](https://github.com/IndelibleVivi/mcp-boundary) (continuing authority)                              | Current Lab location, repository contract, active `mcp-boundary` skill, plugin packaging, and publication gates                 |
 | [Refrain](https://github.com/IndelibleVivi/refrain) (private source authority; link requires access)              | Product source, renderer, deployment, runtime, and owner truth for the founding case                                            |
 
 The historical method pin lives in [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json): the selected profiles were assessed against MCP Server Engineering Field Guide release `2.0.1` at commit `dcb2c61a060948f92d35918af43919bdfde8b01a`, and the register also records the continuing authority for this subtree. That pin is dated evidence of the assessed baseline, not a live method authority. The Lab reads method and protocol profiles from the local [`guide/`](../guide/) subtree in place; it copies no Field Guide profiles, creates no second general-purpose skill, and does not make Refrain a runtime dependency.
@@ -69,19 +69,19 @@ npm run package:runtime -- --out=runtime-candidates/fieldlab-review
 npm run smoke:runtime -- --candidate=runtime-candidates/fieldlab-review
 ```
 
-See the [package and loopback runbook](docs/runbooks/package-and-loopback.en.md) for prerequisites, checkpoints, and claim ceilings. Tunnel and real-host procedures deliberately have no default runner; see the [tunnel and named-host runbook](docs/runbooks/tunnel-and-named-host.en.md).
+On a clean committed tree, `npm run validate:runtime-lane` runs the source/process checks, browser host, entrypoint view, clean package, and isolated runtime smoke in sequence. Root CI invokes that same entry after dependency and Chromium installation. See the [package and loopback runbook](docs/runbooks/package-and-loopback.en.md) for prerequisites, checkpoints, and claim ceilings. Tunnel and real-host procedures deliberately have no default runner; see the [tunnel and named-host runbook](docs/runbooks/tunnel-and-named-host.en.md).
 
 ## Local protocol fixtures
 
 `npm run test:fixtures` runs four independent loopback HTTP fixtures plus one separate in-process Events fixture and prints a one-page JSON summary. They are local surrogates: not an SDK, not production compatibility, and not tunnel or named-host evidence.
 
-| Fixture | What it observes |
-| ------- | ---------------- |
-| `wire-2026-07-28` | A tiny 2026-07-28 wire specimen: per-request `_meta`, `server/discover`, agreement between `MCP-Protocol-Version` / `Mcp-Method` / `Mcp-Name` and the body, and mismatch / unsupported-version rejection |
-| `skills-over-mcp` | One skill plus one supporting file: `skills/list` / `skills/get` / `resources/read`, exact per-resource `sha256:` digest and byte size, and static snapshot versus live read; a failed digest keeps the prior snapshot while tools stay visible |
+| Fixture                      | What it observes                                                                                                                                                                                                                                                             |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `wire-2026-07-28`            | A tiny 2026-07-28 wire specimen: per-request `_meta`, `server/discover`, agreement between `MCP-Protocol-Version` / `Mcp-Method` / `Mcp-Name` and the body, and mismatch / unsupported-version rejection                                                                     |
+| `skills-over-mcp`            | One skill plus one supporting file: `skills/list` / `skills/get` / `resources/read`, exact per-resource `sha256:` digest and byte size, and static snapshot versus live read; a failed digest keeps the prior snapshot while tools stay visible                              |
 | `cloudflare-deployment-seam` | Read/write business calls both use POST; authorization follows the tool effect/scope/resource, not the HTTP verb; client and upstream credentials are independent; when the gateway blocks a result after the effect, a stable operation identity prevents retry duplication |
-| `openai-entrypoint` | A global/thread entrypoint opens through an ordinary `tools/call` with `{}` and returns initial data, then the user supplies context; a host without entrypoints falls back to an ordinary tool call |
-| `experimental-events` | A separate local opt-in fixture; no real consumer, signature, or replay was verified |
+| `openai-entrypoint`          | A global/thread entrypoint opens through an ordinary `tools/call` with `{}` and returns initial data, then the user supplies context; a host without entrypoints falls back to an ordinary tool call                                                                         |
+| `experimental-events`        | A separate local opt-in fixture; no real consumer, signature, or replay was verified                                                                                                                                                                                         |
 
 Unit tests cover the same fixtures and their counterexamples, and `npm run check` runs both. The fixtures prove local process behavior only; they do not prove SDK, tunnel, or named-host compatibility.
 
@@ -102,21 +102,21 @@ Every receipt has one `method_rung` and records `not_proven` explicitly. Lower-l
 
 ## Repository map
 
-| Path                                                           | Role                                                                                            |
-| -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| [`SPEC.en.md`](SPEC.en.md)                                     | Programme contract, non-goals, and acceptance boundaries                                        |
-| [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json)             | Field Guide version pin, selected profiles, founding provenance, and publication state          |
-| [`DOCS-REGISTER.json`](DOCS-REGISTER.json)                     | Chinese/English pairs, registered shared facts, and current-state synchronization contract      |
-| [`docs/architecture/`](docs/architecture)                      | Bilingual native-SVG front doors for the Lab evidence chain and Guide/Lab companion boundary    |
-| [`LICENSING.md`](LICENSING.md)                                 | Governing functional/documentation path map and private-source/third-party exclusions           |
-| [`src/`](src)                                                  | Neutral server, exact resource contract, view, and evidence policy/schema                       |
-| [`host-harness/`](host-harness)                                | Declared local profiles and observable ledger; it does not simulate a named host                |
-| [`scenarios/`](scenarios)                                      | Versioned scenario contracts and their authorization classes                                    |
-| [`schemas/`](schemas)                                          | Generated scenario and receipt JSON Schemas                                                     |
-| [`docs/TESTING.en.md`](docs/TESTING.en.md)                     | Command topology, scenario matrix, and failure localization                                     |
-| [`docs/runbooks/`](docs/runbooks)                              | Operator procedures; a runbook is not evidence that the procedure ran                           |
-| [`case-studies/refrain/`](case-studies/refrain)                | Pinned public-safe mechanism extraction; no product code or runtime-authority transfer          |
-| [`.github/workflows/verify.yml`](.github/workflows/verify.yml) | Retained historical witness workflow from the former standalone repository; GitHub does not execute nested workflow files, and the root `.github/workflows/validate.yml` now runs the Lab checks |
+| Path                                                           | Role                                                                                                                                                                  |
+| -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`SPEC.en.md`](SPEC.en.md)                                     | Programme contract, non-goals, and acceptance boundaries                                                                                                              |
+| [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json)             | Field Guide version pin, selected profiles, founding provenance, and publication state                                                                                |
+| [`DOCS-REGISTER.json`](DOCS-REGISTER.json)                     | Chinese/English pairs, registered shared facts, and current-state synchronization contract                                                                            |
+| [`docs/architecture/`](docs/architecture)                      | Bilingual native-SVG front doors for the Lab evidence chain and Guide/Lab companion boundary                                                                          |
+| [`LICENSING.md`](LICENSING.md)                                 | Governing functional/documentation path map and private-source/third-party exclusions                                                                                 |
+| [`src/`](src)                                                  | Neutral server, exact resource contract, view, and evidence policy/schema                                                                                             |
+| [`host-harness/`](host-harness)                                | Declared local profiles and observable ledger; it does not simulate a named host                                                                                      |
+| [`scenarios/`](scenarios)                                      | Versioned scenario contracts and their authorization classes                                                                                                          |
+| [`schemas/`](schemas)                                          | Generated scenario and receipt JSON Schemas                                                                                                                           |
+| [`docs/TESTING.en.md`](docs/TESTING.en.md)                     | Command topology, scenario matrix, and failure localization                                                                                                           |
+| [`docs/runbooks/`](docs/runbooks)                              | Operator procedures; a runbook is not evidence that the procedure ran                                                                                                 |
+| [`case-studies/refrain/`](case-studies/refrain)                | Pinned public-safe mechanism extraction; no product code or runtime-authority transfer                                                                                |
+| [`.github/workflows/verify.yml`](.github/workflows/verify.yml) | Retained historical witness workflow from the former standalone repository; it is not executed, and the root `.github/workflows/validate.yml` now owns the Lab checks |
 
 Raw receipts, Playwright traces/screenshots, credentials, cookies, private URLs, and unsanitized named-host evidence must stay in ignored/local-only locations. A sanitized receipt is a derived projection, not independent reproduction.
 

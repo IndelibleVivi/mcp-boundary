@@ -76,6 +76,7 @@ jobs:
 
   lab:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     env:
       CI: "true"
       DO_NOT_TRACK: "1"
@@ -91,7 +92,10 @@ jobs:
           cache: npm
           cache-dependency-path: lab/package-lock.json
       - run: npm ci
-      - run: npm run check
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Verify host, entrypoint, package, and isolated runtime
+        run: npm run validate:runtime-lane
 
   submission-bundle:
     needs: [plugin-and-workspace, skill-schema]

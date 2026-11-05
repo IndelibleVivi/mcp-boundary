@@ -118,7 +118,7 @@ Ordinary local verification 形成一条 live、但仍然 local-only 的 four-re
 
 对每份 attempted dependent receipt，validator 收集完整 transitive prerequisite closure，要求其中每份 receipt 存在且为 `verified`，再把每一个 ancestor 与 dependent 比较。Join fields 是 `source_revision`、exact `resource`、`bundle_digest`、`runtime_identity`；某个 ancestor/dependent pair 只比较双方都实际携带的字段。Exact resource 是 URI、MIME、bytes 与 SHA-256 的整体 identity；每份携带 resource 的 attempted receipt 还必须包含 `resource:sha256:<subject.resource.sha256>` evidence ref。当前 graph 因而让 package 与 resource/host ancestors 比较 clean source revision；runtime 则不仅与 package 比较 source revision + bundle digest，还与 transitive resource/host ancestors 比较 source revision + exact resource。即使 package receipt 不携带 resource，runtime resource 仍会被前两份 process receipts 约束。
 
-这些 receipts、candidate、browser traces 与 screenshots 都在 ignored/local-only paths。Public CI 的 `clean-package-runtime` job 必须在同一个 clean checkout/job 中重跑 `npm run check` 与 `npm run test:host`，再 package/smoke；raw receipts 不上传，也不在 jobs/runs 之间共享。
+这些 receipts、candidate、browser traces 与 screenshots 都在 ignored/local-only paths。根目录 CI 的 `lab` job 运行一次 source/process checks、安装一次 bundled Chromium，然后在同一个 checkout 内调用 `npm run validate:runtime-lane`，以自包含方式运行 check、local host、entrypoint、package 与 isolated smoke。Raw receipts 不上传，也不在 jobs/runs 之间共享。
 
 ## Local host harness
 
@@ -149,7 +149,7 @@ Package lane 有意晚于 source/process tests：
 
 `DOCS-REGISTER.json` 登记中文默认与 English mirror pairs、reciprocal switches 以及必须同步的 shared facts；`scripts/validate-docs.mjs` 只检查 structure 与 registered facts，不声称证明 prose 的 semantic equivalence。`LICENSE` 与 `LICENSE-DOCUMENTATION.md` 保持 governing singletons；`LICENSING.md` 是 governing English path map，中文版本只供阅读便利。
 
-`.github/workflows/verify.yml` 是 credential-free、read-only 的 public witness source。它可以重放 source/process、browser-host、clean-package 与 isolated-runtime lanes，但 workflow 文件存在不等于 remote run 已完成；在 GitHub Actions 真正执行前，remote CI execution 仍为 `not_verified`。
+根目录 `.github/workflows/validate.yml` 是 credential-free、read-only 的 public witness source；其中 `lab` job 拥有 source/process、local browser host、entrypoint view、clean package 与 isolated runtime validation。已退役的嵌套 `lab/.github/workflows/verify.yml` 只是历史文件，不会执行。Workflow 文件存在不等于 remote run 已完成；在 GitHub Actions 真正执行前，remote CI execution 仍为 `not_verified`。
 
 `docs/architecture/` 中的两组 bilingual native SVG 是 README / architecture front doors。SVG 本身同时是 editable source 与 publication artifact；它们必须保持 self-contained，不得包含 script、`foreignObject`、external font / image / stylesheet 或 remote fetch。中英 siblings 共享 geometry、stable group IDs 与 boundary semantics，但各自拥有自然语言 copy。修改语义时必须同步两个 language files，并在 browser 的 1600×900 与 README-width 两种尺度实际检查；XML 合法不能替代 legibility review。
 

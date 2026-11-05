@@ -10,6 +10,11 @@
     "method_and_profiles": "../guide/",
     "distributed": false
   },
+  "source_origin": {
+    "repository": "https://github.com/IndelibleVivi/mcp-app-production-fieldlab",
+    "imported_note": "MONOREPO-NOTE.md",
+    "role": "historical standalone source origin and provenance; not the current package location"
+  },
   "method_authority": {
     "repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
     "guide_release": "2.0.1",
@@ -94,7 +99,7 @@
   },
   "publication": {
     "state": "public-source",
-    "repository": "https://github.com/IndelibleVivi/mcp-app-production-fieldlab",
+    "repository": "https://github.com/IndelibleVivi/mcp-boundary/tree/main/lab",
     "visibility": "public",
     "remote_configured": true,
     "github_release": false,

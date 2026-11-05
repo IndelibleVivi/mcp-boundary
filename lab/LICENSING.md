@@ -9,7 +9,9 @@ public-source push. There was no earlier public distribution or public license
 grant by the maintainer. This map determines which public license applies to
 project-original material in current repository paths.
 
-Repository: `https://github.com/IndelibleVivi/mcp-app-production-fieldlab`
+Current repository: `https://github.com/IndelibleVivi/mcp-boundary/tree/main/lab`
+
+Historical standalone source origin: `https://github.com/IndelibleVivi/mcp-app-production-fieldlab`
 
 Publication state: `public-source`
 

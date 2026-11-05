@@ -11,6 +11,7 @@ This runbook covers ordinary local work only: source/process verification, clean
 - Node.js satisfies `package.json` engines.
 - Dependencies were installed from the exact lockfile with `npm ci`.
 - Intended files are committed and `git status --short` is empty; the resource/host receipts must then be generated fresh on that exact clean revision.
+- `npm` and package commands run from the `lab/` subtree, while revision and clean-tree checks are evaluated against the enclosing MCP Boundary Git checkout.
 - The output path is ignored, specific to this run, and does not already exist.
 - Playwright Chromium is installed only if the browser lane is in scope.
 
@@ -22,14 +23,15 @@ Do not use a workspace root, home directory, unresolved environment variable, or
 git status --short --branch
 npm run check
 npm run test:host
+npm run test:entrypoint-view
 ```
 
-Both commands are package prerequisites rather than optional adjacent checks:
+`npm run check` and `npm run test:host` are package prerequisites rather than optional adjacent checks:
 
 - the final `test:mcp` stage of `npm run check` writes `tmp/receipts/mcp-resource-roundtrip.json`;
 - `npm run test:host` uses `scripts/run-host-evidence.ts` to consume the Playwright JSON report closure. It writes `tmp/receipts/mcp-host-profile-matrix.json` only after exactly five canonical tests each pass once, with zero skipped/unexpected/flaky/report errors, and the resource prerequisite receipt passes receipt-set validation. There is no standalone successful writer path.
 
-Both receipts must be `verified`, with `method_rung` exactly reaching their scenario claim rung `process`, carry the same `subject.source_revision`, `subject.source_dirty: false`, and exact resource identity, and include their respective `resource:sha256:<subject.resource.sha256>` evidence reference. They remain ignored/local-only. Do not continue to package if the selected source revision is dirty, a receipt is stale/missing, or a required check fails.
+The resource and host receipts must be `verified`, with `method_rung` exactly reaching their scenario claim rung `process`, carry the same `subject.source_revision`, `subject.source_dirty: false`, and exact resource identity, and include their respective `resource:sha256:<subject.resource.sha256>` evidence reference. They remain ignored/local-only. The entrypoint check separately exercises the standalone UI and does not write one of the four package prerequisites. Do not continue to package if the selected source revision is dirty, a receipt is stale/missing, or a required check fails.
 
 ## 2. Create a clean candidate
 
@@ -44,7 +46,7 @@ The packager must:
 1. refuse dirty source;
 2. refuse an existing output path;
 3. resolve the current committed revision;
-4. build in a detached clean worktree using the pinned lockfile;
+4. create a detached clean worktree from the unified Git root, then run the pinned lockfile install and build in that worktree's `lab/` subtree;
 5. copy only the runtime roots declared by the package contract;
 6. include the candidate's own exact scenario JSON authority under `scenarios/`;
 7. include the canonical SUL terms, documentation notice, and path map carried by the source revision;
@@ -52,6 +54,8 @@ The packager must:
 9. use the staged candidate's own complete scenario set and compiled validators to validate the scenario graph, both prerequisite receipts, and the new `package.clean-revision@1` receipt;
 10. calculate sorted per-file byte counts/SHA-256 values and one bundle digest, then write `release.json` with `sourceDirty: false`;
 11. atomically adopt the completed candidate path and then atomically write the package receipt to `tmp/receipts/package.clean-revision@1.json`.
+
+Entrypoints and output protection resolve directory aliases, including macOS `/var` and `/private/var`. An alias cannot place output at the repository/Lab root or inside `.git`.
 
 If any condition fails, retain the error and classify it at the artifact boundary. Do not copy compiled output from the developer checkout or edit the candidate in place.
 
@@ -118,7 +122,7 @@ Keep raw receipts, temporary installs, runtime candidates, Playwright output, an
 
 Every attempted receipt carrying `subject.resource` must also carry the exact `resource:sha256:<subject.resource.sha256>` evidence reference. For every attempted dependent, the validator collects its complete transitive prerequisite closure, requires every ancestor to be `verified`, and compares `source_revision`, exact `resource`, `bundle_digest`, and `runtime_identity` wherever each ancestor/dependent pair carries them. Package therefore compares clean source revision with its resource/host ancestors. Runtime compares source revision plus bundle digest with package and source revision plus complete resource identity with the transitive resource/host ancestors.
 
-Public CI neither uploads nor shares these raw receipts across jobs. The `clean-package-runtime` job must therefore rerun `npm run check`, `npm run test:host`, package, and smoke sequentially in the same clean checkout/job. Workflow source does not prove a remote run occurred; remote CI execution remains `not_verified`.
+Public CI neither uploads nor shares these raw receipts across jobs. The root `.github/workflows/validate.yml` `lab` job runs `npm ci`, installs bundled Chromium once, then runs `npm run validate:runtime-lane`. That entry runs `check`, `test:host`, `test:entrypoint-view`, verifies the tree is clean, and runs package plus isolated smoke sequentially in the same checkout. The same entry can be run locally on a clean committed tree. Workflow source does not prove a remote run occurred; see [current state](../current-state.en.md) for observed execution status.
 
 If a sanitized receipt is later prepared for sharing, it must exclude credentials, private URLs, account identifiers, and raw host/owner material. Sanitization does not turn derived evidence into independent reproduction.
 

@@ -1,4 +1,5 @@
 import { readFile } from "node:fs/promises";
+import { packageMetadataMatchesCurrentLab } from "./register-contracts.mjs";
 
 const packageJson = JSON.parse(await readFile("package.json", "utf8"));
 const register = JSON.parse(await readFile("FIELDLAB-REGISTER.json", "utf8"));
@@ -9,6 +10,11 @@ if (register.schema_version !== 1) {
 if (register.fieldlab_version !== packageJson.version) {
   throw new Error(
     "FIELDLAB-REGISTER fieldlab_version must match package.json.",
+  );
+}
+if (!packageMetadataMatchesCurrentLab(packageJson)) {
+  throw new Error(
+    "package.json repository metadata must identify the MCP Boundary lab directory and current Lab homepage.",
   );
 }
 if (
@@ -56,6 +62,8 @@ if (
 if (
   register.publication?.state !== "public-source" ||
   register.publication?.repository !==
+    "https://github.com/IndelibleVivi/mcp-boundary/tree/main/lab" ||
+  register.source_origin?.repository !==
     "https://github.com/IndelibleVivi/mcp-app-production-fieldlab" ||
   register.publication?.visibility !== "public" ||
   register.publication?.remote_configured !== true ||
@@ -67,7 +75,7 @@ if (
   register.publication?.documentation_license !== "CC-BY-NC-SA-4.0"
 ) {
   throw new Error(
-    "Publication boundary must describe public source with the exact layered license and without a release or package publication.",
+    "Publication boundary must describe the current MCP Boundary Lab source, its standalone origin, the exact layered license, and no release or package publication.",
   );
 }
 

@@ -15,9 +15,10 @@ import {
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { pathToFileURL } from "node:url";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
+import { isMainModule, resolveProjectRoots } from "./repository-roots.mjs";
 
 const FORMAT = "mcp-app-fieldlab-runtime@1";
 const EXPECTED_RESOURCE_URI =
@@ -551,10 +552,7 @@ function readPrerequisiteReceiptChain(repositoryRoot) {
 
 export async function runtimeSmoke(arguments_ = process.argv.slice(2)) {
   const { candidate: candidateArgument } = parseArguments(arguments_);
-  const repositoryRoot = path.resolve(
-    path.dirname(fileURLToPath(import.meta.url)),
-    "..",
-  );
+  const { labRoot } = resolveProjectRoots(import.meta.url);
   const candidateRoot = path.resolve(process.cwd(), candidateArgument);
   if (!existsSync(candidateRoot) || !lstatSync(candidateRoot).isDirectory()) {
     fail(`--candidate must name an existing directory: ${candidateRoot}`);
@@ -641,7 +639,7 @@ export async function runtimeSmoke(arguments_ = process.argv.slice(2)) {
     const receipt = makeReceipt(release, identity, clientObservations);
     const validatedReceipts =
       candidateReceiptModule.validateReceiptSetAgainstScenarios(
-        [...readPrerequisiteReceiptChain(repositoryRoot), receipt],
+        [...readPrerequisiteReceiptChain(labRoot), receipt],
         scenarioValues,
       );
     const validatedReceipt = validatedReceipts.find(
@@ -669,7 +667,7 @@ export async function runtimeSmoke(arguments_ = process.argv.slice(2)) {
   if (!validatedRuntimeReceipt || !clientObservations) {
     fail("Isolated runtime completed without one validated receipt.");
   }
-  const receiptPath = writeReceipt(repositoryRoot, validatedRuntimeReceipt);
+  const receiptPath = writeReceipt(labRoot, validatedRuntimeReceipt);
   process.stdout.write(
     `${JSON.stringify(
       {
@@ -678,7 +676,7 @@ export async function runtimeSmoke(arguments_ = process.argv.slice(2)) {
         bundleDigest: release.bundleDigest,
         resourceSha256: clientObservations.resource.sha256,
         serverVersion: clientObservations.serverVersion,
-        receipt: path.relative(repositoryRoot, receiptPath),
+        receipt: path.relative(labRoot, receiptPath),
         scenario: "runtime.isolated-readback@1",
         proofCeiling: "activated-runtime",
         notProven: validatedRuntimeReceipt.not_proven,
@@ -689,11 +687,7 @@ export async function runtimeSmoke(arguments_ = process.argv.slice(2)) {
   );
 }
 
-const isMain =
-  process.argv[1] !== undefined &&
-  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
-
-if (isMain) {
+if (isMainModule(import.meta.url)) {
   try {
     await runtimeSmoke();
   } catch (error) {

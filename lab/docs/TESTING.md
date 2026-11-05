@@ -10,7 +10,7 @@ Field Lab 测试的目标不是追求一个总的 green badge，而是把 failur
 
 - Node.js `>=22.23.1`
 - exact `package-lock.json`
-- Playwright Chromium（仅 `test:host` 需要）
+- Playwright Chromium（`test:host` 与 `test:entrypoint-view` 需要）
 - package lane 需要 clean committed Git revision 与一个尚不存在的 ignored output path
 
 ```bash
@@ -37,8 +37,10 @@ Local test execution 本身不需要 private credentials、public origin、tunne
 | `npm run test:mcp`                                    | fresh MCP process、exact `resources/read` 与 resource receipt                                    | process                                                        | Browser sandbox、clean package、tunnel、named host            |
 | `npm run check`                                       | 上述 source/process rows；写 `mcp-resource-roundtrip.json`                                       | process                                                        | `test:host` 与所有更高 rungs                                  |
 | `npm run test:host`                                   | exact five-test Playwright JSON closure；写 host-profile receipt                                 | process                                                        | ChatGPT/named-host behavior、tunnel、owner acceptance         |
+| `npm run test:entrypoint-view`                        | 通过已安装 SDK bridge 与 bundled Chromium 检查 standalone entrypoint UI                          | local browser process                                          | named-host admission 或 OpenAI platform rendering             |
 | `npm run package:runtime -- --out=<new-ignored-path>` | 要求 clean resource/host receipts；验证 candidate-owned prerequisite set；写 package receipt     | artifact                                                       | Candidate execution、production selection                     |
 | `npm run smoke:runtime -- --candidate=<path>`         | isolated health/MCP/resource readback 与 four-receipt chain                                      | activated-runtime for that isolated process                    | Operator service selection、tunnel、named host、owner         |
+| `npm run validate:runtime-lane`                       | 运行 `check`、host、entrypoint，再以 clean tree 为 package gate 并运行 package 与 isolated smoke | activated-runtime，仅限 exact CI/local candidate               | Operator selection、tunnel、named host、owner acceptance      |
 
 Runbooks、scenario JSON、workflow source 与 generated schemas 都是 contracts，不是某次 run 已经发生的 receipts。
 
@@ -148,7 +150,9 @@ npm run test:fixtures
 
 ## Public credential-free CI
 
-`.github/workflows/verify.yml` 只定义 read-only public witness lanes：`source-process`、`browser-host` 与 `clean-package-runtime`。它不读取 secrets，不 publish package/image/release，不运行 tunnel、named-host 或 owner scenarios，也不上传 raw Playwright/private evidence。因为 receipts 是 ignored/local-only，且不作为 artifacts 在 jobs/runs 间共享，`clean-package-runtime` 必须在同一个 clean checkout/job 内重跑 `npm run check` 与 `npm run test:host`，再 package/smoke。Job summary 必须写出 proof ceiling 与更高层 `not_verified` boundaries。
+根目录 `.github/workflows/validate.yml` 的 `lab` job 在 `lab/` 中运行 `npm ci`、一次 bundled Playwright Chromium 安装，以及 `npm run validate:runtime-lane`。这个 entry 运行 `npm run check`、`test:host` 与 `test:entrypoint-view`，确认 tree clean 后，再在同一个 checkout 中顺序运行 package 与 isolated smoke；等价 checks 不在另一个 job 中重复。
+
+Job 不读取 secrets，不 publish package/image/release，不运行 tunnel、named-host 或 owner scenarios，也不上传 raw receipts、traces 或 screenshots。Receipts 是 ignored/local-only，不跨 jobs/runs 共享。Source/process ceiling 是 `process`；package lane 是 `artifact`；isolated smoke 是 `activated-runtime`，仅限那个 exact CI candidate。Operator-selected production runtime、container activation、tunnel、named-host admission、owner acceptance 与 release publication 仍为 `not_verified`。
 
 Workflow source 在本地存在不等于 GitHub Actions 已执行。除非 remote run 真实完成并被检查，remote CI execution 保持 `not_verified`；不得预写绿色 badge claim。
 

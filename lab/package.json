@@ -6,9 +6,10 @@
   "description": "Executable MCP App production boundary laboratory",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IndelibleVivi/mcp-app-production-fieldlab.git"
+    "url": "git+https://github.com/IndelibleVivi/mcp-boundary.git",
+    "directory": "lab"
   },
-  "homepage": "https://github.com/IndelibleVivi/mcp-app-production-fieldlab#readme",
+  "homepage": "https://github.com/IndelibleVivi/mcp-boundary/tree/main/lab#readme",
   "type": "module",
   "scripts": {
     "build": "skybridge build && node scripts/assert-build.mjs",
@@ -30,6 +31,7 @@
     "validate:docs": "node scripts/validate-docs.mjs",
     "validate:scenarios": "tsx scripts/validate-scenarios.ts",
     "validate:schemas": "tsx scripts/generate-schemas.ts --check",
+    "validate:runtime-lane": "node scripts/validate-runtime-lane.mjs",
     "test:entrypoint-view": "tsx scripts/smoke-entrypoint-view.ts"
   },
   "dependencies": {

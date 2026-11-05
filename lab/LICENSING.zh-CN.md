@@ -8,7 +8,9 @@
 
 MCP App Production Field Lab 在首次公开 source push 前选择了 layered licensing。此前 maintainer 没有进行公开分发，也没有作出公开许可授权。本 map 说明当前 repository paths 中 project-original material 分别适用哪一份公开许可。
 
-Repository：`https://github.com/IndelibleVivi/mcp-app-production-fieldlab`
+当前 repository：`https://github.com/IndelibleVivi/mcp-boundary/tree/main/lab`
+
+原独立 source origin：`https://github.com/IndelibleVivi/mcp-app-production-fieldlab`
 
 Publication state：`public-source`
 

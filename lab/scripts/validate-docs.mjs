@@ -1,5 +1,6 @@
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
+import { validateCurrentCandidateFacts } from "./current-state-validation.mjs";
 
 const readJson = async (file) => JSON.parse(await readFile(file, "utf8"));
 const [docsRegister, fieldlabRegister] = await Promise.all([
@@ -23,6 +24,7 @@ if (docsRegister.canonical_locale !== "zh-CN") {
 
 const expectedFacts = {
   repository: fieldlabRegister.publication.repository,
+  historicalSourceRepository: fieldlabRegister.source_origin.repository,
   signature: "Created by Faye & Cove.",
   methodRelease: fieldlabRegister.method_authority.guide_release,
   methodCommit: fieldlabRegister.method_authority.git_commit,
@@ -34,6 +36,11 @@ const expectedFacts = {
 
 for (const [label, actual, expected] of [
   ["repository", docsRegister.repository, expectedFacts.repository],
+  [
+    "historical source repository",
+    docsRegister.historical_source_repository,
+    expectedFacts.historicalSourceRepository,
+  ],
   ["signature", docsRegister.signature, expectedFacts.signature],
   [
     "method release",
@@ -200,9 +207,16 @@ for (const pair of pairs) {
 const pairById = new Map(pairs.map((pair) => [pair.id, pair]));
 const expectedSharedFacts = new Map([
   [
-    "repository",
+    "current-repository",
     {
       value: expectedFacts.repository,
+      pairIds: ["readme", "current-state"],
+    },
+  ],
+  [
+    "historical-source-repository",
+    {
+      value: expectedFacts.historicalSourceRepository,
       pairIds: ["readme", "spec", "current-state", "licensing-map"],
     },
   ],
@@ -352,8 +366,10 @@ if (!currentStatePair) {
   throw new Error("DOCS-REGISTER must contain the current-state pair.");
 }
 const currentStateFacts = docsRegister.current_state;
+if (!currentStateFacts || typeof currentStateFacts !== "object") {
+  throw new Error("DOCS-REGISTER must contain current_state facts.");
+}
 for (const field of [
-  "candidate_file_count",
   "resource_bytes",
   "check_schema_count",
   "check_scenario_count",
@@ -368,16 +384,46 @@ for (const field of [
     );
   }
 }
+const boundaryStatus = new Map(
+  (currentStateFacts.boundary_statuses ?? []).map((boundary) => [
+    boundary?.id,
+    boundary?.status,
+  ]),
+);
+const candidateStatus = boundaryStatus.get("clean-runtime-candidate");
+const runtimeStatus = boundaryStatus.get("isolated-runtime-readback");
+const candidateObserved =
+  candidateStatus === "verified" || runtimeStatus === "verified";
+validateCurrentCandidateFacts(
+  currentStateFacts,
+  candidateStatus,
+  runtimeStatus,
+);
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 for (const file of [currentStatePair.zh_cn, currentStatePair.en]) {
   const content = await readDocument(file);
   for (const [label, value] of [
     ["updated date", currentStateFacts.updated_at],
-    ["candidate source revision", currentStateFacts.candidate_source_revision],
-    ["candidate file count", `\`${currentStateFacts.candidate_file_count}\``],
+    [
+      "current candidate source revision",
+      candidateObserved
+        ? `current candidate source revision: \`${currentStateFacts.candidate_source_revision}\``
+        : "current candidate source revision: `not observed`",
+    ],
+    [
+      "current candidate file count",
+      candidateObserved
+        ? `current candidate file count: \`${currentStateFacts.candidate_file_count}\``
+        : "current candidate file count: `not observed`",
+    ],
     ["resource bytes", `\`${currentStateFacts.resource_bytes}\``],
     ["resource SHA-256", currentStateFacts.resource_sha256],
-    ["bundle digest", currentStateFacts.bundle_digest],
+    [
+      "current bundle digest",
+      candidateObserved
+        ? `current bundle digest: \`${currentStateFacts.bundle_digest}\``
+        : "current bundle digest: `not observed`",
+    ],
     ["receipt path", currentStateFacts.receipt_path],
     ["schema count", `\`${currentStateFacts.check_schema_count}\``],
     ["scenario count", `\`${currentStateFacts.check_scenario_count}\``],
@@ -396,6 +442,48 @@ for (const file of [currentStatePair.zh_cn, currentStatePair.en]) {
       throw new Error(
         `${file} is missing current-state boundary row ${boundary.id}=${boundary.status}.`,
       );
+    }
+    if (
+      typeof boundary.evidence === "string" &&
+      !content.includes(boundary.evidence)
+    ) {
+      throw new Error(
+        `${file} is missing dated evidence for current-state boundary ${boundary.id}.`,
+      );
+    }
+  }
+}
+
+const historicalCandidate = docsRegister.historical_candidate;
+if (
+  !historicalCandidate ||
+  !/^[a-f0-9]{40}$/.test(historicalCandidate.candidate_source_revision ?? "") ||
+  !Number.isSafeInteger(historicalCandidate.candidate_file_count) ||
+  historicalCandidate.candidate_file_count <= 0 ||
+  !/^sha256:[a-f0-9]{64}$/.test(historicalCandidate.bundle_digest ?? "")
+) {
+  throw new Error(
+    "DOCS-REGISTER historical_candidate must retain exact measured identities.",
+  );
+}
+for (const file of [currentStatePair.zh_cn, currentStatePair.en]) {
+  const content = await readDocument(file);
+  for (const [label, value] of [
+    [
+      "historical clean candidate source revision",
+      historicalCandidate.candidate_source_revision,
+    ],
+    [
+      "historical clean candidate file count",
+      `\`${historicalCandidate.candidate_file_count}\``,
+    ],
+    [
+      "historical clean candidate bundle digest",
+      historicalCandidate.bundle_digest,
+    ],
+  ]) {
+    if (!content.includes(value)) {
+      throw new Error(`${file} is missing ${label}.`);
     }
   }
 }

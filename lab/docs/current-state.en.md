@@ -4,7 +4,7 @@
 
 [简体中文](./current-state.md)
 
-Updated: 2026-10-15
+Updated: 2026-11-06
 
 ## Classification
 
@@ -12,6 +12,7 @@ Continuing authority: this subtree is maintained inside the MCP Boundary reposit
 
 - Status: `public-source`
 - Version: `0.1.0-private.0`
+- Current source: `https://github.com/IndelibleVivi/mcp-boundary/tree/main/lab`
 - Historical source repository: `https://github.com/IndelibleVivi/mcp-app-production-fieldlab`
 - Visibility: public
 - Package publication: disabled by `package.json` `private: true`
@@ -37,7 +38,7 @@ The historical Field Guide pin records the release this Lab's selected profiles 
 - clean-package and isolated-runtime commands;
 - layered `SUL-1.0` / `CC-BY-NC-SA-4.0` licensing with private-source/third-party exclusions propagated into runtime candidates;
 - Chinese-default plus English-mirror documentation, `DOCS-REGISTER.json`, and a documentation validator limited to structure/shared facts;
-- credential-free, read-only GitHub Actions workflow source; remote CI execution remains `not_verified` until a real remote run;
+- credential-free, read-only root CI workflow source with one Lab runtime-lane entry; remote CI execution remains `not_verified` until a real remote run;
 - operator runbooks and a pinned, public-safe Refrain mechanism case study.
 
 ## October 2026 local protocol fixtures
@@ -52,13 +53,35 @@ On 2026-10-15, five independent, runnable local fixtures were added and wired in
 
 On 2026-10-15, `npm run check` passed on a host with real loopback access: 84 tests, build, the SDK resource smoke, and all five fixture summaries. Separately, `npm run test:entrypoint-view` used the installed MCP Apps SDK bridge and bundled Chromium to verify the independent UI resource, empty-argument initial view, and user-selected context call without a duplicate initial call. No real OAuth library, Gateway, OpenAI importer or named host was exercised. Deduplication isolates principal/tool/resource and binds the payload; storage is confined to one proxy process, without a cross-restart or cross-proxy exactly-once guarantee.
 
-Unified repository [validation run 38636644934](https://github.com/IndelibleVivi/mcp-boundary/actions/runs/38636644934) passed for implementation commit `ca0a118`, including the new loopback fixtures. Browser and temporary CLI installation remain separately executed local observations.
+Unified repository [validation run 38636644934](https://github.com/IndelibleVivi/mcp-boundary/actions/runs/38636644934) passed for implementation commit `ca0a118`, including the new loopback fixtures. That historical run predates the current monorepo package/runtime repair and does not verify it.
+
+## Current packaging repair
+
+The Lab now resolves two roots explicitly: the enclosing MCP Boundary Git checkout for committed revision, cleanliness, and detached worktrees; and `lab/` for npm installation, build output, runtime roots, candidates, and ignored receipts. A disposable Git monorepo regression runs the real packager from nested `lab/` and verifies the clean-worktree build plus receipt placement.
+
+The root `lab` CI job runs `npm ci`, installs bundled Playwright Chromium once, and then runs `npm run validate:runtime-lane`. That provider-neutral entry covers source/process checks, the local host matrix, standalone entrypoint view, clean package, and isolated runtime smoke in sequence.
+
+The last complete local source/process record (2026-10-15) covered `2` generated-schema checks, `7` scenario validations, and `84` unit tests. New regressions passed focused runs; the current full total awaits the new CI observation. The old counts do not prove the new candidate/runtime.
+
+A fresh complete package and isolated runtime result for the current repair is `not_verified`; the full lane requires a clean committed checkout. Remote CI execution of the new entry is also `not_verified`. The historical candidate and receipt identities below remain evidence for their recorded revision only.
+
+Current unobserved candidate identities:
+
+- current candidate source revision: `not observed`
+- current candidate file count: `not observed`
+- current bundle digest: `not observed`
 
 ## Historical clean-candidate evidence
 
-Fresh local verification completed on 2026-08-29 for the review-hardening source/process, declared local-browser, clean-package, and isolated-runtime boundaries. The current package/runtime proof is pinned to clean implementation commit `5eba892b6be5407b0ac4aa658f398f7b2eec5373`. This file is the subsequent evidence-only documentation update and does not change candidate identity. Earlier `dbab424...` and `ed016da...` candidates remain historical evidence only, not proof for the current revision.
+Historical clean candidate source revision: `5eba892b6be5407b0ac4aa658f398f7b2eec5373`
 
-On the clean commit, `npm run check` covered:
+Historical clean candidate file count: `43`
+
+Historical clean candidate bundle digest: `sha256:2e7dba961f82f120fdbdf68e440f5d64f7d0db89f566bf8ea0ff987026e2b014`
+
+Fresh local verification completed on 2026-08-29 for the review-hardening source/process, declared local-browser, clean-package, and isolated-runtime boundaries. That historical package/runtime proof is pinned to clean implementation commit `5eba892b6be5407b0ac4aa658f398f7b2eec5373`. This file is the subsequent evidence-only documentation update and does not change candidate identity. Earlier `dbab424...` and `ed016da...` candidates remain historical evidence only, not proof for the current revision.
+
+On that historical clean commit, `npm run check` covered:
 
 - register, layered-license, and bilingual-document validation;
 - `2` generated-schema checks;
@@ -67,6 +90,8 @@ On the clean commit, `npm run check` covered:
 - `40` unit tests across `7/7` test files;
 - production build;
 - real MCP client discovery, tool call, and exact resource roundtrip.
+
+The current `84`-test contract count above describes later maintained test coverage; it is not part of this 2026-08-29 historical candidate record.
 
 The fresh MCP process receipt is local-only at `tmp/receipts/mcp-resource-roundtrip.json` and binds:
 
@@ -94,23 +119,23 @@ The current clean committed-tree candidate and isolated readback are:
 
 The fresh run verified the candidate file/digest closure, candidate-owned full scenario set, transitive joins across the four receipts, production dependency installation, same-origin `/healthz` release identity, package-authoritative MCP version, MCP discovery/tool call/resource readback, component-only projection, and successful child stop plus temporary-projection cleanup before persisting the runtime receipt.
 
-After publication, GitHub Actions [`Verify` run 33260710317](https://github.com/IndelibleVivi/mcp-app-production-fieldlab/actions/runs/33260710317) completed with `success` on commit `7305e1ddf4491dfa56fe8d653252a81bda0f6da5`. All three jobs—`Source and process`, `Local browser host`, and `Clean package and isolated runtime`—passed with check-run annotation count `0`. This run verifies the exact remote CI process and its isolated candidate; it does not prove an operator-selected production runtime, tunnel, named host, or owner acceptance.
+Before the standalone repository was consolidated, GitHub Actions [`Verify` run 33260710317](https://github.com/IndelibleVivi/mcp-app-production-fieldlab/actions/runs/33260710317) completed with `success` on commit `7305e1ddf4491dfa56fe8d653252a81bda0f6da5`. All three historical jobs—`Source and process`, `Local browser host`, and `Clean package and isolated runtime`—passed with check-run annotation count `0`. It remains evidence for that exact historical remote run, not for the current root workflow source.
 
-| Boundary id                   | Status         | Current claim                                                                            |
-| ----------------------------- | -------------- | ---------------------------------------------------------------------------------------- |
-| `source-checks`               | `verified`     | Clean commit `5eba892...` passed docs/schema/scenario/type/unit/build/MCP checks         |
-| `local-protocol-fixtures`     | `verified` | Local loopback fixtures and the SDK bridge browser interaction passed on 2026-10-15; ceiling=`process` |
-| `resource-roundtrip`          | `verified`     | Fresh clean process returned the exact self-contained resource identity above            |
-| `local-host-matrix`           | `verified`     | Exact five-test Playwright attestation passed; ceiling=`process`                         |
-| `clean-runtime-candidate`     | `verified`     | The `43`-file candidate and release manifest bind clean commit `5eba892...`              |
-| `isolated-runtime-readback`   | `verified`     | The same candidate reproduced in a disposable local process; ceiling=`activated-runtime` |
-| `remote-ci-execution`         | `verified`     | Run `33260710317` passed all three jobs at commit `7305e1d...` with zero annotations     |
-| `operator-production-runtime` | `not_verified` | No operator service installation or production selection was attempted                   |
-| `tunnel`                      | `not_verified` | External gate; no credential/profile access or preflight/activation was attempted        |
-| `named-host`                  | `not_verified` | External/account gate; no authenticated named-host exercise was attempted                |
-| `owner-acceptance`            | `not_verified` | Owner-only gate; no owner observation was requested or recorded                          |
-| `release-publication`         | `not_verified` | No GitHub Release or registry/container publication was created                          |
+| Boundary id                   | Status         | Current claim                                                                      |
+| ----------------------------- | -------------- | ---------------------------------------------------------------------------------- |
+| `source-checks`               | `verified`     | 2026-08-29 clean commit 5eba892 and 2026-10-15 local run; ceiling=`process`        |
+| `local-protocol-fixtures`     | `verified`     | 2026-10-15 local loopback and SDK bridge run; ceiling=`process`                    |
+| `resource-roundtrip`          | `verified`     | 2026-08-29 clean commit 5eba892; exact resource identity above                     |
+| `local-host-matrix`           | `verified`     | 2026-08-29 local Chromium host run; exact five-test attestation, ceiling=`process` |
+| `clean-runtime-candidate`     | `not_verified` | The current monorepo packaging repair has no clean committed candidate yet         |
+| `isolated-runtime-readback`   | `not_verified` | The current monorepo candidate has not run in an isolated process                  |
+| `remote-ci-execution`         | `not_verified` | The new root runtime-lane witness has not completed in GitHub Actions              |
+| `operator-production-runtime` | `not_verified` | No operator service installation or production selection was attempted             |
+| `tunnel`                      | `not_verified` | External gate; no credential/profile access or preflight/activation was attempted  |
+| `named-host`                  | `not_verified` | External/account gate; no authenticated named-host exercise was attempted          |
+| `owner-acceptance`            | `not_verified` | Owner-only gate; no owner observation was requested or recorded                    |
+| `release-publication`         | `not_verified` | No GitHub Release or registry/container publication was created                    |
 
 ## Remaining gates
 
-Public `main` has been pushed, and remote CI is verified by the run above. Operator production selection, container activation/publication, tunnel, named host, owner acceptance, and GitHub/npm publication remain separate gates and were not exercised in this pass. Do not promote status without each gate's authorization and actual execution.
+The current Lab changes are uncommitted, so the clean package and isolated runtime lane remains unverified. After an authorized commit, run `npm run validate:runtime-lane` from `lab/` on that clean commit. Operator production selection, container activation/publication, tunnel, named host, owner acceptance, and GitHub/npm publication remain separate gates and were not exercised in this pass.

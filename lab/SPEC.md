@@ -51,7 +51,7 @@ LLM/host 提供 intent routing、tool invocation 与 conversation context；spec
 - **Reachability**：specimen 默认 stdio/loopback；不包含 public origin、账户、OAuth 或 Refrain-operated backend。
 - **Dependencies**：只保留 neutral MCP App 与真实 Chromium harness 所需的 pinned production/dev dependencies；不引入 Refrain renderer、audio engine 或 sound assets。
 - **Privacy**：credentials、cookies、private host URLs、raw named-host logs 与未经清理的 screenshots 不进入 Git。Public-safe receipt 是 derived projection，不是 independent reproduction。
-- **Publication**：repository `https://github.com/IndelibleVivi/mcp-app-production-fieldlab` 的状态是 `public-source`，没有 GitHub Release 或 package publication。Project-original functional material 使用 `SUL-1.0`；原创 documentation、diagrams 与 case-study expression 使用 `CC-BY-NC-SA-4.0`；`LICENSING.md` 是 exact path authority。后续 release、registry publication、license change 或 separate commercial permission 仍是独立 owner gates。
+- **Publication**：当前 Lab source 位于 `https://github.com/IndelibleVivi/mcp-boundary/tree/main/lab`，状态为 `public-source`，没有 GitHub Release 或 package publication。原独立 source origin 是 `https://github.com/IndelibleVivi/mcp-app-production-fieldlab`；该仓库是 provenance，不是当前 package location。Project-original functional material 使用 `SUL-1.0`；原创 documentation、diagrams 与 case-study expression 使用 `CC-BY-NC-SA-4.0`；`LICENSING.md` 是 exact path authority。后续 release、registry publication、license change 或 separate commercial permission 仍是独立 owner gates。
 
 ## Authority split
 

@@ -13,8 +13,14 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { pathToFileURL } from "node:url";
 import { spawnSync } from "node:child_process";
+import {
+  isMainModule,
+  outputIsSafe,
+  resolveLabRootInCheckout,
+  resolveProjectRoots,
+} from "./repository-roots.mjs";
 
 const FORMAT = "mcp-app-fieldlab-runtime@1";
 const SHA256_PATTERN = /^[a-f0-9]{64}$/;
@@ -129,40 +135,10 @@ export function runtimeFileEntries(root) {
     });
 }
 
-function resolveRepositoryRoot() {
-  const scriptRoot = path.resolve(
-    path.dirname(fileURLToPath(import.meta.url)),
-    "..",
-  );
-  const repositoryRoot = command(
-    "git",
-    ["-C", scriptRoot, "rev-parse", "--show-toplevel"],
-    { capture: true },
-  );
-  if (path.resolve(repositoryRoot) !== scriptRoot) {
-    fail("Packaging must run from the Field Lab repository root.");
-  }
-  return scriptRoot;
-}
-
-function assertSafeNewOutput(repositoryRoot, requestedOutput) {
+function assertSafeNewOutput(roots, requestedOutput) {
   const output = path.resolve(process.cwd(), requestedOutput);
-  const relativeFromOutputToRepository = path.relative(output, repositoryRoot);
-  if (
-    output === repositoryRoot ||
-    (!relativeFromOutputToRepository.startsWith("..") &&
-      !path.isAbsolute(relativeFromOutputToRepository))
-  ) {
-    fail("--out must not be the repository root or one of its parents.");
-  }
-  const gitDirectory = path.join(repositoryRoot, ".git");
-  const relativeToGit = path.relative(gitDirectory, output);
-  if (
-    relativeToGit === "" ||
-    (!relativeToGit.startsWith("..") && !path.isAbsolute(relativeToGit))
-  ) {
-    fail("--out must not be inside .git.");
-  }
+  const safety = outputIsSafe(roots, output);
+  if (!safety.safe) fail(safety.reason);
   if (existsSync(output)) {
     fail(`Refusing to overwrite existing output: ${output}`);
   }
@@ -277,7 +253,7 @@ function readRequiredPrerequisiteReceipt(repositoryRoot, file, revision) {
   return receipt;
 }
 
-async function preparePackageReceipt(repositoryRoot, stagingRoot, manifest) {
+async function preparePackageReceipt(labRoot, stagingRoot, manifest) {
   const scenarioModule = await import(
     pathToFileURL(path.join(stagingRoot, "dist", "evidence", "scenario.js"))
       .href
@@ -303,12 +279,12 @@ async function preparePackageReceipt(repositoryRoot, stagingRoot, manifest) {
 
   const prerequisiteReceipts = [
     readRequiredPrerequisiteReceipt(
-      repositoryRoot,
+      labRoot,
       "mcp-resource-roundtrip.json",
       manifest.sourceRevision,
     ),
     readRequiredPrerequisiteReceipt(
-      repositoryRoot,
+      labRoot,
       "mcp-host-profile-matrix.json",
       manifest.sourceRevision,
     ),
@@ -354,7 +330,7 @@ async function preparePackageReceipt(repositoryRoot, stagingRoot, manifest) {
   );
   if (!packageReceipt) fail("Package receipt validation returned no receipt.");
 
-  const receiptDirectory = path.join(repositoryRoot, "tmp", "receipts");
+  const receiptDirectory = path.join(labRoot, "tmp", "receipts");
   mkdirSync(receiptDirectory, { recursive: true });
   const targetPath = path.join(
     receiptDirectory,
@@ -370,8 +346,9 @@ async function preparePackageReceipt(repositoryRoot, stagingRoot, manifest) {
 
 export async function packageRuntime(arguments_ = process.argv.slice(2)) {
   const { output: requestedOutput } = parsePackageArguments(arguments_);
-  const repositoryRoot = resolveRepositoryRoot();
-  const output = assertSafeNewOutput(repositoryRoot, requestedOutput);
+  const roots = resolveProjectRoots(import.meta.url);
+  const { repositoryRoot, labRelativePath } = roots;
+  const output = assertSafeNewOutput(roots, requestedOutput);
   const revision = sourceRevision(repositoryRoot);
   assertClean(repositoryRoot);
 
@@ -384,6 +361,10 @@ export async function packageRuntime(arguments_ = process.argv.slice(2)) {
     path.join(tmpdir(), "mcp-app-fieldlab-worktree-"),
   );
   const worktreeRoot = path.join(worktreeParent, "checkout");
+  const labWorktreeRoot = resolveLabRootInCheckout(
+    worktreeRoot,
+    labRelativePath,
+  );
   let worktreeAdded = false;
   let adopted = false;
   let receiptTemporaryPath;
@@ -398,27 +379,30 @@ export async function packageRuntime(arguments_ = process.argv.slice(2)) {
       revision,
     ]);
     worktreeAdded = true;
-    assertNoTrackedInstallProjection(worktreeRoot);
+    assertNoTrackedInstallProjection(labWorktreeRoot);
     const buildEnvironment = {
       ...process.env,
       DO_NOT_TRACK: "1",
       SKYBRIDGE_TELEMETRY_DISABLED: "1",
     };
-    command("npm", ["ci"], { cwd: worktreeRoot, env: buildEnvironment });
+    command("npm", ["ci"], {
+      cwd: labWorktreeRoot,
+      env: buildEnvironment,
+    });
     for (const script of CLEAN_WORKTREE_VALIDATION_SCRIPTS) {
       command("npm", ["run", script], {
-        cwd: worktreeRoot,
+        cwd: labWorktreeRoot,
         env: buildEnvironment,
       });
     }
     command("npm", ["run", "build"], {
-      cwd: worktreeRoot,
+      cwd: labWorktreeRoot,
       env: buildEnvironment,
     });
-    copyRuntimeRoots(worktreeRoot, stagingRoot);
+    copyRuntimeRoots(labWorktreeRoot, stagingRoot);
     const manifest = writeReleaseManifest(stagingRoot, revision);
     const preparedReceipt = await preparePackageReceipt(
-      repositoryRoot,
+      roots.labRoot,
       stagingRoot,
       manifest,
     );
@@ -440,7 +424,7 @@ export async function packageRuntime(arguments_ = process.argv.slice(2)) {
           sourceRevision: manifest.sourceRevision,
           bundleDigest: manifest.bundleDigest,
           fileCount: manifest.files.length,
-          receipt: path.relative(repositoryRoot, preparedReceipt.targetPath),
+          receipt: path.relative(roots.labRoot, preparedReceipt.targetPath),
         },
         null,
         2,
@@ -471,11 +455,7 @@ export async function packageRuntime(arguments_ = process.argv.slice(2)) {
   }
 }
 
-const isMain =
-  process.argv[1] !== undefined &&
-  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url);
-
-if (isMain) {
+if (isMainModule(import.meta.url)) {
   try {
     await packageRuntime();
   } catch (error) {
