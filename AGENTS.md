@@ -9,7 +9,7 @@
 - `guide/` and `lab/` are ordinary maintained subtrees of this repository, not mirrors of still-authoritative upstream repositories. `provenance/UPSTREAMS.lock.json` owns the initial-import pins and continuing-authority record; `provenance/SOURCES.json` owns the exact-copy and influence map.
 - `tools/guide-validation/` is the maintained authority for Guide validators used by current tests and CI.
 - `guide/skill/mcp-server-engineering/` is frozen historical release and evaluation material, including its self-contained historical scripts. It is not active, not distributed, not a recommended installation path, and not a maintenance target. Current callers must not execute its scripts.
-- `evaluations/` owns behavior cases and scoring rules for the installed skill. Registered cases do not establish behavior change without an executed run.
+- `evaluations/` owns behavior cases and scoring rules for the installed skill. `cases.json` owns task prompts, fixture paths and writable files; the preparation command defaults to the three October cases and accepts explicit `--cases` selection. Local fixture/checker tests do not establish behavior change without an executed model run.
 - `brand/`, `site/`, and `previews/` contain the one approved public identity: Offset + Porcelain. Do not reintroduce private identity comparisons, alternative marks, alternative palettes, or appearance controls.
 - Root `.github/workflows/` owns repository CI and deployment: `pages.yml` is the canonical Pages path and publishes only `site/` to the `github-pages` environment, and `validate.yml` runs the plugin, Guide, and Lab checks. The imported `guide/.github/workflows/` and `lab/.github/workflows/` files are retired historical sources and are not executed.
 - `docs/current-state.md` owns volatile source/package/publication status. README files own durable public product and installation behavior.
@@ -64,6 +64,8 @@ cd lab
 npm ci
 npm run check
 ```
+
+For Lab packaging, browser or runtime changes, also run `npm run validate:runtime-lane` from `lab/` with bundled Playwright Chromium installed and a clean committed checkout. This provider-neutral entry runs source/process, host/entrypoint browser, clean-package and isolated-runtime checks sequentially with current local receipt prerequisites. Root `validate.yml` calls it; retired nested workflows remain historical. Git identity is owned by the repository root, while Lab builds and runtime files are rooted in the `lab/` subtree.
 
 Run the browser workflow in `tests/CHECKS.md` when changing `site/`, the standalone page, browser interaction, screenshots, or public no-network claims.
 

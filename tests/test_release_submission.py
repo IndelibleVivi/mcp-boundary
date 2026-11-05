@@ -24,7 +24,7 @@ CHANGELOG = ROOT / "CHANGELOG.md"
 class ReleaseSubmissionTests(unittest.TestCase):
     def test_release_version_is_consistent(self) -> None:
         version = VERSION.read_text(encoding="utf-8").strip()
-        self.assertEqual(version, "0.3.0-dev.1")
+        self.assertEqual(version, "0.3.0-dev.2")
         source = json.loads(SOURCE_MANIFEST.read_text(encoding="utf-8"))
         package = json.loads(PACKAGE_MANIFEST.read_text(encoding="utf-8"))
         provenance = json.loads(SOURCE_PROVENANCE.read_text(encoding="utf-8"))

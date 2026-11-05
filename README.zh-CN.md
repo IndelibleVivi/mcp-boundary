@@ -79,13 +79,15 @@ MCP Boundary 会要求 agent：
 
 它也有明确停止条件：清楚的小改动保持小，不扩张成仪式化全面审计。
 
-## 十月候选 recipes
+## 候选版更新
 
-源码候选版 `0.3.0-dev.1` 新增 [Skills 分发](guide/profiles/skills-distribution-2026-10-15.zh-CN.md)、[Cloudflare 授权／代理](guide/profiles/cloudflare-deployment-2026-10-15.zh-CN.md)、[OpenAI 原生入口](guide/profiles/openai-entrypoints-2026-10-15.zh-CN.md)和 [Tasks/Events 选型](guide/profiles/async-selection-2026-10-15.zh-CN.md)。active skill 自带可独立使用的 recipes。现有七月核心 profile 保留；本轮补扩展与宿主行为。
+源码候选版 `0.3.0-dev.2` 新增 [Skills 分发](guide/profiles/skills-distribution-2026-10-15.zh-CN.md)、[Cloudflare 授权／代理](guide/profiles/cloudflare-deployment-2026-10-15.zh-CN.md)、[OpenAI 原生入口](guide/profiles/openai-entrypoints-2026-10-15.zh-CN.md)和 [Tasks/Events 选型](guide/profiles/async-selection-2026-10-15.zh-CN.md)。active skill 自带可独立使用的 recipes。现有七月核心 profile 保留；本轮补扩展与宿主行为。
 
 候选包采用根目录 portable `plugin.json`，内含 OpenAI 展示信息，同时生成 Codex 兼容清单；两者只维护 `src/plugin/plugin.json` 这一份作者源。拆包及 loader-contract 检查与真实安装、目录发布分别记录。公开目录版本仍为 `0.2.0`。
 
-[行为评估](evaluations/README.md)记录比较方法及实际执行状态。本地 fixture 证明其声明的机制，不代表真实宿主支持或模型能力提升。
+十一月更新区分 extension 成熟度与 SEP 状态：Skills 和 Tasks 为 Beta，Events 为 Experimental；Skills 规范使用当前 Beta 入口，OpenAI recipe 同步 10 月 21 日的 host guidance。Lab 的合仓打包路径与根 CI 见 [Lab 测试说明](lab/docs/TESTING.md)。
+
+[行为评估](evaluations/README.md)现为全部九个案例提供 fixture / 独立 checker，包括六个原始核心场景。fixture 与 checker 验证不等于模型比较已经执行；本地机制也不证明真实宿主支持。候选范围和发布边界见 [0.3 候选说明](docs/candidates/0.3.0-dev.2.md)。
 
 ## 构建与验证
 
@@ -122,6 +124,8 @@ cd lab
 npm ci
 npm run check
 ```
+
+完整 browser、entrypoint、clean package 与 isolated runtime 检查使用 `npm run validate:runtime-lane`，需要 clean committed checkout 和已安装的 bundled Playwright Chromium；精确步骤见 [Lab 测试说明](lab/docs/TESTING.md)。
 
 Lab 仍然是本地 surrogate，除非真的运行了某个明确外部 host。仓库检查通过无法证明 named-host admission、production activation、owner acceptance，也无法单独证明模型行为普遍改善。
 

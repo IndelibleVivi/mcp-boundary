@@ -4,7 +4,7 @@
   "stable_core_version": 2,
   "skill_version": "0.1.0",
   "profile_set_version": 1,
-  "recorded_at": "2026-10-15",
+  "recorded_at": "2026-11-06",
   "skill_package": {
     "path": "skill/mcp-server-engineering",
     "entrypoint": "skill/mcp-server-engineering/SKILL.md"
@@ -183,13 +183,13 @@
       "id": "skills-distribution-2026-10-15",
       "base_revision": "2026-07-28",
       "extension": "io.modelcontextprotocol/skills",
-      "extension_revision": "stable observed 2026-10-15; SEP-2640 Final",
+      "extension_revision": "Beta; SEP-3392 transition observed 2026-11-06; SEP-2640 Final",
       "hosts": [
         "extension-aware client",
         "OpenAI plugin Scan Tools",
         "Cloudflare API MCP"
       ],
-      "assessed_at": "2026-10-15",
+      "assessed_at": "2026-11-06",
       "consumption": [
         "live-read",
         "submission-snapshot"
@@ -199,10 +199,11 @@
         "zh-CN": "profiles/skills-distribution-2026-10-15.zh-CN.md"
       },
       "sources": [
-        "https://skills.extensions.modelcontextprotocol.io/specification/stable/skills",
+        "https://skills.extensions.modelcontextprotocol.io/specification/beta/skills",
         "https://modelcontextprotocol.io/seps/2640-skills-extension",
         "https://developers.openai.com/plugins/build/mcp-server",
-        "https://developers.cloudflare.com/changelog/post/2026-10-10-cloudflare-mcp-skills/"
+        "https://developers.cloudflare.com/changelog/post/2026-10-10-cloudflare-mcp-skills/",
+        "https://modelcontextprotocol.io/seps/3392-extension-lifecycle"
       ]
     },
     {
@@ -232,14 +233,14 @@
       "id": "openai-entrypoints-2026-10-15",
       "base_revision": "2026-07-28",
       "extension": "OpenAI MCP Extensions",
-      "extension_revision": "moving spec observed 2026-10-15",
+      "extension_revision": "OpenAI MCP Extensions 0.2.1; 2026-10-21 documentation observed 2026-11-06",
       "hosts": [
         "OpenAI desktop",
         "Work browser",
         "iOS",
         "Android"
       ],
-      "assessed_at": "2026-10-15",
+      "assessed_at": "2026-11-06",
       "consumption": [
         "direct-open",
         "ordinary-tool-fallback"
@@ -250,19 +251,20 @@
       },
       "sources": [
         "https://github.com/openai/mcp-extensions/blob/main/docs/spec.md",
-        "https://developers.openai.com/plugins/build/plugins"
+        "https://developers.openai.com/plugins/build/plugins",
+        "https://github.com/openai/mcp-extensions/commit/0d3425887542226f4bfff0267b19f59916d02e1c"
       ]
     },
     {
       "id": "async-selection-2026-10-15",
       "base_revision": "2026-07-28",
       "extension": "io.modelcontextprotocol/tasks; experimental Events",
-      "extension_revision": "Tasks overview and Events WG observed 2026-10-15",
+      "extension_revision": "Tasks Beta; Events Experimental; SEP-3392 observed 2026-11-06",
       "hosts": [
         "extension-aware client",
         "Cloudflare Workers Issues webhook consumer"
       ],
-      "assessed_at": "2026-10-15",
+      "assessed_at": "2026-11-06",
       "consumption": [
         "task-continuation",
         "experimental-push"
@@ -274,7 +276,8 @@
       "sources": [
         "https://modelcontextprotocol.io/extensions/tasks/overview",
         "https://developers.cloudflare.com/changelog/post/2026-10-13-cloudflare-mcp-events/",
-        "https://github.com/modelcontextprotocol/experimental-ext-triggers-events"
+        "https://github.com/modelcontextprotocol/experimental-ext-triggers-events",
+        "https://modelcontextprotocol.io/seps/3392-extension-lifecycle"
       ]
     }
   ]

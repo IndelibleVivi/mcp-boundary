@@ -1,14 +1,14 @@
 ---
 profile_id: skills-distribution-2026-10-15
-profile_version: 1
-assessed_at: 2026-10-15
+profile_version: 2
+assessed_at: 2026-11-06
 language: en
 language_peer: skills-distribution-2026-10-15.zh-CN.md
 ---
 
 # Skills distribution and import
 
-Base: `2026-07-28` / explicit host compatibility. Extension/spec: `stable observed 2026-10-15; SEP-2640 Final`. Assessed: `2026-10-15`.
+Base: `2026-07-28` / explicit host compatibility. Extension/spec: `Beta; SEP-3392 transition observed 2026-11-06; SEP-2640 Final`. First assessed: `2026-10-15`. Reassessed: `2026-11-06`.
 
 Choose this path to ship multi-tool workflows with the server. The full extension targets `2026-07-28` and declares Resources and Skills through `server/discover`. OpenAI's importer still documents initialization capabilities and a bounded static subset. Record both paths rather than interpreting “Skills supported” as one loading behavior.
 
@@ -17,6 +17,8 @@ Choose this path to ship multi-tool workflows with the server. The full extensio
 Observe the capability, then use `skills/list`, `skills/get({uri})`, and `resources/read({uri})`. Static entries include verbatim frontmatter and all files, each with URI, SHA-256 digest and byte size. Directory reads require `directoryRead: true`. The full extension's dynamic manifests do not establish static-importer support.
 
 Preserve both originating server and SKILL.md URI in identity, cache, approvals and materialized paths. Resolve references against that SKILL.md directory. An ordinary resource read retrieves content; the host's skill loader owns activation.
+
+SEP-3392 classifies Skills as Beta; the old `stable/` path described a released text. Final SEP status does not supply a Stable maturity guarantee. Hold the entry used to load the skill while acting on it, verify supporting reads against that manifest, and renew content-bound approval after a changed resources set. A live directory listing cannot extend the approved manifest.
 
 ## Positive example and counterexample
 
@@ -37,7 +39,8 @@ The local scanner is a surrogate. Actual Scan Tools, installation and activation
 
 Sources:
 
-- <https://skills.extensions.modelcontextprotocol.io/specification/stable/skills>
+- <https://skills.extensions.modelcontextprotocol.io/specification/beta/skills>
+- <https://modelcontextprotocol.io/seps/3392-extension-lifecycle>
 - <https://modelcontextprotocol.io/seps/2640-skills-extension>
 - <https://developers.openai.com/plugins/build/mcp-server>
 - <https://developers.cloudflare.com/changelog/post/2026-10-10-cloudflare-mcp-skills/>

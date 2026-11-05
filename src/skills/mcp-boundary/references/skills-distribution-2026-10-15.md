@@ -4,11 +4,13 @@ Choose this path when a workflow must travel with a server's tools. Do not turn 
 
 ## Contract and host selection
 
-Assessed 2026-10-15. Extension: `io.modelcontextprotocol/skills`; source revision: the official `stable` specification observed on that date (no invented numeric extension version). SEP-2640 is Final; the living specification owns subsequent requirements. Base revision is separately selected.
+First assessed 2026-10-15; reassessed 2026-11-06. Extension: `io.modelcontextprotocol/skills`. The current specification is **Beta** under SEP-3392; its former `stable/` location meant a released text, not the new Stable maturity guarantee. SEP-2640 remains Final as a proposal record. Record extension maturity, specification revision and selected base protocol separately. Beta can introduce breaking changes without a new identifier; check any advertised `revision` before enabling an unfamiliar revision rather than inventing a numeric version.
 
 For the full extension on `2026-07-28`, discover `capabilities.resources` and `capabilities.extensions["io.modelcontextprotocol/skills"]` through `server/discover`. Then enumerate `skills/list`, obtain the same entry through `skills/get({uri})`, and fetch files through `resources/read({uri})`. A static entry carries verbatim frontmatter and the complete resources array, each with URI, SHA-256 digest and byte size. Optional `resources/directory/read` requires `directoryRead: true`. The full extension also admits `resources: "dynamic"`; do not assume a static importer accepts it.
 
 Identity is `(originating server identity, SKILL.md URI)`, including cache and approval records. The URI authority is a namespace, not an instruction to resolve a network host. Resolve supporting paths from the directory containing that SKILL.md. Reading a resource alone does not load or activate a skill: route activation through the host's skill loader and its approval/integrity rules. A changed skill must not silently inherit an unrelated server's approval.
+
+While the host acts on a loaded skill, retain the entry used to load it. Verify each requested file against that held manifest; a live directory listing cannot authorize a newly added file. Refreshing a changed resources set invalidates content-bound approval and requires renewed approval. Fetch supporting files on demand. A digest matches advertised bytes; it is not a trust anchor.
 
 ## Complete the static import path
 
@@ -24,4 +26,4 @@ The repository Lab supplies a local distribution fixture and scanner surrogate. 
 
 Select acceptance examples by the path being changed. Check same-URI separation across servers when implementing or changing a host loader, shared cache or server selection. That identity rule does not expand a bounded catalog repair into a loader rewrite or require an owner question about an already excluded path. Complete the authorized repair and state any relevant untouched boundary. These are local mechanism checks; OpenAI import, installation and activation require an actual authorized host observation.
 
-Sources: [Skills specification](https://skills.extensions.modelcontextprotocol.io/specification/stable/skills), [SEP-2640](https://modelcontextprotocol.io/seps/2640-skills-extension), [OpenAI importer](https://developers.openai.com/plugins/build/mcp-server), [Cloudflare Skills rollout](https://developers.cloudflare.com/changelog/post/2026-10-10-cloudflare-mcp-skills/).
+Sources: [Extension lifecycle](https://modelcontextprotocol.io/seps/3392-extension-lifecycle), [Skills specification](https://skills.extensions.modelcontextprotocol.io/specification/beta/skills), [SEP-2640](https://modelcontextprotocol.io/seps/2640-skills-extension), [OpenAI importer](https://developers.openai.com/plugins/build/mcp-server), [Cloudflare Skills rollout](https://developers.cloudflare.com/changelog/post/2026-10-10-cloudflare-mcp-skills/).

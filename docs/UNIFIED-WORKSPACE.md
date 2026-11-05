@@ -63,4 +63,6 @@ The initial unified import copied complete trees from two pinned commits, includ
 
 The external plugin listing remains on the stable release until step 5.
 
-The October source candidate keeps the same three-surface architecture. Portable root `plugin.json` and a Codex compatibility manifest are generated from one author source; current extension/host recipes are registered separately from frozen historical profile mirrors. Lab fixtures remain repository-only evidence. See [current state](current-state.md) for candidate versus published status.
+The current source candidate keeps the same three-surface architecture. Portable root `plugin.json` and a Codex compatibility manifest are generated from one author source; current extension/host recipes are registered separately from frozen historical profile mirrors. Lab fixtures remain repository-only evidence. See [current state](current-state.md) for candidate versus published status.
+
+The November maintenance restores the Lab subtree package path and its browser/package/runtime checks under root CI. The case registry now supplies all nine local evaluation fixtures; model execution remains a separate observation. Extension maturity and living host revisions are recorded separately from the frozen core-profile evidence.

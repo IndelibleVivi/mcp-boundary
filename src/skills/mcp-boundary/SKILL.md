@@ -59,7 +59,7 @@ Load the matching dated recipe when the task uses one of these paths. Start with
 - [OpenAI native entrypoints](references/openai-entrypoints-2026-10-15.md): useful empty-argument opens, user-supplied context, ordinary-call fallback, and portable packaging.
 - [Tasks and Events selection](references/async-selection-2026-10-15.md): continuation of initiated work versus experimental external notifications.
 
-Record base revision, extension/spec revision, host/platform, observation date, and live-read or snapshot-import behavior separately. These recipes are self-contained; installed use does not depend on the repository Guide or Lab. Running a repository fixture proves its declared mechanism, while actual host import/activation still needs that host's observation.
+Record base revision, extension maturity and specification revision, host/platform, observation date, and live-read or snapshot-import behavior separately. A Final SEP does not make an extension Stable; Beta and Experimental identifiers do not promise compatibility across revisions. These recipes are self-contained; installed use does not depend on the repository Guide or Lab. Running a repository fixture proves its declared mechanism, while actual host import/activation still needs that host's observation.
 
 ## Locate ownership before changing controls
 

@@ -1,0 +1,7 @@
+{
+  "requested_host": "Example Desktop",
+  "observations": [
+    {"id": "local-render", "boundary": "local-browser", "status": "passed"}
+  ],
+  "unavailable": ["named-host-admission", "owner-acceptance"]
+}

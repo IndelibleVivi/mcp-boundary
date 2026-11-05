@@ -1,16 +1,18 @@
 ---
 profile_id: async-selection-2026-10-15
-profile_version: 1
-assessed_at: 2026-10-15
+profile_version: 2
+assessed_at: 2026-11-06
 language: en
 language_peer: async-selection-2026-10-15.zh-CN.md
 ---
 
 # Tasks, Events and Code Mode selection
 
-Base: `2026-07-28` / explicit host compatibility. Extension/spec: `Tasks overview and Events WG observed 2026-10-15`. Assessed: `2026-10-15`.
+Base: `2026-07-28` / explicit host compatibility. Extension/spec: `Tasks Beta; Events Experimental; SEP-3392 observed 2026-11-06`. First assessed: `2026-10-15`. Reassessed: `2026-11-06`.
 
 Choose by the work's initiator. Ordinary calls serve short work; negotiated Tasks continue initiated operations; a separate Events experiment receives new external issues; consider Code Mode for substantial composition. Do not add a resident service to distribute the skill.
+
+The maturity stage is separate from the selected protocol revision: Tasks is Beta and Events is Experimental. Both can change within their stage; do not infer compatibility from an unchanged identifier or a Final SEP.
 
 ## Integration
 
@@ -37,6 +39,7 @@ This profile supplies selection guidance and an experiment entry, not a verified
 
 Sources:
 
+- <https://modelcontextprotocol.io/seps/3392-extension-lifecycle>
 - <https://modelcontextprotocol.io/extensions/tasks/overview>
 - <https://developers.cloudflare.com/changelog/post/2026-10-13-cloudflare-mcp-events/>
 - <https://github.com/modelcontextprotocol/experimental-ext-triggers-events>

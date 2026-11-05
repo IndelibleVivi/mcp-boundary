@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
-"""Independent outcome checks for the October synthetic repair tasks."""
+"""Independent local outcome checks; no model or named host is contacted."""
 import argparse
 import copy
 import importlib.util
 import json
 from pathlib import Path
+from check_core import check as check_core
+
+CASES = {entry['id']: entry for entry in json.loads(
+    (Path(__file__).resolve().parent / 'cases.json').read_text())['cases']}
 
 
 def load(target):
@@ -15,6 +19,8 @@ def load(target):
 
 
 def check(case, target):
+    if CASES[case]['suite'] == 'core':
+        return check_core(case, target.resolve(), load, CASES[case]['allowed_files'])
     m = load(target)
     if case == 'skills-snapshot':
         server, importer = m.Server(), m.Importer()
@@ -72,7 +78,7 @@ def check(case, target):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('case', choices=['skills-snapshot', 'empty-entrypoint', 'proxy-retry'])
+    parser.add_argument('case', choices=list(CASES))
     parser.add_argument('target', type=Path)
     args = parser.parse_args()
     try:

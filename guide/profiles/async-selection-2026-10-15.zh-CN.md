@@ -1,16 +1,18 @@
 ---
 profile_id: async-selection-2026-10-15
-profile_version: 1
-assessed_at: 2026-10-15
+profile_version: 2
+assessed_at: 2026-11-06
 language: zh-CN
 language_peer: async-selection-2026-10-15.md
 ---
 
 # Tasks、Events 与 Code Mode 选型
 
-Base: `2026-07-28` / explicit host compatibility. Extension/spec: `Tasks overview and Events WG observed 2026-10-15`. Assessed: `2026-10-15`.
+Base: `2026-07-28` / explicit host compatibility. Extension/spec: `Tasks Beta; Events Experimental; SEP-3392 observed 2026-11-06`. First assessed: `2026-10-15`. Reassessed: `2026-11-06`.
 
 先按工作由谁发起选路径。短操作用普通调用；已发起的长工作用协商后的 Tasks；外部新问题通知用独立 Events 实验；大量工具组合才评估 Code Mode。不要为分发 skill 增加常驻服务。
+
+成熟度与所选协议 revision 分开记录：Tasks 是 Beta，Events 是 Experimental。两者都可在当前 stage 内变化，不能由 identifier 没变或 SEP 已 Final 推导兼容性。
 
 ## 接法
 
@@ -37,6 +39,7 @@ npm run test:fixtures
 
 官方来源:
 
+- <https://modelcontextprotocol.io/seps/3392-extension-lifecycle>
 - <https://modelcontextprotocol.io/extensions/tasks/overview>
 - <https://developers.cloudflare.com/changelog/post/2026-10-13-cloudflare-mcp-events/>
 - <https://github.com/modelcontextprotocol/experimental-ext-triggers-events>

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "recorded_at": "2026-10-15",
-  "project_version": "0.3.0-dev.1",
+  "recorded_at": "2026-11-06",
+  "project_version": "0.3.0-dev.2",
   "exact_copies": [
     {
       "source_project": "MCP Server Engineering Field Guide",
@@ -196,7 +196,7 @@
     {
       "url": "https://skills.extensions.modelcontextprotocol.io/specification/stable/skills",
       "assessed_at": "2026-10-15",
-      "purpose": "Current stable Skills transport binding; no copied source files."
+      "purpose": "Historical October Skills transport binding location; superseded by the Beta specification under SEP-3392 on the November reassessment. No copied source files."
     },
     {
       "url": "https://modelcontextprotocol.io/seps/2640-skills-extension",
@@ -227,6 +227,21 @@
       "url": "https://developers.cloudflare.com/changelog/post/2026-10-13-cloudflare-mcp-events/",
       "assessed_at": "2026-10-15",
       "purpose": "Vendor Events rollout; experimental WG boundary."
+    },
+    {
+      "url": "https://skills.extensions.modelcontextprotocol.io/specification/beta/skills",
+      "assessed_at": "2026-11-06",
+      "purpose": "Current Skills Beta binding, held manifest, content-bound approval and lazy read requirements."
+    },
+    {
+      "url": "https://modelcontextprotocol.io/seps/3392-extension-lifecycle",
+      "assessed_at": "2026-11-06",
+      "purpose": "Separate extension maturity from Final SEP status and base protocol revision; Skills/Tasks Beta, Apps/Auth Stable."
+    },
+    {
+      "url": "https://github.com/openai/mcp-extensions/commit/0d3425887542226f4bfff0267b19f59916d02e1c",
+      "assessed_at": "2026-11-06",
+      "purpose": "October 21 OpenAI 0.2.1 documentation: Desktop WebMCP, context groups, mentions, mobile drafts and form guidance."
     }
   ],
   "visual_identity": {

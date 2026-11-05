@@ -79,13 +79,15 @@ MCP Boundary makes the agent:
 
 It also has a stop rule: small, clear MCP changes should remain small.
 
-## October candidate recipes
+## Candidate updates
 
-The source candidate `0.3.0-dev.1` adds [Skills distribution](guide/profiles/skills-distribution-2026-10-15.md), [Cloudflare authorization/proxy paths](guide/profiles/cloudflare-deployment-2026-10-15.md), [OpenAI native entrypoints](guide/profiles/openai-entrypoints-2026-10-15.md), and [Tasks/Events selection](guide/profiles/async-selection-2026-10-15.md). The active skill bundles self-contained recipes. The existing July core profiles remain the protocol baseline; these additions address extension and host behavior.
+The source candidate `0.3.0-dev.2` adds [Skills distribution](guide/profiles/skills-distribution-2026-10-15.md), [Cloudflare authorization/proxy paths](guide/profiles/cloudflare-deployment-2026-10-15.md), [OpenAI native entrypoints](guide/profiles/openai-entrypoints-2026-10-15.md), and [Tasks/Events selection](guide/profiles/async-selection-2026-10-15.md). The active skill bundles self-contained recipes. The existing July core profiles remain the protocol baseline; these additions address extension and host behavior.
 
 Candidate packaging uses root portable `plugin.json` with inline OpenAI presentation, plus a generated Codex compatibility manifest. Both come from `src/plugin/plugin.json`. Archive/loader-contract checks are separate from actual host installation and directory publication. The public listing remains `0.2.0`.
 
-See [behavior evaluations](evaluations/README.md) for the comparison protocol and its actual execution status. Local fixtures establish their declared mechanisms; they do not establish named-host support or model improvement.
+The November refresh separates extension maturity from SEP status: Skills and Tasks are Beta, while Events remains Experimental. Skills references use the current Beta specification; the OpenAI recipe follows the October 21 host guidance. See [Lab testing](lab/docs/TESTING.en.md) for the consolidated package path and root CI.
+
+[Behavior evaluations](evaluations/README.md) now supply fixtures and independent checkers for all nine cases, including the six original core scenarios. Fixture/checker validation does not execute the model comparison or establish named-host support. See the [0.3 candidate notes](docs/candidates/0.3.0-dev.2.md) for scope and publication boundaries.
 
 ## Build and verify
 
@@ -122,6 +124,8 @@ cd lab
 npm ci
 npm run check
 ```
+
+Use `npm run validate:runtime-lane` for the complete browser, entrypoint, clean package and isolated-runtime lane. It requires a clean committed checkout and installed bundled Playwright Chromium; see [Lab testing](lab/docs/TESTING.en.md) for exact prerequisites.
 
 The Lab remains a local surrogate unless an exact external host is exercised. Passing repository checks does not establish named-host admission, production activation, owner acceptance, or a general improvement in model behavior.
 

@@ -1,14 +1,14 @@
 ---
 profile_id: openai-entrypoints-2026-10-15
-profile_version: 1
-assessed_at: 2026-10-15
+profile_version: 2
+assessed_at: 2026-11-06
 language: zh-CN
 language_peer: openai-entrypoints-2026-10-15.md
 ---
 
 # OpenAI 原生入口
 
-Base: `2026-07-28` / explicit host compatibility. Extension/spec: `moving spec observed 2026-10-15`. Assessed: `2026-10-15`.
+Base: `2026-07-28` / explicit host compatibility. Extension/spec: `OpenAI MCP Extensions 0.2.1; 2026-10-21 documentation`. First assessed: `2026-10-15`. Reassessed: `2026-11-06`.
 
 适用于用户从导航、thread 或文件直接打开 App。上游支持表描述预期平台能力；其中 Web 指 Work browser，排除 classic ChatGPT。观察日的 global/thread 列覆盖 desktop、Work browser、iOS、Android，file handler 仅列 desktop；它不是本仓库的宿主实测。
 
@@ -17,6 +17,12 @@ Base: `2026-07-28` / explicit host compatibility. Extension/spec: `moving spec o
 在 tool 的 `_meta["openai/ui"].entrypoints` 注册 global/thread/file，保留 shared `_meta.ui.resourceUri`。global/thread 首次调用 arguments 为 `{}`；input schema 和 handler 都须接受，并返回有意义的初始视图。让用户接着选择 context，再验证和执行依赖该 context 的动作；不要虚构缺失身份或权限。首屏使用初始 tool result，避免无故重复调用。
 
 file 入口另有 file argument contract，不能套用空对象规则。没有原生入口的宿主仍应通过普通 tool call 完成承诺功能，并保留可供模型使用的结果。
+
+## 相邻宿主能力
+
+10 月 21 日文档补充 Desktop 的 `document.modelContext` WebMCP；ChatGPT 不支持 SDK `App.registerTool()`。按 API 能力检测，server effect 仍由 server tool 执行。Work browser mentions 支持已连接 hosted app 的资源搜索，不授予 Desktop 文件权限。
+
+显式附件使用 `content`，背景状态使用 `structuredContent`。可选 `_meta["openai/group"].title` 为 content block 分组；block metadata 不进入模型输入。每次 context update 整体替换该 app instance 的旧 context。Mobile message 支持 active/new target 与可编辑 draft，仍受 iOS resource link 限制。表单优先 resource/thumbnail 新字段；精确大整数或小数文本应请求 string。这些是文档能力说明，不是本地或 named-host 实测。
 
 ## 正向例子与反例
 
@@ -44,4 +50,5 @@ npm run test:entrypoint-view
 官方来源:
 
 - <https://github.com/openai/mcp-extensions/blob/main/docs/spec.md>
+- <https://github.com/openai/mcp-extensions/commit/0d3425887542226f4bfff0267b19f59916d02e1c>
 - <https://developers.openai.com/plugins/build/plugins>

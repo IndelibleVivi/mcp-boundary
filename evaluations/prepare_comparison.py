@@ -9,11 +9,9 @@ import shutil
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-CASES = {
-    'skills-snapshot': 'A deployed server reads supporting content v2, but Scan Tools returns tools and leaves the imported skill at v1. Repair the actual catalog/bytes path so a valid rescan imports v2. Preserve the static-snapshot contract: deployment alone must not update the importer; an invalid digest must retain the last valid snapshot while returning tools. Keep list/get consistent.',
-    'empty-entrypoint': 'Model-mediated calls work, but users opening the global/thread App with {} receive an error. Repair schema and handler to return a useful initial state, structuredContent.state=initial, with no fabricated context. After user selection, ordinary_call(context) must still return state=ready and that context. Preserve invalid-input rejection and ordinary-call fallback when openai/ui metadata is absent.',
-    'proxy-retry': 'Gateway blocks a response after the upstream write has completed. The retry currently duplicates the effect. Repair operation identity at its actual owner: the same principal/action/operation_id and same payload must return the original completion despite changing RPC IDs; a changed payload must conflict before any new effect. Different principals/actions must stay independent. Keep the existing external interfaces. This is a single-process specimen, not a production persistence exercise.'
-}
+CASES = {entry['id']: entry for entry in json.loads(
+    (ROOT / 'evaluations/cases.json').read_text())['cases']}
+DEFAULT_CASES = ['skills-snapshot', 'empty-entrypoint', 'proxy-retry']
 
 
 def snapshot_digest(path):
@@ -23,7 +21,7 @@ def snapshot_digest(path):
     return digest.hexdigest()
 
 
-def prepare(out, baseline, arms):
+def prepare(out, baseline, arms, cases=DEFAULT_CASES):
     out.mkdir(parents=True, exist_ok=False, mode=0o700)
     # Author-source context loading, not user-profile installation.
     contexts = out / 'contexts'
@@ -41,16 +39,22 @@ def prepare(out, baseline, arms):
                 'skill_context_sha256': {name: snapshot_digest(path) for name, path in [('current-0.2.0', current), ('candidate', candidate)]},
                 'context_delivery': 'explicit file loading; not installed-skill activation', 'jobs': []}
     jobs = []
-    for case, task in CASES.items():
+    for case in cases:
+        entry = CASES[case]
+        task = entry['task']
         for arm in arms:
             name = f'{case}-{arm}'
             target = out / 'workspaces' / name
             shutil.copytree(ROOT / 'evaluations/fixtures' / case, target, ignore=shutil.ignore_patterns('__pycache__'))
             context = '' if arm == 'none' else f'First load the MCP skill at {contexts / arm / "SKILL.md"} and its relevant references; use it to perform this task. '
-            task_text = context + task + f'\nThe exact authorized read/write target is {target}. You may also read the supplied skill context if any. Do not inspect other arms, evaluation checkers, the source repository, personal instructions or private continuity. You are not alone; do not revert others. Do not delegate. Edit only app.py; no new dependencies or infrastructure. Run relevant local checks and repair within this turn; no Git, network, installation or account actions. Return a concise fix and verification report. Outcome requires implementation, not an audit report.'
+            writable = ', '.join(entry['allowed_files'])
+            task_text = context + task + f'\nThe exact authorized read/write target is {target}. You may also read the supplied skill context if any. Do not inspect other arms, evaluation checkers, the source repository, personal instructions or private continuity. You are not alone; do not revert others. Do not delegate. Edit only {writable}; no new dependencies or infrastructure. Run relevant local checks and repair within this turn; no Git, network, installation or account actions. Return a concise fix and verification report. Outcome requires implementation, not an audit report.'
             jobs.append({'id': name, 'verb': 'run', 'cwd': str(target), 'permissions': 'full', 'task': task_text, 'category': 'implementation'})
             manifest['jobs'].append({'id': name, 'case': case, 'arm': arm, 'target': str(target),
-                                     'fixture_sha256': hashlib.sha256((target/'app.py').read_bytes()).hexdigest()})
+                                     'fixture_sha256': hashlib.sha256((target/entry['allowed_files'][0]).read_bytes()).hexdigest(),
+                                     'fixture_files': {file.relative_to(target).as_posix(): hashlib.sha256(file.read_bytes()).hexdigest()
+                                                       for file in sorted(target.rglob('*')) if file.is_file()},
+                                     'allowed_files': entry['allowed_files']})
     (out / 'comparison.json').write_text(json.dumps(manifest, indent=2)+'\n')
     spec = {'schema': 'cwr.acp.order-spec/1', 'maxConcurrency': 1, 'capabilities': {'sharedWorkerHome': 'unvalidated'}, 'shared': '', 'jobs': jobs}
     (out / 'orders.json').write_text(json.dumps(spec, indent=2)+'\n')
@@ -62,11 +66,13 @@ def main():
     parser.add_argument('--out', type=Path, required=True, help='New local-only evidence directory outside the worktree')
     parser.add_argument('--baseline', default='v0.2.0')
     parser.add_argument('--arms', nargs='+', choices=['none', 'current-0.2.0', 'candidate'], default=['none', 'current-0.2.0', 'candidate'])
+    parser.add_argument('--cases', nargs='+', choices=list(CASES), default=DEFAULT_CASES,
+                        help='Case IDs; defaults to the three October cases')
     args = parser.parse_args()
     out = args.out.resolve()
     if out.is_relative_to(ROOT):
         parser.error('Raw comparison workspaces and traces must stay outside the Git worktree')
-    prepare(out, args.baseline, args.arms)
+    prepare(out, args.baseline, args.arms, args.cases)
 
 
 if __name__ == '__main__':

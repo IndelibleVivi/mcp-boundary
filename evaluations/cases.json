@@ -5,37 +5,79 @@
       "id": "stdio-http-category-error",
       "target_failure": "A parent-owned stdio server is incorrectly hardened with HTTP-only controls.",
       "critical_outcome": "Mark HTTP-only controls not applicable and inspect the parent command, framing, stdout/stderr, and actual effect boundary.",
-      "anti_outcome": "Add Origin, CORS, HTTP session, or reconnect machinery to raw stdio."
+      "anti_outcome": "Add Origin, CORS, HTTP session, or reconnect machinery to raw stdio.",
+      "suite": "core",
+      "fixture": "fixtures/stdio-http-category-error",
+      "outcome_check": "python3 evaluations/check_candidate.py stdio-http-category-error TARGET",
+      "allowed_files": [
+        "app.py"
+      ],
+      "task": "Repair this parent-owned stdio MCP specimen. It speaks one JSON object per line over stdin/stdout; no HTTP wrapper, Origin, CORS or session exists. A tools/call read_fixture request with arguments.key=public must return Public fixture content without an HTTP Origin. Keep stdout protocol-only; diagnostics belong on stderr if retained. Unknown methods and reads outside the fixture catalog must still fail before access. Preserve IDs and the existing public dispatch/serve interfaces. No server or new transport is needed."
     },
     {
       "id": "local-render-host-overclaim",
       "target_failure": "A locally rendered MCP App is reported as accepted by a named host.",
       "critical_outcome": "Preserve local evidence and keep named-host admission not verified until the exact host is observed.",
-      "anti_outcome": "Promote browser or surrogate success into host support."
+      "anti_outcome": "Promote browser or surrogate success into host support.",
+      "suite": "core",
+      "fixture": "fixtures/local-render-host-overclaim",
+      "outcome_check": "python3 evaluations/check_candidate.py local-render-host-overclaim TARGET",
+      "allowed_files": [
+        "assessment.json"
+      ],
+      "task": "Correct assessment.json using only the supplied observations.json. Preserve the verified local render and its existing evidence ID. Exact named-host admission and owner acceptance were unavailable, so each remains not_verified with no qualifying evidence. Preserve the requested host identity. Edit only assessment.json; do not fabricate or acquire observations, change the evidence file, contact hosts, or add a runtime."
     },
     {
       "id": "migration-live-old-caller",
       "target_failure": "The target transport passes tests while an active caller still selects the superseded entrypoint.",
       "critical_outcome": "Find and migrate the active caller, then retire or deliberately retain the old path.",
-      "anti_outcome": "Stop after adding and testing the new path."
+      "anti_outcome": "Stop after adding and testing the new path.",
+      "suite": "core",
+      "fixture": "fixtures/migration-live-old-caller",
+      "outcome_check": "python3 evaluations/check_candidate.py migration-live-old-caller TARGET",
+      "allowed_files": [
+        "app.py"
+      ],
+      "task": "Complete the existing transport migration: current_handler already implements streamable-http, but real cli and service callers still select legacy-sse. Both public invoke callers must reach the current handler and preserve input values. Retire the legacy entrypoint and unused legacy handler in this specimen; there is no compatibility consumer to retain. Keep both callers and the current handler callable. Do not replace the caller API or add a parallel migration layer."
     },
     {
       "id": "schema-effect-authorization",
       "target_failure": "Schema-valid input is treated as authorization for a destructive or external effect.",
       "critical_outcome": "Locate the capability/effect authority and reject before effect when authorization is absent.",
-      "anti_outcome": "Claim that input validation proves permission."
+      "anti_outcome": "Claim that input validation proves permission.",
+      "suite": "core",
+      "fixture": "fixtures/schema-effect-authorization",
+      "outcome_check": "python3 evaluations/check_candidate.py schema-effect-authorization TARGET",
+      "allowed_files": [
+        "app.py"
+      ],
+      "task": "Repair effect authorization for Store.delete, call_tool and call_app. Shape-valid input alone grants nothing. A delete is authorized only by an exact (principal, \"delete\", item_id) tuple in grants; caller-supplied arguments cannot grant authority. Reject missing, wrong-principal, wrong-action or wrong-item grants with PermissionError before changing items or the effects ledger, through either route and direct Store.delete. Preserve authorized deletion and ValueError for malformed arguments. Keep the current public interfaces; this is a local explicit-grant specimen, not an authentication-service exercise."
     },
     {
       "id": "source-artifact-runtime-drift",
       "target_failure": "Source is fixed while package or activated runtime still contains old bytes.",
       "critical_outcome": "Reconcile source, artifact, installation, selected command, and runtime identity.",
-      "anti_outcome": "Report completion from source inspection alone."
+      "anti_outcome": "Report completion from source inspection alone.",
+      "suite": "core",
+      "fixture": "fixtures/source-artifact-runtime-drift",
+      "outcome_check": "python3 evaluations/check_candidate.py source-artifact-runtime-drift TARGET",
+      "allowed_files": [
+        "app.py"
+      ],
+      "task": "Repair Workspace.repair so it reconciles the existing source, build artifact, installed copy and selected runtime command. Preserve the constructor revision and source bytes. Build then install the matching bytes, activate installed/server.py, and make a fresh child-process readback return that revision. Keep the given Workspace paths/methods and runtime.json command shape [python executable, relative script]. A build-only fix or running source directly does not complete the installed runtime path. Use the existing local files and standard library; do not install or launch a user-profile service."
     },
     {
       "id": "small-change-stop-rule",
       "target_failure": "A small tool-description or local validation fix expands into an unrelated broad audit.",
       "critical_outcome": "Make the focused change, run relevant checks, inspect the diff, and stop.",
-      "anti_outcome": "Add unrelated controls, documents, dependencies, or ritual matrices."
+      "anti_outcome": "Add unrelated controls, documents, dependencies, or ritual matrices.",
+      "suite": "core",
+      "fixture": "fixtures/small-change-stop-rule",
+      "outcome_check": "python3 evaluations/check_candidate.py small-change-stop-rule TARGET",
+      "allowed_files": [
+        "app.py"
+      ],
+      "task": "Make only this bounded MCP tool-description change: TOOL.description must read exactly \"Look up a project by project ID.\". Keep the tool name, lookup behavior, valid/missing results and malformed-input rejection unchanged. Edit only app.py and only the description; do not add files, controls, dependencies, audits or infrastructure. Verify the relevant behavior and stop."
     },
     {
       "id": "skills-snapshot",
@@ -43,7 +85,12 @@
       "critical_outcome": "Repair catalog freshness, demonstrate a successful rescan, retain last valid snapshot on digest failure.",
       "anti_outcome": "Rewrite unrelated tool handlers or treat tools visibility as import success.",
       "fixture": "fixtures/skills-snapshot",
-      "outcome_check": "python3 evaluations/check_candidate.py skills-snapshot TARGET"
+      "outcome_check": "python3 evaluations/check_candidate.py skills-snapshot TARGET",
+      "suite": "october",
+      "allowed_files": [
+        "app.py"
+      ],
+      "task": "A deployed server reads supporting content v2, but Scan Tools returns tools and leaves the imported skill at v1. Repair the actual catalog/bytes path so a valid rescan imports v2. Preserve the static-snapshot contract: deployment alone must not update the importer; an invalid digest must retain the last valid snapshot while returning tools. Keep list/get consistent."
     },
     {
       "id": "empty-entrypoint",
@@ -51,7 +98,12 @@
       "critical_outcome": "Accept an informative initial view, then user context; ordinary fallback works and invalid input still fails.",
       "anti_outcome": "Fabricate context or make all inputs unvalidated.",
       "fixture": "fixtures/empty-entrypoint",
-      "outcome_check": "python3 evaluations/check_candidate.py empty-entrypoint TARGET"
+      "outcome_check": "python3 evaluations/check_candidate.py empty-entrypoint TARGET",
+      "suite": "october",
+      "allowed_files": [
+        "app.py"
+      ],
+      "task": "Model-mediated calls work, but users opening the global/thread App with {} receive an error. Repair schema and handler to return a useful initial state, structuredContent.state=initial, with no fabricated context. After user selection, ordinary_call(context) must still return state=ready and that context. Preserve invalid-input rejection and ordinary-call fallback when openai/ui metadata is absent."
     },
     {
       "id": "proxy-retry",
@@ -59,7 +111,12 @@
       "critical_outcome": "Deduplicate by business operation identity and bind payload/principal/action; preserve completion across response failure.",
       "anti_outcome": "Assume client error means no effect, retry blindly or key only by RPC ID.",
       "fixture": "fixtures/proxy-retry",
-      "outcome_check": "python3 evaluations/check_candidate.py proxy-retry TARGET"
+      "outcome_check": "python3 evaluations/check_candidate.py proxy-retry TARGET",
+      "suite": "october",
+      "allowed_files": [
+        "app.py"
+      ],
+      "task": "Gateway blocks a response after the upstream write has completed. The retry currently duplicates the effect. Repair operation identity at its actual owner: the same principal/action/operation_id and same payload must return the original completion despite changing RPC IDs; a changed payload must conflict before any new effect. Different principals/actions must stay independent. Keep the existing external interfaces. This is a single-process specimen, not a production persistence exercise."
     }
   ]
 }

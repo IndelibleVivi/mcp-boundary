@@ -1,0 +1,5 @@
+{
+  "local_render": {"status": "verified", "evidence": ["local-render"]},
+  "named_host": {"name": "Example Desktop", "status": "verified", "evidence": ["local-render"]},
+  "owner_acceptance": {"status": "verified", "evidence": ["local-render"]}
+}
