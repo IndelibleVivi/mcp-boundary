@@ -8,7 +8,7 @@
 - Preserve the October comparison as a dated three-case observation: no skill `2/3`, released `0.2.0` `3/3`, and the initial and final candidate `3/3`, without claiming incremental advantage.
 - Restore the Lab source, package, browser, clean-package, and isolated-runtime validation lane as repository evidence without adding Lab runtime to the plugin.
 - Adopt the portable root manifest with inline OpenAI presentation and a generated legacy compatibility projection from one author source.
-- Update the OpenAI listing description to the 30-character limit, add the public support URL, and prepare the existing listing's `0.3.0` ZIP for metadata and package review.
+- Publish `0.3.0` on the existing public plugin listing, with the OpenAI short description within 30 characters and the public support URL included.
 - Preserve the plugin boundary: no MCP server, app connector, authentication flow, analytics, telemetry, or distributed runtime dependency.
 
 ## 0.2.0

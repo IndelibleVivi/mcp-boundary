@@ -14,9 +14,9 @@ The repository is intentionally a monorepo. A user installs one plugin. A mainta
 
 The plugin stays small. It starts no server, registers no app connector, requests no authentication, sends no analytics or telemetry, and adds no runtime dependency. The Guide and the Lab are repository source: the executable Lab specimen is engineering evidence, not distributed plugin runtime.
 
-> [`v0.3.0` is released on GitHub](https://github.com/IndelibleVivi/mcp-boundary/releases/tag/v0.3.0). The observed public directory version remains `0.2.0` until a later listing update is reviewed and published; repository source and the directory artifact remain separate release surfaces.
+> [`v0.3.0` is released on GitHub](https://github.com/IndelibleVivi/mcp-boundary/releases/tag/v0.3.0). Version `0.3.0` is also live in the [public plugin directory](https://chatgpt.com/plugins/plugins_6aa72e81844081918770991deb1dbfc8). The repository tag and directory listing remain separate release surfaces.
 
-[Website](https://indeliblevivi.github.io/mcp-boundary/) · [中文说明](README.zh-CN.md) · [Workspace design](docs/UNIFIED-WORKSPACE.md) · [Current state](docs/current-state.md) · [0.3.0 release notes](docs/releases/0.3.0.md) · [0.2.0 publication record](docs/submission/0.2.0.md) · [Licensing](LICENSING.md)
+[Website](https://indeliblevivi.github.io/mcp-boundary/) · [中文说明](README.zh-CN.md) · [Workspace design](docs/UNIFIED-WORKSPACE.md) · [Current state](docs/current-state.md) · [0.3.0 release notes](docs/releases/0.3.0.md) · [0.3.0 directory record](docs/submission/0.3.0.md) · [Licensing](LICENSING.md)
 
 ## Use the plugin
 
@@ -83,7 +83,7 @@ It also has a stop rule: small, clear MCP changes should remain small.
 
 `0.3.0` adds [Skills distribution](guide/profiles/skills-distribution-2026-10-15.md), [Cloudflare authorization/proxy paths](guide/profiles/cloudflare-deployment-2026-10-15.md), [OpenAI native entrypoints](guide/profiles/openai-entrypoints-2026-10-15.md), and [Tasks/Events selection](guide/profiles/async-selection-2026-10-15.md). The active skill bundles self-contained recipes. The existing July core profiles remain the protocol baseline; these additions address extension and host behavior.
 
-Packaging uses root portable `plugin.json` with inline OpenAI presentation, plus a generated Codex compatibility manifest. Both come from `src/plugin/plugin.json`. Archive/loader-contract checks are separate from actual host installation and directory publication. The observed public listing remains `0.2.0`.
+Packaging uses root portable `plugin.json` with inline OpenAI presentation, plus a generated Codex compatibility manifest. Both come from `src/plugin/plugin.json`. Archive/loader-contract checks are separate from actual host installation and directory publication. The public listing shows `0.3.0`; its displayed version and metadata do not expose the uploaded ZIP digest.
 
 The November refresh separates extension maturity from SEP status: Skills and Tasks are Beta, while Events remains Experimental. Skills references use the current Beta specification; the OpenAI recipe follows the October 21 host guidance. See [Lab testing](lab/docs/TESTING.en.md) for the consolidated package path and root CI.
 

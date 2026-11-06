@@ -70,6 +70,8 @@ class ReleaseSubmissionTests(unittest.TestCase):
         self.assertIn("current `/plugins/build/mcp-server`", text)
         self.assertIn("2026-10-15", text)
         self.assertIn("historical observation", text)
+        self.assertIn("**Published**", text)
+        self.assertIn("not byte identity with a local package", text)
         self.assertIn("local surrogate", text)
 
     def test_release_notes_preserve_evaluation_boundaries(self) -> None:
@@ -90,7 +92,7 @@ class ReleaseSubmissionTests(unittest.TestCase):
         text = SITE.read_text(encoding="utf-8")
         library = LIBRARY.read_text(encoding="utf-8")
         self.assertIn(">v0.3.0</a>", text)
-        self.assertIn("Observed directory version: 0.2.0 (2026-11-06)", text)
+        self.assertIn("The public directory listing is version 0.3.0", text)
         self.assertIn("--ref v0.3.0", text)
         self.assertIn("releases/tag/v0.3.0", text)
         self.assertIn("./library.html#guide", text)
